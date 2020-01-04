@@ -1,12 +1,15 @@
 language: php
 matrix:
-    include:
-        - php: 7.2
-        - php: 7.3
-    fast_finish: true
-install:
-  - composer install --optimize-autoloader
+  include:
+    - php: 7.2
+    - php: 7.3
+  allow_failures:
+    - php: 7.3
+  fast_finish: true
+before_install:
+  - travis_wait composer start-db > /dev/null &
 script:
+  - composer install --optimize-autoloader
   - composer test
 after_success:
   - wget https://scrutinizer-ci.com/ocular.phar
