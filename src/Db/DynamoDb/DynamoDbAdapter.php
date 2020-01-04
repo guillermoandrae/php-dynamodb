@@ -53,6 +53,7 @@ final class DynamoDbAdapter implements AdapterInterface
         try {
             $query = RequestFactory::factory('create-table', $this->tableName, $data)->get();
             $this->client->createTable($query);
+            $this->client->waitUntil('TableExists', ['TableName' => $this->tableName]);
             return true;
         } catch (DynamoDbException $ex) {
             throw new DbException($ex->getMessage());
@@ -69,6 +70,7 @@ final class DynamoDbAdapter implements AdapterInterface
         try {
             $query = RequestFactory::factory('delete-table', $this->tableName)->get();
             $this->client->deleteTable($query);
+            $this->client->waitUntil('TableNotExists', ['TableName' => $this->tableName]);
             return true;
         } catch (DynamoDbException $ex) {
             throw new DbException($ex->getMessage());
