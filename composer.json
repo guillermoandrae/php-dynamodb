@@ -1,9 +1,11 @@
 {
-    "name": "guillermoandrae/php-skeleton",
-    "description": "Skeleton for PHP projects",
+    "name": "guillermoandrae/php-dynamodb",
+    "description": "A DynamoDB library for PHP projects",
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "aws/aws-sdk-php": "^3.95",
+        "guillermoandrae/php-repository": "^1.2",
         "icanboogie/inflector": "^1.5"
     },
     "autoload": {
@@ -21,6 +23,21 @@
         }
     },
     "scripts": {
+        "start-db": [
+            "mkdir ./database",
+            "wget --directory-prefix=./database https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_latest.zip",
+            "unzip ./database/dynamodb_local_latest.zip -d database",
+            "nohup java -Djava.library.path=./database/DynamoDBLocal_lib -jar ./database/DynamoDBLocal.jar -sharedDb &"
+        ],
+        "stop-db": [
+            "kill -9 `pgrep -f DynamoDB`",
+            "rm -rf ./database",
+            "rm -f ./shared-local-instance.db"
+        ],
+        "restart-db": [
+            "@stop-db",
+            "@start-db"
+        ],
         "check-style": [
             "phpcbf --standard=PSR2 --extensions=php src tests",
             "phpcs --standard=PSR2 --extensions=php src tests"            

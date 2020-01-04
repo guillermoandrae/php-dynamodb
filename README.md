@@ -1,13 +1,13 @@
-# PHP Skeleton
-[![Travis](https://img.shields.io/travis/guillermoandrae/php-skeleton.svg?style=flat-square)](https://travis-ci.org/guillermoandrae/php-skeleton) [![Scrutinizer](https://img.shields.io/scrutinizer/g/guillermoandrae/php-skeleton.svg?style=flat-square)](https://scrutinizer-ci.com/g/guillermoandrae/php-skeleton/) [![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/guillermoandrae/php-skeleton.svg?style=flat-square)](https://scrutinizer-ci.com/g/guillermoandrae/php-skeleton/) [![PHP from Travis config](https://img.shields.io/travis/php-v/guillermoandrae/php-skeleton.svg?style=flat-square)](https://travis-ci.org/guillermoandrae/php-skeleton)
+# PHP DynamoDB
+[![Travis](https://img.shields.io/travis/guillermoandrae/php-dynamodb.svg?style=flat-square)](https://travis-ci.org/guillermoandrae/php-dynamodb) [![Scrutinizer](https://img.shields.io/scrutinizer/g/guillermoandrae/php-dynamodb.svg?style=flat-square)](https://scrutinizer-ci.com/g/guillermoandrae/php-dynamodb/) [![Scrutinizer Coverage](https://img.shields.io/scrutinizer/coverage/g/guillermoandrae/php-dynamodb.svg?style=flat-square)](https://scrutinizer-ci.com/g/guillermoandrae/php-dynamodb/) [![PHP from Travis config](https://img.shields.io/travis/php-v/guillermoandrae/php-dynamodb.svg?style=flat-square)](https://travis-ci.org/guillermoandrae/php-dynamodb)
  [![@guillermoandrae on Twitter](http://img.shields.io/badge/twitter-%40guillermoandrae-blue.svg?style=flat-square)](https://twitter.com/guillermoandrae)
 
-This project provides a skeleton that can be used to spin up PHP projects. 
+This project provides a library that can be used by PHP projects to interact with Amazon DynamoDB. 
 
 ## Installation
 Do this, then relax:
 ```
-composer create-project guillermoandrae/php-skeleton [project name]
+composer install guillermoandrae/php-dynamodb
 ```
 
 ## Testing
