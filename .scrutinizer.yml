@@ -1,0 +1,34 @@
+filter:
+    excluded_paths:
+        - 'vendor/*'
+before_commands:
+    - 'composer install --no-interaction --prefer-source'
+tools:
+    external_code_coverage: true
+build:
+    nodes:
+        analysis:
+            project_setup:
+                override:
+                    - 'true'
+            tests:
+                override:
+                    - php-scrutinizer-run
+build_failure_conditions:
+    - 'issues.severity(= CRITICAL).exists'
+    - 'issues.severity(= CRITICAL).new.exists'
+    - 'project.metric("scrutinizer.test_coverage", < 0.90)'
+    - 'project.metric("scrutinizer.quality", < 9)'
+checks:
+    php:
+        fix_php_opening_tag: false
+        remove_php_closing_tag: false
+        no_mixed_inline_html: false
+        require_braces_around_control_structures: false
+        psr2_control_structure_declaration: true
+        avoid_superglobals: true
+        security_vulnerabilities: true
+        no_exit: false
+coding_style:
+    php: true
+filter: {  }

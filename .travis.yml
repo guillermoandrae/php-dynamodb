@@ -1,0 +1,13 @@
+language: php
+matrix:
+    include:
+        - php: 7.2
+        - php: 7.3
+    fast_finish: true
+install:
+  - composer install --optimize-autoloader
+script:
+  - composer test
+after_success:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover ./clover.xml
