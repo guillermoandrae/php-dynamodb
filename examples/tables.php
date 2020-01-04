@@ -3,7 +3,9 @@
 require '../vendor/autoload.php';
 
 use Aws\DynamoDb\DynamoDbClient;
+use Guillermoandrae\Db\DynamoDb\AttributeTypes;
 use Guillermoandrae\Db\DynamoDb\DynamoDbAdapter;
+use Guillermoandrae\Db\DynamoDb\KeyTypes;
 
 // create a new DynamoDB client
 $dynamoDbClient = new DynamoDbClient([
@@ -23,12 +25,14 @@ $adapter = new DynamoDbAdapter($dynamoDbClient);
 try {
     $tableName = 'myTable';
     $keys = [
-        'source' => [
-
+        'name' => [
+            'type' => AttributeTypes::STRING,
+            'keyType' => KeyTypes::HASH
         ],
-        'createdAt' => [
-
-        ]
+        'date' => [
+            'type' => AttributeTypes::NUMBER,
+            'keyType' => KeyTypes::RANGE
+        ],
     ];
     $this->useTable($tableName)->createTable($keys);
 } catch(\Exception $ex) {
