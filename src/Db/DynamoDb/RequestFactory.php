@@ -2,9 +2,11 @@
 
 namespace Guillermoandrae\Db\DynamoDb;
 
-use ICanBoogie\Inflector;
 use Aws\DynamoDb\Marshaler;
-use Guillermoandrae\Fisher\Db\DbException;
+use Guillermoandrae\Db\DbException;
+use ICanBoogie\Inflector;
+use ReflectionClass;
+use ReflectionException;
 
 final class RequestFactory
 {
@@ -29,14 +31,14 @@ final class RequestFactory
                 __NAMESPACE__,
                 Inflector::get()->camelize($type)
             );
-            $reflectionClass = new \ReflectionClass($className);
+            $reflectionClass = new ReflectionClass($className);
             $args = [self::getMarshaler()];
             foreach ($options as $option) {
                 $args[] = $option;
             }
             $request = $reflectionClass->newInstanceArgs($args);
             return $request;
-        } catch (\ReflectionException $ex) {
+        } catch (ReflectionException $ex) {
             throw new DbException(
                 sprintf('The %s request does not exist.', $type)
             );

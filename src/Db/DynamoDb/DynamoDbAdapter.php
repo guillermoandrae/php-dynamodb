@@ -2,14 +2,15 @@
 
 namespace Guillermoandrae\Db\DynamoDb;
 
-use Aws\DynamoDb\Marshaler;
 use Aws\DynamoDb\DynamoDbClient;
-use Guillermoandrae\Common\Collection;
-use Guillermoandrae\Fisher\Db\DbException;
 use Aws\DynamoDb\Exception\DynamoDbException;
+use Aws\DynamoDb\Marshaler;
+use Guillermoandrae\Common\Collection;
 use Guillermoandrae\Common\CollectionInterface;
-use Guillermoandrae\Fisher\Db\AdapterInterface;
+use Guillermoandrae\Db\AdapterInterface;
+use Guillermoandrae\Db\DbException;
 use Guillermoandrae\Repositories\RepositoryFactory;
+use InvalidArgumentException;
 
 final class DynamoDbAdapter implements AdapterInterface
 {
@@ -55,7 +56,7 @@ final class DynamoDbAdapter implements AdapterInterface
             return true;
         } catch (DynamoDbException $ex) {
             throw new DbException($ex->getMessage());
-        } catch (\InvalidArgumentException $ex) {
+        } catch (InvalidArgumentException $ex) {
             throw new DbException('Bad key schema: ' . $ex->getMessage());
         }
     }

@@ -3,8 +3,8 @@
 namespace GuillermoandraeTest\Db\DynamoDb;
 
 use Aws\DynamoDb\Marshaler;
-use Guillermoandrae\Fisher\Db\DynamoDb\CreateTableRequest;
-use Guillermoandrae\Fisher\Db\DynamoDb\KeyTypes;
+use Guillermoandrae\Db\DynamoDb\CreateTableRequest;
+use Guillermoandrae\Db\DynamoDb\KeyTypes;
 use PHPUnit\Framework\TestCase;
 
 final class CreateTableRequestTest extends TestCase

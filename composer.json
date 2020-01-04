@@ -1,6 +1,6 @@
 {
     "name": "guillermoandrae/php-dynamodb",
-    "description": "A DynamoDB library for PHP projects",
+    "description": "A PHP library that can be used to interact with Amazon DynamoDB",
     "license": "MIT",
     "require": {
         "php": "^7.2",

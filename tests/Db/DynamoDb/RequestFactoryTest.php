@@ -2,9 +2,9 @@
 
 namespace GuillermoandraeTest\Db\DynamoDb;
 
+use Guillermoandrae\Db\DbException;
+use Guillermoandrae\Db\DynamoDb\RequestFactory;
 use PHPUnit\Framework\TestCase;
-use Guillermoandrae\Fisher\Db\DbException;
-use Guillermoandrae\Fisher\Db\DynamoDb\RequestFactory;
 
 final class RequestFactoryTest extends TestCase
 {

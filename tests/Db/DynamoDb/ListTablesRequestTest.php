@@ -3,8 +3,8 @@
 namespace GuillermoandraeTest\Db\DynamoDb;
 
 use Aws\DynamoDb\Marshaler;
+use Guillermoandrae\Db\DynamoDb\ListTablesRequest;
 use PHPUnit\Framework\TestCase;
-use Guillermoandrae\Fisher\Db\DynamoDb\ListTablesRequest;
 
 final class ListTablesRequestTest extends TestCase
 {

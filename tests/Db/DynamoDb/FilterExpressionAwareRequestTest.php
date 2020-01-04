@@ -3,9 +3,9 @@
 namespace GuillermoandraeTest\Db\DynamoDb;
 
 use Aws\DynamoDb\Marshaler;
+use Guillermoandrae\Db\DynamoDb\AbstractFilterExpressionAwareRequest;
+use Guillermoandrae\Db\DynamoDb\RequestOperators;
 use PHPUnit\Framework\TestCase;
-use Guillermoandrae\Fisher\Db\DynamoDb\RequestOperators;
-use Guillermoandrae\Fisher\Db\DynamoDb\AbstractFilterExpressionAwareRequest;
 
 final class FilterExpressionAwareRequestTest extends TestCase
 {

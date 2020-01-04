@@ -3,8 +3,8 @@
 namespace GuillermoandraeTest\Db\DynamoDb;
 
 use Aws\DynamoDb\Marshaler;
+use Guillermoandrae\Db\DynamoDb\PutItemRequest;
 use PHPUnit\Framework\TestCase;
-use Guillermoandrae\Fisher\Db\DynamoDb\PutItemRequest;
 
 final class PutItemRequestTest extends TestCase
 {

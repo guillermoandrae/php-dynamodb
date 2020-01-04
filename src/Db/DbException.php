@@ -2,6 +2,8 @@
 
 namespace Guillermoandrae\Db;
 
-class DbException extends \ErrorException
+use ErrorException;
+
+class DbException extends ErrorException
 {
 }

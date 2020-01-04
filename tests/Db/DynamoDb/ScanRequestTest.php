@@ -3,8 +3,8 @@
 namespace GuillermoandraeTest\Db\DynamoDb;
 
 use Aws\DynamoDb\Marshaler;
+use Guillermoandrae\Db\DynamoDb\ScanRequest;
 use PHPUnit\Framework\TestCase;
-use Guillermoandrae\Fisher\Db\DynamoDb\ScanRequest;
 
 final class ScanRequestTest extends TestCase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace GuillermoandraeTest\Fisher;
+namespace GuillermoandraeTest;
 
 use Aws\DynamoDb\DynamoDbClient;
 
