@@ -65,16 +65,58 @@ final class DynamoDbAdapterTest extends TestCase
         $this->adapter->useTable('test')->findAll();
     }
 
+    public function testFindAll()
+    {
+        $adapter = $this->adapter->useTable('test');
+        $adapter->createTable([
+            'name' => ['type' => 'S', 'keyType' => 'HASH'],
+            'date' => ['type' => 'N', 'keyType' => 'RANGE'],
+        ]);
+        $adapter->insert(['name' => 'Guillermo', 'date' => time()]);
+        $adapter->insert(['name' => 'Fisher', 'date' => time()]);
+        $items = $adapter->findAll();
+        $adapter->deleteTable();
+        $this->assertCount(2, $items);
+    }
+
     public function testBadFindLatest()
     {
         $this->expectException(DbException::class);
         $this->adapter->useTable('test')->findLatest();
     }
 
+    public function testFindLatest()
+    {
+        $adapter = $this->adapter->useTable('test');
+        $adapter->createTable([
+            'name' => ['type' => 'S', 'keyType' => 'HASH'],
+            'date' => ['type' => 'N', 'keyType' => 'RANGE'],
+        ]);
+        $adapter->insert(['name' => 'Guillermo', 'date' => time()]);
+        $adapter->insert(['name' => 'Fisher', 'date' => time()]);
+        $item = $adapter->findLatest();
+        $adapter->deleteTable();
+        $this->assertSame($item['name'], 'Fisher');
+    }
+
     public function testBadFindById()
     {
         $this->expectException(DbException::class);
         $this->adapter->useTable('test')->findById([]);
+    }
+
+    public function testFindById()
+    {
+        $adapter = $this->adapter->useTable('test');
+        $adapter->createTable([
+            'name' => ['type' => 'S', 'keyType' => 'HASH'],
+            'date' => ['type' => 'N', 'keyType' => 'RANGE'],
+        ]);
+        $key = ['name' => 'Guillermo', 'date' => time()];
+        $adapter->insert(array_merge(['name' => 'Guillermo', 'date' => time(), 'lastName' => 'Fisher']));
+        $item = $adapter->findById($key);
+        $this->assertSame($item['lastName'], 'Fisher');
+        $adapter->deleteTable();
     }
 
     public function testBadInsert()
@@ -87,6 +129,20 @@ final class DynamoDbAdapterTest extends TestCase
     {
         $this->expectException(DbException::class);
         $this->adapter->useTable('test')->delete([]);
+    }
+
+    public function testDelete()
+    {
+        $adapter = $this->adapter->useTable('test');
+        $adapter->createTable([
+            'name' => ['type' => 'S', 'keyType' => 'HASH'],
+            'date' => ['type' => 'N', 'keyType' => 'RANGE'],
+        ]);
+        $key = ['name' => 'Guillermo', 'date' => time()];
+        $adapter->insert(array_merge(['name' => 'Guillermo', 'date' => time(), 'lastName' => 'Fisher']));
+        $this->assertTrue($adapter->delete($key));
+        $this->assertCount(0, $adapter->findAll());
+        $adapter->deleteTable();
     }
 
     public function testGetClient()
