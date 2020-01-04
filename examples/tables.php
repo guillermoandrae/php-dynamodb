@@ -21,9 +21,10 @@ $dynamoDbClient = new DynamoDbClient([
 // pass the client to the adapter
 $adapter = new DynamoDbAdapter($dynamoDbClient);
 
-// create a table
 try {
     $tableName = 'myTable';
+
+    // create a table
     $keys = [
         'name' => [
             'type' => AttributeTypes::STRING,
@@ -35,6 +36,10 @@ try {
         ],
     ];
     $this->useTable($tableName)->createTable($keys);
+
+    // delete a table
+    $this->useTable($tableName)->deleteTable();
+
 } catch(\Exception $ex) {
     die($ex->getMessage());
 }
