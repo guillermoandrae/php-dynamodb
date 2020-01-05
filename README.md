@@ -46,24 +46,24 @@ try {
             'keyType' => KeyTypes::RANGE
         ],
     ];
-    $this->useTable($tableName)->createTable($keys);
+    $adapter->useTable($tableName)->createTable($keys);
 
     // add an item to the table
-    $this->useTable($tableName)->insert([
+    $adapter->useTable($tableName)->insert([
         'year' => 2015,
         'title' => 'The Big New Movie',
         'plot' => 'Nothing happens at all'
     ]);
 
     // fetch an item from the table
-    $item = $this->useTable($tableName)->findByPrimaryKey([
+    $item = $adapter->useTable($tableName)->findByPrimaryKey([
         'year' => 2015,
         'title' => 'The Big New Movie'
     ]);
     echo $item['plot'];
 
     // delete the table
-    $this->useTable($tableName)->deleteTable();
+    $adapter->useTable($tableName)->deleteTable();
 
 } catch(\Exception $ex) {
     die($ex->getMessage());
