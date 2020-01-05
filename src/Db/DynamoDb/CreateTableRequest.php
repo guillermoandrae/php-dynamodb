@@ -32,6 +32,11 @@ final class CreateTableRequest extends AbstractTableAwareRequest
     private $billingMode = BillingModes::PROVISIONED;
 
     /**
+     * @var array The server-side encryption settings.
+     */
+    private $sseSpecification;
+
+    /**
      * Registers the JSON Marshaler, table name, and key schema with this object.
      *
      * @param Marshaler $marshaler The JSON Marshaler.
@@ -152,6 +157,28 @@ final class CreateTableRequest extends AbstractTableAwareRequest
     }
 
     /**
+     * Registers the server-side encryption settings.
+     *
+     * @param bool $isEnabled Whether or not SSE is enabled.
+     * @param string $masterKeyId OPTIONAL The ID of the master key.
+     * @return CreateTableRequest This object.
+     */
+    public function setSSESpecification(bool $isEnabled, string $masterKeyId = '')
+    {
+        if ($isEnabled) {
+            $sseSpecification = [
+                'Enabled' => $isEnabled,
+                'SSEType' => 'KMS'
+            ];
+            if (!empty($masterKeyId)) {
+                $sseSpecification['KMSMasterKeyId'] = $masterKeyId;
+            }
+            $this->sseSpecification = $sseSpecification;
+        }
+        return $this;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function get(): array
@@ -164,6 +191,9 @@ final class CreateTableRequest extends AbstractTableAwareRequest
             'WriteCapacityUnits' => $this->writeCapacityUnits,
         ];
         $query['BillingMode'] = $this->billingMode;
+        if (!empty($this->sseSpecification)) {
+            $query['SSESpecification'] = $this->sseSpecification;
+        }
         return $query;
     }
 }

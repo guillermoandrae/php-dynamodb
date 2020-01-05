@@ -47,4 +47,11 @@ final class CreateTableRequestTest extends TestCase
         $request->setBillingMode(BillingModes::PAY_PER_REQUEST);
         $this->assertEquals(BillingModes::PAY_PER_REQUEST, $request->toArray()['BillingMode']);
     }
+
+    public function testSSESpecification()
+    {
+        $request = new CreateTableRequest(new Marshaler(), 'test', $this->data);
+        $request->setSSESpecification(true, 'someKey');
+        $this->assertEquals('someKey', $request->toArray()['SSESpecification']['KMSMasterKeyId']);
+    }
 }
