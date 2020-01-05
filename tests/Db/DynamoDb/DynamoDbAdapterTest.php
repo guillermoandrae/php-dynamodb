@@ -24,7 +24,7 @@ final class DynamoDbAdapterTest extends TestCase
         ]);
         $this->assertTrue($this->adapter->tableExists('widgets'));
         $this->adapter->useTable('widgets')->deleteTable();
-        $this->assertFalse($this->adapter->tableExists('widgets'));
+        $this->assertFalse($this->adapter->useTable('widgets')->tableExists());
     }
     
     public function testBadCreateTable()
