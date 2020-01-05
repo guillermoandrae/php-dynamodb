@@ -52,7 +52,7 @@ final class CreateTableRequest extends AbstractTableAwareRequest
     {
         $this->setKeySchema([
             $name => [
-                'type' => $attributeType,
+                'attributeType' => $attributeType,
                 'keyType' => KeyTypes::HASH
             ]
         ]);
@@ -70,7 +70,7 @@ final class CreateTableRequest extends AbstractTableAwareRequest
     {
         $this->setKeySchema([
             $name => [
-                'type' => $attributeType,
+                'attributeType' => $attributeType,
                 'keyType' => KeyTypes::RANGE
             ]
         ]);
@@ -79,6 +79,18 @@ final class CreateTableRequest extends AbstractTableAwareRequest
 
     /**
      * Registers the key schema and attribute definitions.
+     *
+     * The key schema argument should be an associative array with the following keys:
+     *
+     * $keySchema = [
+     *      'MyAttribute' => [ // this is the name of your attribute
+     *          'attributeType' => 'S', // this can be one of the AttributeTypes constants
+     *          'keyType' => 'HASH' // this can be either 'HASH' or 'RANGE' (or one of the KeyTypes constants)
+     *     ]
+     * ];
+     *
+     * This method will use the information available in the provided array to build the 'KeySchema' and
+     * 'AttributeDefinitions' arrays needed for table creation requests.
      *
      * @param array $keySchema The key schema.
      * @return CreateTableRequest This object.
@@ -92,7 +104,7 @@ final class CreateTableRequest extends AbstractTableAwareRequest
             ];
             $this->attributeDefinitions[] = [
                 'AttributeName' => $name,
-                'AttributeType' => $data['type']
+                'AttributeType' => $data['attributeType']
             ];
         }
         return $this;

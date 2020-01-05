@@ -19,8 +19,8 @@ final class DynamoDbAdapterTest extends TestCase
     public function testCreateDeleteListTable()
     {
         $this->adapter->useTable('widgets')->createTable([
-            'name' => ['type' => 'S', 'keyType' => 'HASH'],
-            'date' => ['type' => 'N', 'keyType' => 'RANGE'],
+            'name' => ['attributeType' => 'S', 'keyType' => 'HASH'],
+            'date' => ['attributeType' => 'N', 'keyType' => 'RANGE'],
         ]);
         $this->assertTrue($this->adapter->useTable('widgets')->tableExists());
         $this->adapter->useTable('widgets')->deleteTable();
@@ -30,8 +30,8 @@ final class DynamoDbAdapterTest extends TestCase
     public function testTableExists()
     {
         $this->adapter->useTable('widgets')->createTable([
-            'name' => ['type' => 'S', 'keyType' => 'HASH'],
-            'date' => ['type' => 'N', 'keyType' => 'RANGE'],
+            'name' => ['attributeType' => 'S', 'keyType' => 'HASH'],
+            'date' => ['attributeType' => 'N', 'keyType' => 'RANGE'],
         ]);
         $this->assertFalse($this->adapter->tableExists('nonexistent'));
         $this->assertTrue($this->adapter->useTable('nonexistent')->tableExists('widgets'));
@@ -42,7 +42,7 @@ final class DynamoDbAdapterTest extends TestCase
     public function testBadCreateTable()
     {
         $this->expectException(DbException::class);
-        $this->adapter->useTable('te\st')->createTable(['name' => ['type' => 'S', 'keyType' => 'HASH']]);
+        $this->adapter->useTable('te\st')->createTable(['name' => ['attributeType' => 'S', 'keyType' => 'HASH']]);
     }
 
     public function testBadCreateTableBadKeySchema()
@@ -59,7 +59,7 @@ final class DynamoDbAdapterTest extends TestCase
 
     public function testDescribeTable()
     {
-        $this->adapter->useTable('test')->createTable(['name' => ['type' => 'S', 'keyType' => 'HASH']]);
+        $this->adapter->useTable('test')->createTable(['name' => ['attributeType' => 'S', 'keyType' => 'HASH']]);
         $results = $this->adapter->useTable('test')->describeTable();
         $this->assertSame(5, $results['ProvisionedThroughput']['ReadCapacityUnits']);
         $this->adapter->useTable('test')->deleteTable();
@@ -81,8 +81,8 @@ final class DynamoDbAdapterTest extends TestCase
     {
         $adapter = $this->adapter->useTable('test');
         $adapter->createTable([
-            'name' => ['type' => 'S', 'keyType' => 'HASH'],
-            'date' => ['type' => 'N', 'keyType' => 'RANGE'],
+            'name' => ['attributeType' => 'S', 'keyType' => 'HASH'],
+            'date' => ['attributeType' => 'N', 'keyType' => 'RANGE'],
         ]);
         $adapter->insert(['name' => 'Guillermo', 'date' => time()]);
         $adapter->insert(['name' => 'Fisher', 'date' => time()]);
@@ -101,8 +101,8 @@ final class DynamoDbAdapterTest extends TestCase
     {
         $adapter = $this->adapter->useTable('test');
         $adapter->createTable([
-            'name' => ['type' => 'S', 'keyType' => 'HASH'],
-            'date' => ['type' => 'N', 'keyType' => 'RANGE'],
+            'name' => ['attributeType' => 'S', 'keyType' => 'HASH'],
+            'date' => ['attributeType' => 'N', 'keyType' => 'RANGE'],
         ]);
         $adapter->insert(['name' => 'Guillermo', 'date' => time()]);
         $adapter->insert(['name' => 'Fisher', 'date' => time()]);
@@ -121,8 +121,8 @@ final class DynamoDbAdapterTest extends TestCase
     {
         $adapter = $this->adapter->useTable('test');
         $adapter->createTable([
-            'name' => ['type' => 'S', 'keyType' => 'HASH'],
-            'date' => ['type' => 'N', 'keyType' => 'RANGE'],
+            'name' => ['attributeType' => 'S', 'keyType' => 'HASH'],
+            'date' => ['attributeType' => 'N', 'keyType' => 'RANGE'],
         ]);
         $key = ['name' => 'Guillermo', 'date' => time()];
         $adapter->insert(array_merge(['name' => 'Guillermo', 'date' => time(), 'lastName' => 'Fisher']));
@@ -147,8 +147,8 @@ final class DynamoDbAdapterTest extends TestCase
     {
         $adapter = $this->adapter->useTable('test');
         $adapter->createTable([
-            'name' => ['type' => 'S', 'keyType' => 'HASH'],
-            'date' => ['type' => 'N', 'keyType' => 'RANGE'],
+            'name' => ['attributeType' => 'S', 'keyType' => 'HASH'],
+            'date' => ['attributeType' => 'N', 'keyType' => 'RANGE'],
         ]);
         $key = ['name' => 'Guillermo', 'date' => time()];
         $adapter->insert(array_merge(['name' => 'Guillermo', 'date' => time(), 'lastName' => 'Fisher']));

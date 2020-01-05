@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CreateTableRequestTest extends TestCase
 {
-    private $data = ['name' => ['type' => AttributeTypes::STRING, 'keyType' => KeyTypes::HASH]];
+    private $data = ['name' => ['attributeType' => AttributeTypes::STRING, 'keyType' => KeyTypes::HASH]];
 
     public function testSetPartitionKey()
     {
