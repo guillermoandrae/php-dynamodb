@@ -10,26 +10,29 @@ interface AdapterInterface
      * Creates a database table.
      *
      * @param array $data The table options.
+     * @param string $tableName OPTIONAL The name of the table to create.
      * @return bool Whether or not the table creation was successful.
      * @throws DbException Thrown when an error occurs during creation.
      */
-    public function createTable(array $data): bool;
+    public function createTable(array $data, string $tableName = ''): bool;
     
     /**
      * Deletes a table from the database.
      *
+     * @param string $tableName OPTIONAL The name of the table to delete.
      * @return boolean Whether or not the table deletion was successful.
      * @throws DbException Thrown when an error occurs during deletion.
      */
-    public function deleteTable(): bool;
+    public function deleteTable(string $tableName = ''): bool;
 
     /**
      * Returns information about a database table.
      *
+     * @param string $tableName OPTIONAL The desired table name.
      * @return array The table data.
      * @throws DbException Thrown when an error occurs during the existence check.
      */
-    public function describeTable(): array;
+    public function describeTable(string $tableName = ''): array;
 
     /**
      * Determines whether or not a table exists in the database.

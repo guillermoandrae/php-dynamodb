@@ -47,12 +47,15 @@ final class DynamoDbAdapter implements AdapterInterface
      * {@inheritDoc}
      * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#createtable
      */
-    public function createTable(array $data): bool
+    public function createTable(array $data, string $tableName = ''): bool
     {
         try {
-            $query = RequestFactory::factory('create-table', $this->tableName, $data)->get();
+            if (empty($tableName)) {
+                $tableName = $this->tableName;
+            }
+            $query = RequestFactory::factory('create-table', $tableName, $data)->get();
             $this->client->createTable($query);
-            $this->client->waitUntil('TableExists', ['TableName' => $this->tableName]);
+            $this->client->waitUntil('TableExists', ['TableName' => $tableName]);
             return true;
         } catch (DynamoDbException $ex) {
             throw new DbException($ex->getMessage());
@@ -65,12 +68,15 @@ final class DynamoDbAdapter implements AdapterInterface
      * {@inheritDoc}
      * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#deletetable
      */
-    public function deleteTable(): bool
+    public function deleteTable(string $tableName = ''): bool
     {
         try {
-            $query = RequestFactory::factory('delete-table', $this->tableName)->get();
+            if (empty($tableName)) {
+                $tableName = $this->tableName;
+            }
+            $query = RequestFactory::factory('delete-table', $tableName)->get();
             $this->client->deleteTable($query);
-            $this->client->waitUntil('TableNotExists', ['TableName' => $this->tableName]);
+            $this->client->waitUntil('TableNotExists', ['TableName' => $tableName]);
             return true;
         } catch (DynamoDbException $ex) {
             throw new DbException($ex->getMessage());
@@ -81,10 +87,13 @@ final class DynamoDbAdapter implements AdapterInterface
      * {@inheritDoc}
      * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#describetable
      */
-    public function describeTable(): array
+    public function describeTable(string $tableName = ''): array
     {
         try {
-            $query = RequestFactory::factory('describe-table', $this->tableName)->get();
+            if (empty($tableName)) {
+                $tableName = $this->tableName;
+            }
+            $query = RequestFactory::factory('describe-table', $tableName)->get();
             $result = $this->client->describeTable($query);
             return $result['Table'];
         } catch (DynamoDbException $ex) {
@@ -98,7 +107,9 @@ final class DynamoDbAdapter implements AdapterInterface
      */
     public function tableExists(string $tableName = ''): bool
     {
-        $tableName = !empty($tableName) ? $tableName : $this->tableName;
+        if (empty($tableName)) {
+            $tableName = $this->tableName;
+        }
         $tables = $this->listTables();
         return in_array(
             strtolower($tableName),
