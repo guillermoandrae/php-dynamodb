@@ -11,6 +11,7 @@ composer install guillermoandrae/php-dynamodb
 ```
 
 ## Quick Examples
+The examples below are borrowed from Steps 1-5 found in Amazon's [PHP and DynamoDB documentation](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.PHP.html) to illustrate this library's relative ease of use:
 ```php
 <?php
 
@@ -55,7 +56,7 @@ try {
         'year' => 2015,
         'title' => 'The Big New Movie'
     ]);
-    echo $item['title'];
+    echo $item['plot'];
 
     // delete the table
     $this->useTable($tableName)->deleteTable();
