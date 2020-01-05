@@ -41,7 +41,6 @@ final class DynamoDbAdapter implements AdapterInterface
     {
         $this->setClient($client);
         $this->marshaler = $marshaler;
-        RepositoryFactory::setNamespace('Guillermoandrae\Fisher\Repositories');
         RequestFactory::setMarshaler($marshaler);
     }
 
