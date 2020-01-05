@@ -53,5 +53,7 @@ final class CreateTableRequestTest extends TestCase
         $request = new CreateTableRequest(new Marshaler(), 'test', $this->data);
         $request->setSSESpecification(true, 'someKey');
         $this->assertEquals('someKey', $request->toArray()['SSESpecification']['KMSMasterKeyId']);
+        $request->setSSESpecification(false);
+        $this->assertArrayNotHasKey('SSESpecification', $request->toArray());
     }
 }

@@ -165,6 +165,7 @@ final class CreateTableRequest extends AbstractTableAwareRequest
      */
     public function setSSESpecification(bool $isEnabled, string $masterKeyId = '')
     {
+        $sseSpecification = [];
         if ($isEnabled) {
             $sseSpecification = [
                 'Enabled' => $isEnabled,
@@ -173,8 +174,8 @@ final class CreateTableRequest extends AbstractTableAwareRequest
             if (!empty($masterKeyId)) {
                 $sseSpecification['KMSMasterKeyId'] = $masterKeyId;
             }
-            $this->sseSpecification = $sseSpecification;
         }
+        $this->sseSpecification = $sseSpecification;
         return $this;
     }
 
