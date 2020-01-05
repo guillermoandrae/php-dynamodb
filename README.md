@@ -38,11 +38,11 @@ try {
     // create a table
     $keys = [
         'year' => [
-            'type' => AttributeTypes::NUMBER,
+            'attributeType' => AttributeTypes::NUMBER,
             'keyType' => KeyTypes::HASH
         ],
         'title' => [
-            'type' => AttributeTypes::STRING,
+            'attributeType' => AttributeTypes::STRING,
             'keyType' => KeyTypes::RANGE
         ],
     ];

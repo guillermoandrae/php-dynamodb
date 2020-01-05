@@ -23,11 +23,11 @@ try {
     // create a table
     $keys = [
         'name' => [
-            'type' => AttributeTypes::STRING,
+            'attributeType' => AttributeTypes::STRING,
             'keyType' => KeyTypes::HASH
         ],
         'date' => [
-            'type' => AttributeTypes::NUMBER,
+            'attributeType' => AttributeTypes::NUMBER,
             'keyType' => KeyTypes::RANGE
         ],
     ];
@@ -51,6 +51,7 @@ try {
     if (!$adapter->useTable($tableName)->tableExists()) {
         printf("The '%s' table no longer exists!" . PHP_EOL, $tableName);
     }
+
 } catch(\Exception $ex) {
     die($ex->getMessage());
 }
