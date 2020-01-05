@@ -6,10 +6,10 @@ use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\Db\DynamoDb\AttributeTypes;
 use Guillermoandrae\Db\DynamoDb\DynamoDbAdapter;
 use Guillermoandrae\Db\DynamoDb\KeyTypes;
-use Guillermoandrae\Db\DynamoDb\LocalDynamoDbClient;
+use Guillermoandrae\Db\DynamoDb\DynamoDbClient;
 
 // create a new DynamoDB client
-$dynamoDbClient = LocalDynamoDbClient::get();
+$dynamoDbClient = new DynamoDbClient();
 
 // create a new Marshaler
 $marshaler = new Marshaler();
