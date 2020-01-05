@@ -45,6 +45,7 @@ final class DynamoDbAdapter implements AdapterInterface
 
     /**
      * {@inheritDoc}
+     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#createtable
      */
     public function createTable(array $data): bool
     {
@@ -62,6 +63,7 @@ final class DynamoDbAdapter implements AdapterInterface
 
     /**
      * {@inheritDoc}
+     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#deletetable
      */
     public function deleteTable(): bool
     {
@@ -77,6 +79,7 @@ final class DynamoDbAdapter implements AdapterInterface
 
     /**
      * {@inheritDoc}
+     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#describetable
      */
     public function describeTable(): array
     {
@@ -89,8 +92,9 @@ final class DynamoDbAdapter implements AdapterInterface
         }
     }
 
-     /**
+    /**
      * {@inheritDoc}
+     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#listtables
      */
     public function tableExists(string $tableName = ''): bool
     {
@@ -104,6 +108,7 @@ final class DynamoDbAdapter implements AdapterInterface
 
     /**
      * {@inheritDoc}
+     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#listtables
      */
     public function listTables(): array
     {
@@ -114,6 +119,7 @@ final class DynamoDbAdapter implements AdapterInterface
 
     /**
      * {@inheritDoc}
+     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#scan
      */
     public function findAll(int $offset = 0, ?int $limit = null): CollectionInterface
     {
@@ -133,6 +139,7 @@ final class DynamoDbAdapter implements AdapterInterface
 
     /**
      * {@inheritDoc}
+     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#scan
      */
     public function findLatest(): array
     {
@@ -157,6 +164,7 @@ final class DynamoDbAdapter implements AdapterInterface
 
     /**
      * {@inheritDoc}
+     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#getitem
      */
     public function findByPrimaryKey($primaryKey): array
     {
@@ -175,6 +183,7 @@ final class DynamoDbAdapter implements AdapterInterface
 
     /**
      * {@inheritDoc}
+     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#putitem
      */
     public function insert(array $data): bool
     {
@@ -189,6 +198,7 @@ final class DynamoDbAdapter implements AdapterInterface
 
     /**
      * {@inheritDoc}
+     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#deleteitem
      */
     public function delete($id): bool
     {
