@@ -52,7 +52,7 @@ try {
     ]);
 
     // fetch an item from the table
-    $item = $this->useTable($tableName)->findById([
+    $item = $this->useTable($tableName)->findByPrimaryKey([
         'year' => 2015,
         'title' => 'The Big New Movie'
     ]);
