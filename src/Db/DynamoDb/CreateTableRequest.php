@@ -36,7 +36,7 @@ final class CreateTableRequest extends AbstractTableAwareRequest
     public function __construct(Marshaler $marshaler, string $tableName, array $keySchema = [])
     {
         parent::__construct($marshaler, $tableName);
-        if ($keySchema) {
+        if (!empty($keySchema)) {
             $this->setKeySchema($keySchema);
         }
     }
