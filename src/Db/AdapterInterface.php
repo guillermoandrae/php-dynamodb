@@ -65,12 +65,20 @@ interface AdapterInterface
     public function findLatest(): array;
 
     /**
-     * Retrieves a record from a database table by ID.
+     * Alias for AdapterInterface::findByPrimaryKey().
      *
-     * @param mixed $id Thew record ID.
+     * @param mixed $id The record ID.
      * @return array The record.
      */
     public function findById($id): array;
+
+    /**
+     * Retrieves a record from a database table by primary key.
+     *
+     * @param mixed $primaryKey The record primary key.
+     * @return array The record.
+     */
+    public function findByPrimaryKey($primaryKey): array;
 
     /**
      * Inserts a record into a database table.

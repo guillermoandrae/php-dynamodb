@@ -151,8 +151,16 @@ final class DynamoDbAdapter implements AdapterInterface
      */
     public function findById($id): array
     {
+        return $this->findByPrimaryKey($id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findByPrimaryKey($primaryKey): array
+    {
         try {
-            $query = RequestFactory::factory('get-item', $this->tableName, $id)->get();
+            $query = RequestFactory::factory('get-item', $this->tableName, $primaryKey)->get();
             $results = $this->client->getItem($query);
             return $this->marshaler->unmarshalItem($results['Item']);
         } catch (DynamoDbException $ex) {
