@@ -45,7 +45,7 @@ abstract class AbstractItemRequest extends AbstractTableAwareRequest
     public function get(): array
     {
         $query = parent::get();
-        if ($this->expressionAttributeValues) {
+        if (!empty($this->expressionAttributeValues)) {
             $query['ExpressionAttributeValues'] = $this->expressionAttributeValues;
         }
         $query['ReturnConsumedCapacity'] = $this->returnConsumedCapacity;
