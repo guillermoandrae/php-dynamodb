@@ -9,7 +9,6 @@ use Guillermoandrae\Common\Collection;
 use Guillermoandrae\Common\CollectionInterface;
 use Guillermoandrae\Db\AdapterInterface;
 use Guillermoandrae\Db\DbException;
-use Guillermoandrae\Repositories\RepositoryFactory;
 use InvalidArgumentException;
 
 final class DynamoDbAdapter implements AdapterInterface
