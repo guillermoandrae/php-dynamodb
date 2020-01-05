@@ -11,7 +11,7 @@ composer install guillermoandrae/php-dynamodb
 ```
 
 ## Quick Examples
-The examples below are borrowed from Steps 1-5 found in Amazon's [PHP and DynamoDB documentation](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.PHP.html) to illustrate this library's relative ease of use:
+The examples below are borrowed from Steps 1-5 found in [Amazon's PHP and DynamoDB documentation](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.PHP.html) to illustrate this library's relative ease of use:
 ```php
 <?php
 
