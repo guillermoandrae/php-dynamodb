@@ -2,24 +2,20 @@
 
 require '../vendor/autoload.php';
 
-use Aws\DynamoDb\DynamoDbClient;
+use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\Db\DynamoDb\AttributeTypes;
 use Guillermoandrae\Db\DynamoDb\DynamoDbAdapter;
 use Guillermoandrae\Db\DynamoDb\KeyTypes;
+use Guillermoandrae\Db\DynamoDb\LocalDynamoDbClient;
 
 // create a new DynamoDB client
-$dynamoDbClient = new DynamoDbClient([
-    'region' => 'us-west-2',
-    'version'  => 'latest',
-    'endpoint' => 'http://localhost:8000',
-    'credentials' => [
-        'key' => 'not-a-real-key',
-        'secret' => 'not-a-real-secret',
-    ],
-]);
+$dynamoDbClient = LocalDynamoDbClient::get();
+
+// create a new Marshaler
+$marshaler = new Marshaler();
 
 // pass the client to the adapter
-$adapter = new DynamoDbAdapter($dynamoDbClient);
+$adapter = new DynamoDbAdapter($dynamoDbClient, $marshaler);
 
 try {
     $tableName = 'myTable';
