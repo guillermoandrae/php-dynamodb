@@ -162,7 +162,9 @@ final class DynamoDbAdapter implements AdapterInterface
         try {
             $query = RequestFactory::factory('get-item', $this->tableName, $primaryKey)->get();
             $results = $this->client->getItem($query);
-            return $this->marshaler->unmarshalItem($results['Item']);
+            if (is_array($results['Item'])) {
+                return $this->marshaler->unmarshalItem($results['Item']);
+            }
         } catch (DynamoDbException $ex) {
             throw new DbException($ex->getMessage());
         }
