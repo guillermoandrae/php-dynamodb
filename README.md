@@ -16,21 +16,13 @@ composer install guillermoandrae/php-dynamodb
 
 require '../vendor/autoload.php';
 
-use Aws\DynamoDb\DynamoDbClient;
 use Guillermoandrae\Db\DynamoDb\AttributeTypes;
 use Guillermoandrae\Db\DynamoDb\DynamoDbAdapter;
 use Guillermoandrae\Db\DynamoDb\KeyTypes;
+use Guillermoandrae\Db\DynamoDb\LocalDynamoDbClient;
 
-// create a new DynamoDB client
-$dynamoDbClient = new DynamoDbClient([
-    'region' => 'us-east-1',
-    'version'  => 'latest',
-    'endpoint' => 'http://localhost:8000',
-    'credentials' => [
-        'key' => 'not-a-real-key',
-        'secret' => 'not-a-real-secret',
-    ],
-]);
+// create a local DynamoDB client
+$dynamoDbClient = LocalDynamoDbClient::get();
 
 // pass the client to the adapter
 $adapter = new DynamoDbAdapter($dynamoDbClient);
