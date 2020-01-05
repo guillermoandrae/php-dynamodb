@@ -71,19 +71,21 @@ try {
 ```
 
 To run the examples found in the `examples` directory, run a command similar to the following:
-```
+```shell script
 php ./exmaples/tables.php
 ```
 
 ## Running DynamoDB locally
-To aid in your development, you can run the following command to run DynamoDB locally:
-```
-composer start-db
+To aid in your development, you can run the following commands to manage DynamoDB locally:
+```shell script
+composer start-db # downloads, installs, and starts DynamoDB locally
+composer stop-db # stops DynamoDB locally
+composer restart-db # calls stop-db then start-db
 ```
 
 ## Testing
 Run the following command to make sure your code is appropriately styled:
-```
+```shell script
 composer check-style
 ```
 
