@@ -6,7 +6,7 @@ use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\Db\DbException;
 use Guillermoandrae\Db\DynamoDb\DynamoDbAdapter;
-use GuillermoandraeTest\LocalDynamoDbClient;
+use Guillermoandrae\Db\DynamoDb\LocalDynamoDbClient;
 use PHPUnit\Framework\TestCase;
 
 final class DynamoDbAdapterTest extends TestCase
