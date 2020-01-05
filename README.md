@@ -32,18 +32,32 @@ try {
 
     // create a table
     $keys = [
-        'name' => [
-            'type' => AttributeTypes::STRING,
+        'year' => [
+            'type' => AttributeTypes::NUMBER,
             'keyType' => KeyTypes::HASH
         ],
-        'date' => [
-            'type' => AttributeTypes::NUMBER,
+        'title' => [
+            'type' => AttributeTypes::STRING,
             'keyType' => KeyTypes::RANGE
         ],
     ];
     $this->useTable($tableName)->createTable($keys);
 
-    // delete a table
+    // add an item to the table
+    $this->useTable($tableName)->insert([
+        'year' => 2015,
+        'title' => 'The Big New Movie',
+        'plot' => 'Nothing happens at all'
+    ]);
+
+    // fetch an item from the table
+    $item = $this->useTable($tableName)->findById([
+        'year' => 2015,
+        'title' => 'The Big New Movie'
+    ]);
+    echo $item['title'];
+
+    // delete the table
     $this->useTable($tableName)->deleteTable();
 
 } catch(\Exception $ex) {
