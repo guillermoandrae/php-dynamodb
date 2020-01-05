@@ -34,9 +34,10 @@ interface AdapterInterface
     /**
      * Determines whether or not a table exists in the database.
      *
+     * @param string $tableName OPTIONAL The desired table name.
      * @return boolean Whether or not the table exists.
      */
-    public function tableExists(): bool;
+    public function tableExists(string $tableName = ''): bool;
 
     /**
      * Returns an array of database tables.

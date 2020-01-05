@@ -92,11 +92,12 @@ final class DynamoDbAdapter implements AdapterInterface
      /**
      * {@inheritDoc}
      */
-    public function tableExists(): bool
+    public function tableExists(string $tableName = ''): bool
     {
+        $tableName = !empty($tableName) ? $tableName : $this->tableName;
         $tables = $this->listTables();
         return in_array(
-            strtolower($this->tableName),
+            strtolower($tableName),
             array_map('strtolower', $tables)
         );
     }
@@ -162,9 +163,11 @@ final class DynamoDbAdapter implements AdapterInterface
         try {
             $query = RequestFactory::factory('get-item', $this->tableName, $primaryKey)->get();
             $results = $this->client->getItem($query);
+            $item = [];
             if (is_array($results['Item'])) {
-                return $this->marshaler->unmarshalItem($results['Item']);
+                $item = $this->marshaler->unmarshalItem($results['Item']);
             }
+            return $item;
         } catch (DynamoDbException $ex) {
             throw new DbException($ex->getMessage());
         }

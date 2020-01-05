@@ -22,9 +22,21 @@ final class DynamoDbAdapterTest extends TestCase
             'name' => ['type' => 'S', 'keyType' => 'HASH'],
             'date' => ['type' => 'N', 'keyType' => 'RANGE'],
         ]);
-        $this->assertTrue($this->adapter->tableExists('widgets'));
+        $this->assertTrue($this->adapter->useTable('widgets')->tableExists());
         $this->adapter->useTable('widgets')->deleteTable();
         $this->assertFalse($this->adapter->useTable('widgets')->tableExists());
+    }
+
+    public function testTableExists()
+    {
+        $this->adapter->useTable('widgets')->createTable([
+            'name' => ['type' => 'S', 'keyType' => 'HASH'],
+            'date' => ['type' => 'N', 'keyType' => 'RANGE'],
+        ]);
+        $this->assertFalse($this->adapter->tableExists('nonexistent'));
+        $this->assertTrue($this->adapter->useTable('nonexistent')->tableExists('widgets'));
+        $this->adapter->useTable('widgets')->deleteTable();
+        $this->assertFalse($this->adapter->tableExists('widgets'));
     }
     
     public function testBadCreateTable()
