@@ -34,7 +34,12 @@ final class CreateTableRequest extends AbstractTableAwareRequest
     /**
      * @var array The server-side encryption settings.
      */
-    private $sseSpecification;
+    private $sseSpecification = [];
+
+    /**
+     * @var array The tags.
+     */
+    private $tags = [];
 
     /**
      * Registers the JSON Marshaler, table name, and key schema with this object.
@@ -180,6 +185,22 @@ final class CreateTableRequest extends AbstractTableAwareRequest
     }
 
     /**
+     * Registers a tag.
+     *
+     * @param string $key The tag key.
+     * @param string $value The tag value.
+     * @return CreateTableRequest This object.
+     */
+    public function addTag(string $key, string $value)
+    {
+        $this->tags[] = [
+            'Key' => $key,
+            'Value' => $value
+        ];
+        return $this;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function get(): array
@@ -187,13 +208,16 @@ final class CreateTableRequest extends AbstractTableAwareRequest
         $query = parent::get();
         $query['KeySchema'] = $this->keySchema;
         $query['AttributeDefinitions'] = $this->attributeDefinitions;
+        $query['BillingMode'] = $this->billingMode;
         $query['ProvisionedThroughput'] = [
             'ReadCapacityUnits' => $this->readCapacityUnits,
             'WriteCapacityUnits' => $this->writeCapacityUnits,
         ];
-        $query['BillingMode'] = $this->billingMode;
         if (!empty($this->sseSpecification)) {
             $query['SSESpecification'] = $this->sseSpecification;
+        }
+        if (!empty($this->tags)) {
+            $query['Tags'] = $this->tags;
         }
         return $query;
     }

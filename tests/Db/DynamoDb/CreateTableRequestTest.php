@@ -56,4 +56,13 @@ final class CreateTableRequestTest extends TestCase
         $request->setSSESpecification(false);
         $this->assertArrayNotHasKey('SSESpecification', $request->toArray());
     }
+
+    public function testAddTag()
+    {
+        $request = new CreateTableRequest(new Marshaler(), 'test', $this->data);
+        $request->addTag('someKey', 'someValue');
+        $request->addTag('anotherKey', 'anotherValue');
+        $this->assertEquals('someValue', $request->toArray()['Tags'][0]['Value']);
+        $this->assertEquals('anotherValue', $request->toArray()['Tags'][1]['Value']);
+    }
 }
