@@ -27,6 +27,11 @@ final class CreateTableRequest extends AbstractTableAwareRequest
     private $writeCapacityUnits = 5;
 
     /**
+     * @var string The billing mode.
+     */
+    private $billingMode = BillingModes::PROVISIONED;
+
+    /**
      * Registers the JSON Marshaler, table name, and key schema with this object.
      *
      * @param Marshaler $marshaler The JSON Marshaler.
@@ -135,6 +140,18 @@ final class CreateTableRequest extends AbstractTableAwareRequest
     }
 
     /**
+     * Registers the billing mode.
+     *
+     * @param string $billingMode The billing mode.
+     * @return CreateTableRequest This object.
+     */
+    public function setBillingMode(string $billingMode)
+    {
+        $this->billingMode = $billingMode;
+        return $this;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function get(): array
@@ -146,6 +163,7 @@ final class CreateTableRequest extends AbstractTableAwareRequest
             'ReadCapacityUnits' => $this->readCapacityUnits,
             'WriteCapacityUnits' => $this->writeCapacityUnits,
         ];
+        $query['BillingMode'] = $this->billingMode;
         return $query;
     }
 }
