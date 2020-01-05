@@ -11,6 +11,58 @@ use PHPUnit\Framework\TestCase;
 final class CreateTableRequestTest extends TestCase
 {
     private $data = ['name' => ['type' => AttributeTypes::STRING, 'keyType' => KeyTypes::HASH]];
+
+    public function testSetPartitionKey()
+    {
+        $request = new CreateTableRequest(new Marshaler(), 'test');
+        $request->setPartitionKey('test', AttributeTypes::STRING);
+        $expectedQuery = [
+            'AttributeDefinitions' => [
+                [
+                    'AttributeName' => 'test',
+                    'AttributeType' => AttributeTypes::STRING,
+                ],
+            ],
+            'KeySchema' => [
+                [
+                    'AttributeName' => 'test',
+                    'KeyType' => KeyTypes::HASH,
+                ],
+            ],
+            'ProvisionedThroughput' => [
+                'ReadCapacityUnits' => 5,
+                'WriteCapacityUnits' => 5,
+            ],
+            'TableName' => 'test',
+        ];
+        $this->assertEquals($expectedQuery, $request->toArray());
+    }
+
+    public function testSetSortKey()
+    {
+        $request = new CreateTableRequest(new Marshaler(), 'test');
+        $request->setSortKey('test', AttributeTypes::STRING);
+        $expectedQuery = [
+            'AttributeDefinitions' => [
+                [
+                    'AttributeName' => 'test',
+                    'AttributeType' => AttributeTypes::STRING,
+                ],
+            ],
+            'KeySchema' => [
+                [
+                    'AttributeName' => 'test',
+                    'KeyType' => KeyTypes::RANGE,
+                ],
+            ],
+            'ProvisionedThroughput' => [
+                'ReadCapacityUnits' => 5,
+                'WriteCapacityUnits' => 5,
+            ],
+            'TableName' => 'test',
+        ];
+        $this->assertEquals($expectedQuery, $request->toArray());
+    }
     
     public function testSetKeySchema()
     {

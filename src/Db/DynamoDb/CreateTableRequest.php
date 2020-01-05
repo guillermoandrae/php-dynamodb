@@ -31,12 +31,50 @@ final class CreateTableRequest extends AbstractTableAwareRequest
      *
      * @param Marshaler $marshaler The JSON Marshaler.
      * @param string $tableName The table name.
-     * @param array $keySchema The key schema.
+     * @param array $keySchema OPTIONAL The key schema.
      */
-    public function __construct(Marshaler $marshaler, string $tableName, array $keySchema)
+    public function __construct(Marshaler $marshaler, string $tableName, array $keySchema = [])
     {
         parent::__construct($marshaler, $tableName);
-        $this->setKeySchema($keySchema);
+        if ($keySchema) {
+            $this->setKeySchema($keySchema);
+        }
+    }
+
+    /**
+     * Registers the partition key.
+     *
+     * @param string $name The name of the partition key.
+     * @param string $attributeType The attribute type.
+     * @return CreateTableRequest This object.
+     */
+    public function setPartitionKey(string $name, string $attributeType): CreateTableRequest
+    {
+        $this->setKeySchema([
+            $name => [
+                'type' => $attributeType,
+                'keyType' => KeyTypes::HASH
+            ]
+        ]);
+        return $this;
+    }
+
+    /**
+     * Registers the sort key.
+     *
+     * @param string $name The name of the sort key.
+     * @param string $attributeType The attribute type.
+     * @return CreateTableRequest This object.
+     */
+    public function setSortKey(string $name, string $attributeType): CreateTableRequest
+    {
+        $this->setKeySchema([
+            $name => [
+                'type' => $attributeType,
+                'keyType' => KeyTypes::RANGE
+            ]
+        ]);
+        return $this;
     }
 
     /**
