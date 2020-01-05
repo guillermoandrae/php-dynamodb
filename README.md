@@ -70,6 +70,11 @@ try {
 }
 ```
 
+To run the examples found in the `examples` directory, run a command similar to the following:
+```
+php ./exmaples/tables.php
+```
+
 ## Running DynamoDB locally
 To aid in your development, you can run the following command to run DynamoDB locally:
 ```
