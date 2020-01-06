@@ -98,7 +98,6 @@ final class DynamoDbAdapter implements AdapterInterface
     public function describeTable(string $tableName = ''): ?array
     {
         try {
-            $description = [];
             if (empty($tableName)) {
                 $tableName = $this->tableName;
             }
@@ -120,6 +119,9 @@ final class DynamoDbAdapter implements AdapterInterface
             $tableName = $this->tableName;
         }
         $tables = $this->listTables();
+        if (empty($tables)) {
+            return false;
+        }
         return in_array(
             strtolower($tableName),
             array_map('strtolower', $tables)
