@@ -89,7 +89,7 @@ interface AdapterInterface
      * @return array The latest record.
      * @throws DbException Thrown when a query error occurs.
      */
-    public function findLatest(): array;
+    public function findLatest(): ?array;
 
     /**
      * Alias for AdapterInterface::findByPrimaryKey().
