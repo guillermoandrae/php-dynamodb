@@ -16,19 +16,19 @@ final class QueryRequestTest extends TestCase
 
     public function testSetPartitionKeyConditionExpression()
     {
-        $this->request->setPartitionKeyConditionExpression('test', RequestOperators::GTE, 'something');
+        $this->request->setPartitionKeyConditionExpression('test', 'something');
         $requestArray = $this->request->toArray();
-        $this->assertEquals('test >= :test', $requestArray['KeyConditionExpression']);
+        $this->assertEquals('test = :test', $requestArray['KeyConditionExpression']);
         $this->assertEquals(['S' => 'something'], $requestArray['ExpressionAttributeValues'][':test']);
     }
 
     public function testSetSortKeyConditionExpression()
     {
-        $this->request->setPartitionKeyConditionExpression('test', RequestOperators::GTE, 'something');
+        $this->request->setPartitionKeyConditionExpression('test', 'something');
         $this->request->setSortKeyConditionExpression('anotherTest', RequestOperators::BEGINS_WITH, 'somethingElse');
         $requestArray = $this->request->toArray();
         $this->assertEquals(
-            'test >= :test AND begins_with(anotherTest, :anotherTest)',
+            'test = :test AND begins_with(anotherTest, :anotherTest)',
             $requestArray['KeyConditionExpression']
         );
         $this->assertEquals(['S' => 'something'], $requestArray['ExpressionAttributeValues'][':test']);

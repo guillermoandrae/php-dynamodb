@@ -5,6 +5,7 @@ namespace GuillermoandraeTest\Db\DynamoDb;
 use Aws\DynamoDb\DynamoDbClient;
 use Guillermoandrae\Db\DbException;
 use Guillermoandrae\Db\DynamoDb\DynamoDbAdapter;
+use Guillermoandrae\Db\DynamoDb\RequestOperators;
 use PHPUnit\Framework\TestCase;
 
 final class DynamoDbAdapterTest extends TestCase
@@ -85,6 +86,40 @@ final class DynamoDbAdapterTest extends TestCase
         $adapter->insert(['name' => 'Guillermo', 'date' => time()]);
         $adapter->insert(['name' => 'Fisher', 'date' => time()]);
         $items = $adapter->findAll();
+        $adapter->deleteTable();
+        $this->assertCount(2, $items);
+    }
+
+    public function testBadFindWhere()
+    {
+        $this->expectException(DbException::class);
+        $this->adapter->useTable('test')->findWhere([]);
+    }
+
+    public function testFindWhere()
+    {
+        $adapter = $this->adapter->useTable('test');
+        $adapter->createTable([
+            'firstName' => ['attributeType' => 'S', 'keyType' => 'HASH'],
+            'age' => ['attributeType' => 'N', 'keyType' => 'RANGE'],
+        ]);
+        $adapter->insert(['firstName' => 'Guillermo', 'hobby' => 'sleeping', 'age' => 40]);
+        $adapter->insert(['firstName' => 'Guillermo', 'hobby' => 'coding', 'age' => 40]);
+        $adapter->insert(['firstName' => 'William', 'hobby' => 'drawing', 'age' => 24]);
+        $adapter->insert(['firstName' => 'William', 'hobby' => 'playing', 'age' => 15]);
+        $adapter->insert(['firstName' => 'William', 'hobby' => 'writing', 'age' => 20]);
+
+        $items = $adapter->findWhere([
+            'partition' => [
+                'name' => 'firstName',
+                'value' => 'William'
+            ],
+            'sort' => [
+                'name' => 'age',
+                'operator' => RequestOperators::GTE,
+                'value' => 16
+            ]
+        ]);
         $adapter->deleteTable();
         $this->assertCount(2, $items);
     }
