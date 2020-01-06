@@ -7,9 +7,9 @@ use Aws\DynamoDb\Marshaler;
 interface RequestInterface
 {
     /**
-     * Registers the JSON Marshaler with this object.
+     * Registers the Marshaler with this object.
      *
-     * @param Marshaler $marshaler The JSON Marshaler.
+     * @param Marshaler $marshaler The Marshaler.
      * @return RequestInterface An implementation of this interface.
      */
     public function setMarshaler(Marshaler $marshaler): RequestInterface;
