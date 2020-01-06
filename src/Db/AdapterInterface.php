@@ -32,7 +32,7 @@ interface AdapterInterface
      * @return array The table data.
      * @throws DbException Thrown when an error occurs during the existence check.
      */
-    public function describeTable(string $tableName = ''): array;
+    public function describeTable(string $tableName = ''): ?array;
 
     /**
      * Determines whether or not a table exists in the database.
@@ -47,7 +47,7 @@ interface AdapterInterface
      *
      * @return array The database tables.
      */
-    public function listTables(): array;
+    public function listTables(): ?array;
 
     /**
      * Specifies the table to be used during an operation.

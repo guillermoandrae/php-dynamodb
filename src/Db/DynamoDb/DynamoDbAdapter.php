@@ -95,9 +95,10 @@ final class DynamoDbAdapter implements AdapterInterface
      * {@inheritDoc}
      * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#describetable
      */
-    public function describeTable(string $tableName = ''): array
+    public function describeTable(string $tableName = ''): ?array
     {
         try {
+            $description = [];
             if (empty($tableName)) {
                 $tableName = $this->tableName;
             }
@@ -129,7 +130,7 @@ final class DynamoDbAdapter implements AdapterInterface
      * {@inheritDoc}
      * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#listtables
      */
-    public function listTables(): array
+    public function listTables(): ?array
     {
         $query = RequestFactory::factory('list-tables')->get();
         $results = $this->client->listTables($query);
