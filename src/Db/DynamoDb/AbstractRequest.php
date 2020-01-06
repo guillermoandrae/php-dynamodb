@@ -8,14 +8,14 @@ use Guillermoandrae\Common\ArrayableInterface;
 abstract class AbstractRequest implements ArrayableInterface, RequestInterface
 {
     /**
-     * @var Marshaler The JSON Marshaler.
+     * @var Marshaler The Marshaler.
      */
     protected $marshaler;
 
     /**
-     * Registers the JSON Marshaler and table name with this object.
+     * Registers the Marshaler and table name with this object.
      *
-     * @param Marshaler $marshaler The JSON Marshaler.
+     * @param Marshaler $marshaler The Marshaler.
      */
     public function __construct(Marshaler $marshaler)
     {
