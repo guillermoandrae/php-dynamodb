@@ -2,39 +2,13 @@
 
 namespace Guillermoandrae\Db\DynamoDb;
 
-final class ScanRequest extends AbstractFilterExpressionAwareRequest
+final class ScanRequest extends AbstractSearchRequest
 {
-    /**
-     * @var boolean Whether or not to scan forward.
-     */
-    private $scanIndexForward = false;
+    private $scanFilter = [];
 
-    /**
-     * @var boolean Whether or not the read should be consistent.
-     */
-    private $consistentRead = false;
-
-    /**
-     * Registers the ScanIndexForward value with this object.
-     *
-     * @param boolean $scanIndexForward Whether or not to scan forward.
-     * @return ScanRequest This object.
-     */
-    public function setScanIndexForward(bool $scanIndexForward): ScanRequest
+    public function setScanFilter(array $scanFilter): ScanRequest
     {
-        $this->scanIndexForward = $scanIndexForward;
-        return $this;
-    }
-
-    /**
-     * Registers the ConsistentRead value with this object.
-     *
-     * @param boolean $consistentRead Whether or not the read should be consistent.
-     * @return ScanRequest This object.
-     */
-    public function setConsistentRead(bool $consistentRead): ScanRequest
-    {
-        $this->consistentRead = $consistentRead;
+        $this->scanFilter = $scanFilter;
         return $this;
     }
 
@@ -44,8 +18,9 @@ final class ScanRequest extends AbstractFilterExpressionAwareRequest
     public function get(): array
     {
         $query = parent::get();
-        $query['ScanIndexForward'] = $this->scanIndexForward;
-        $query['ConsistentRead'] = $this->consistentRead;
+        if (!empty($this->scanFilter)) {
+            $query['ScanFilter'] = $this->scanFilter;
+        }
         return $query;
     }
 }
