@@ -12,9 +12,9 @@ final class PutItemRequest extends AbstractItemRequest
     private $item;
     
     /**
-     * Registers the JSON Marshaler, table name, and item data with this object.
+     * Registers the Marshaler, table name, and item data with this object.
      *
-     * @param Marshaler $marshaler The JSON Marshaler.
+     * @param Marshaler $marshaler The Marshaler.
      * @param string $tableName The table name.
      * @param array $item The item data.
      */
