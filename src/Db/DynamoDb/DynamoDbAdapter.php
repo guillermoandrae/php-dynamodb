@@ -18,7 +18,7 @@ final class DynamoDbAdapter implements AdapterInterface
     private $client;
 
     /**
-     * @var MarshalerFactory The JSON Marshaler.
+     * @var Marshaler The Marshaler.
      */
     private $marshaler;
 
