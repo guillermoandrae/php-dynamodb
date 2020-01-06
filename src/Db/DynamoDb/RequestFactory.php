@@ -11,7 +11,7 @@ use ReflectionException;
 final class RequestFactory
 {
     /**
-     * @var Marshaler The JSON Marshaler.
+     * @var Marshaler The Marshaler.
      */
     private static $marshaler;
     
@@ -48,7 +48,7 @@ final class RequestFactory
     /**
      * Registers the Marshaler with this class.
      *
-     * @param Marshaler $marshaler The JSON Marshaler.
+     * @param Marshaler $marshaler The Marshaler.
      * @return void
      */
     public static function setMarshaler(Marshaler $marshaler): void
@@ -57,9 +57,9 @@ final class RequestFactory
     }
 
     /**
-     * Returns the JSON Marshaler.
+     * Returns the Marshaler.
      *
-     * @return Marshaler The JSON Marshaler.
+     * @return Marshaler The Marshaler.
      */
     public static function getMarshaler(): Marshaler
     {
