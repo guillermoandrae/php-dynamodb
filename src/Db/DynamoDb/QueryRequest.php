@@ -2,6 +2,8 @@
 
 namespace Guillermoandrae\Db\DynamoDb;
 
+use ErrorException;
+
 final class QueryRequest extends AbstractSearchRequest
 {
     /**
@@ -16,7 +18,7 @@ final class QueryRequest extends AbstractSearchRequest
      * @param string $operator The operator.
      * @param string $value The desired value.
      * @return QueryRequest This object.
-     * @throws \ErrorException Thrown when an unsupported operator is requested.
+     * @throws ErrorException Thrown when an unsupported operator is requested.
      */
     public function setPartitionKeyConditionExpression(string $keyName, string $operator, string $value): QueryRequest
     {
@@ -33,7 +35,7 @@ final class QueryRequest extends AbstractSearchRequest
      * @param string $operator The operator.
      * @param string $value The desired value.
      * @return QueryRequest This object.
-     * @throws \ErrorException Thrown when an unsupported operator is requested.
+     * @throws ErrorException Thrown when an unsupported operator is requested.
      */
     public function setSortKeyConditionExpression(string $keyName, string $operator, string $value): QueryRequest
     {
