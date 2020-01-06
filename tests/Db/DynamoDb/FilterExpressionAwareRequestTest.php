@@ -62,6 +62,17 @@ final class FilterExpressionAwareRequestTest extends TestCase
         $this->assertEquals($expectedExpression, $this->request->toArray()['FilterExpression']);
     }
 
+    public function testFilterExpressionBadOperator()
+    {
+        $this->expectException(\ErrorException::class);
+        $this->request->setFilterExpression([
+            'width' => [
+                'operator' => 'TEST',
+                'value' => '10',
+            ]
+        ]);
+    }
+
     public function testSetFilterExpressionAndExpressionAttributeValues()
     {
         $this->request->setFilterExpression([
@@ -90,7 +101,7 @@ final class FilterExpressionAwareRequestTest extends TestCase
                     'S' => 'square',
                 ],
                 ':width' => [
-                    'S' => 10
+                    'N' => 10
                 ]
             ],
         ];
