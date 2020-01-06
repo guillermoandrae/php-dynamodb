@@ -192,7 +192,7 @@ final class DynamoDbAdapter implements AdapterInterface
      * {@inheritDoc}
      * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#scan
      */
-    public function findLatest(): array
+    public function findLatest(): ?array
     {
         try {
             $query = RequestFactory::factory('scan', $this->tableName)
