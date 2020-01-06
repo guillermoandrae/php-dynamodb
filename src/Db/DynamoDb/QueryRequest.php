@@ -4,10 +4,20 @@ namespace Guillermoandrae\Db\DynamoDb;
 
 final class QueryRequest extends AbstractSearchRequest
 {
-    private $queryFilter = [];
+    /**
+     * @var string The condition that specifies the key values for items to be retrieved.
+     */
     private $keyConditionExpression = '';
-    private $keyConditions = [];
 
+    /**
+     * Sets condition expression for the partition key.
+     *
+     * @param string $keyName The name of the partition key.
+     * @param string $operator The operator.
+     * @param string $value The desired value.
+     * @return QueryRequest This object.
+     * @throws \ErrorException Thrown when an unsupported operator is requested.
+     */
     public function setPartitionKeyConditionExpression(string $keyName, string $operator, string $value): QueryRequest
     {
         $partitionKeyConditionExpression = $this->parseExpression($operator, $keyName);
@@ -16,6 +26,15 @@ final class QueryRequest extends AbstractSearchRequest
         return $this;
     }
 
+    /**
+     * Sets condition expressions for the sort key.
+     *
+     * @param string $keyName The name of the sort key.
+     * @param string $operator The operator.
+     * @param string $value The desired value.
+     * @return QueryRequest This object.
+     * @throws \ErrorException Thrown when an unsupported operator is requested.
+     */
     public function setSortKeyConditionExpression(string $keyName, string $operator, string $value): QueryRequest
     {
         $sortKeyConditionExpression = $this->parseExpression($operator, $keyName);
