@@ -2,7 +2,7 @@
 
 namespace Guillermoandrae\Db\DynamoDb;
 
-use \ErrorException;
+use ErrorException;
 
 abstract class AbstractFilterExpressionAwareRequest extends AbstractItemRequest
 {
