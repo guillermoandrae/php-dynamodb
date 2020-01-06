@@ -12,9 +12,9 @@ abstract class AbstractTableAwareRequest extends AbstractRequest
     protected $tableName;
 
     /**
-     * Registers the JSON Marshaler and table name with this object.
+     * Registers the Marshaler and table name with this object.
      *
-     * @param Marshaler $marshaler The JSON Marshaler.
+     * @param Marshaler $marshaler The Marshaler.
      * @param string $tableName The table name.
      */
     public function __construct(Marshaler $marshaler, string $tableName)
