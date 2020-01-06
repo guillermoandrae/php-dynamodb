@@ -2,20 +2,12 @@
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\Db\DynamoDb\AttributeTypes;
 use Guillermoandrae\Db\DynamoDb\DynamoDbAdapter;
 use Guillermoandrae\Db\DynamoDb\KeyTypes;
-use Guillermoandrae\Db\DynamoDb\DynamoDbClient;
 
-// create a new DynamoDB client
-$dynamoDbClient = new DynamoDbClient();
-
-// create a new Marshaler
-$marshaler = new Marshaler();
-
-// pass the client to the adapter
-$adapter = new DynamoDbAdapter($dynamoDbClient, $marshaler);
+// create a new adapter
+$adapter = new DynamoDbAdapter();
 
 try {
     // create the table

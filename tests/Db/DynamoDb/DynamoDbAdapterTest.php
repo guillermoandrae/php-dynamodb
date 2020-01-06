@@ -2,10 +2,9 @@
 
 namespace GuillermoandraeTest\Db\DynamoDb;
 
-use Aws\DynamoDb\Marshaler;
+use Aws\DynamoDb\DynamoDbClient;
 use Guillermoandrae\Db\DbException;
 use Guillermoandrae\Db\DynamoDb\DynamoDbAdapter;
-use Guillermoandrae\Db\DynamoDb\DynamoDbClient;
 use PHPUnit\Framework\TestCase;
 
 final class DynamoDbAdapterTest extends TestCase
@@ -163,7 +162,7 @@ final class DynamoDbAdapterTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->adapter = new DynamoDbAdapter(new DynamoDbClient(), new Marshaler());
+        $this->adapter = new DynamoDbAdapter();
     }
 
     protected function tearDown(): void

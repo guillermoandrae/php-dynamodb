@@ -4,7 +4,6 @@ namespace Guillermoandrae\Db\DynamoDb;
 
 use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Exception\DynamoDbException;
-use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\Common\Collection;
 use Guillermoandrae\Common\CollectionInterface;
 use Guillermoandrae\Db\AdapterInterface;
@@ -19,7 +18,7 @@ final class DynamoDbAdapter implements AdapterInterface
     private $client;
 
     /**
-     * @var Marshaler The JSON Marshaler.
+     * @var MarshalerFactory The JSON Marshaler.
      */
     private $marshaler;
 
@@ -29,18 +28,26 @@ final class DynamoDbAdapter implements AdapterInterface
     private $tableName;
 
     /**
-     * Registers the client and marshaler with this object. Sets up the
-     * Repository factory and passes the Marshaler over to the request factory
-     * as well.
+     * DynamoDBAdapter constructor.
      *
-     * @param DynamoDbClient $client The DynamoDb client.
-     * @param Marshaler $marshaler The JSON Marshaler.
+     * Registers AWS' DynamoDB client and marshaler with this object. If no options are provided, we pass the options
+     * needed to connect to a local instance. This constructor also Passes the marshaler over to the request factory.
+     *
+     * @param array $options OPTIONAL The DynamoDb client options.
      */
-    public function __construct(DynamoDbClient $client, Marshaler $marshaler)
+    public function __construct(array $options = [
+        'region' => 'us-west-2',
+        'version'  => 'latest',
+        'endpoint' => 'http://localhost:8000',
+        'credentials' => [
+            'key' => 'not-a-real-key',
+            'secret' => 'not-a-real-secret',
+        ]
+    ])
     {
-        $this->setClient($client);
-        $this->marshaler = $marshaler;
-        RequestFactory::setMarshaler($marshaler);
+        $this->setClient(DynamoDbClient::factory($options));
+        $this->marshaler = MarshalerFactory::factory();
+        RequestFactory::setMarshaler($this->marshaler);
     }
 
     /**
@@ -126,6 +133,35 @@ final class DynamoDbAdapter implements AdapterInterface
         $query = RequestFactory::factory('list-tables')->get();
         $results = $this->client->listTables($query);
         return $results['TableNames'];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function useTable(string $tableName): AdapterInterface
+    {
+        $this->tableName = $tableName;
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#query
+     */
+    public function findWhere(array $conditions, int $offset = 0, ?int $limit = null): CollectionInterface
+    {
+        try {
+            $query = RequestFactory::factory('query', $this->tableName, $conditions)->get();
+            $results = $this->client->query($query);
+            $rows = [];
+            foreach ($results['Items'] as $item) {
+                $rows[] = $this->marshaler->unmarshalItem($item);
+            }
+            $collection = Collection::make($rows);
+            return $collection->limit($offset, $limit);
+        } catch (DynamoDbException $ex) {
+            throw new DbException($ex->getMessage());
+        }
     }
 
     /**
@@ -220,15 +256,6 @@ final class DynamoDbAdapter implements AdapterInterface
         } catch (DynamoDbException $ex) {
             throw new DbException($ex->getMessage());
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function useTable(string $tableName): AdapterInterface
-    {
-        $this->tableName = $tableName;
-        return $this;
     }
 
     /**

@@ -17,20 +17,12 @@ The examples below are borrowed from Steps 1-5 found in [Amazon's PHP and Dynamo
 
 require 'vendor/autoload.php';
 
-use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\Db\DynamoDb\AttributeTypes;
 use Guillermoandrae\Db\DynamoDb\DynamoDbAdapter;
 use Guillermoandrae\Db\DynamoDb\KeyTypes;
-use Guillermoandrae\Db\DynamoDb\DynamoDbClient;
 
-// create a local DynamoDB client
-$dynamoDbClient = new DynamoDbClient();
-
-// create a new Marshaler
-$marshaler = new Marshaler();
-
-// pass the client to the adapter
-$adapter = new DynamoDbAdapter($dynamoDbClient, $marshaler);
+// create a new adapter
+$adapter = new DynamoDbAdapter();
 
 try {
     $tableName = 'myTable';
