@@ -2,6 +2,8 @@
 
 namespace Guillermoandrae\Db\DynamoDb;
 
+use \ErrorException;
+
 abstract class AbstractFilterExpressionAwareRequest extends AbstractItemRequest
 {
     use LimitAwareRequestTrait;
@@ -16,6 +18,7 @@ abstract class AbstractFilterExpressionAwareRequest extends AbstractItemRequest
      *
      * @param array $data The filter expression data.
      * @return AbstractFilterExpressionAwareRequest An implementation of this abstract.
+     * @throws ErrorException
      */
     final public function setFilterExpression(array $data): AbstractFilterExpressionAwareRequest
     {
@@ -49,10 +52,17 @@ abstract class AbstractFilterExpressionAwareRequest extends AbstractItemRequest
      * @param string $operator The request operator.
      * @param string $key The attribute key.
      * @return string The expression.
+     * @throws ErrorException
      */
     protected function parseExpression(string $operator, string $key): string
     {
         switch ($operator) {
+            case RequestOperators::BEGINS_WITH:
+                return sprintf('begins_with(%s, :%s)', $key, $key);
+            case RequestOperators::CONTAINS:
+                return sprintf('contains(%s, :%s)', $key, $key);
+            case RequestOperators::EQ:
+                return sprintf('%s = :%s', $key, $key);
             case RequestOperators::GT:
                 return sprintf('%s > :%s', $key, $key);
             case RequestOperators::GTE:
@@ -61,11 +71,8 @@ abstract class AbstractFilterExpressionAwareRequest extends AbstractItemRequest
                 return sprintf('%s < :%s', $key, $key);
             case RequestOperators::LTE:
                 return sprintf('%s <= :%s', $key, $key);
-            case RequestOperators::CONTAINS:
-                return sprintf('contains(%s, :%s)', $key, $key);
-            case RequestOperators::EQ:
             default:
-                return sprintf('%s = :%s', $key, $key);
+                throw new ErrorException('The provided operator is not supported.');
         }
     }
 }
