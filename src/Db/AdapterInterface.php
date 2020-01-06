@@ -50,9 +50,31 @@ interface AdapterInterface
     public function listTables(): array;
 
     /**
+     * Specifies the table to be used during an operation.
+     *
+     * @param string $tableName The table name.
+     * @return AdapterInterface An implementation of this interface.
+     */
+    public function useTable(string $tableName): AdapterInterface;
+
+    /**
+     * Retrieves all of the rows in a database table that meet the provided conditions. When an offset and limit
+     * are provided, the desired slice is returned.
+     *
+     * @see AdapterInterface::useTable()
+     * @param array $conditions The conditions.
+     * @param integer $offset OPTIONAL The offset.
+     * @param integer $limit OPTIONAL The limit.
+     * @return CollectionInterface A collection of rows.
+     * @throws DbException Thrown when a query error occurs.
+     */
+    public function findWhere(array $conditions, int $offset = 0, ?int $limit = null): CollectionInterface;
+
+    /**
      * Retrieves all of the rows in a database table. When an offset and limit
      * are provided, the desired slice is returned.
      *
+     * @see AdapterInterface::useTable()
      * @param integer $offset OPTIONAL The offset.
      * @param integer $limit OPTIONAL The limit.
      * @return CollectionInterface A collection of rows.
@@ -63,6 +85,7 @@ interface AdapterInterface
     /**
      * Retrieves the newest record from a database table.
      *
+     * @see AdapterInterface::useTable()
      * @return array The latest record.
      * @throws DbException Thrown when a query error occurs.
      */
@@ -71,6 +94,8 @@ interface AdapterInterface
     /**
      * Alias for AdapterInterface::findByPrimaryKey().
      *
+     * @see AdapterInterface::useTable()
+     * @see AdapterInterface::findByPrimaryKey()
      * @param mixed $id The record ID.
      * @return array The record.
      */
@@ -79,6 +104,7 @@ interface AdapterInterface
     /**
      * Retrieves a record from a database table by primary key.
      *
+     * @see AdapterInterface::useTable()
      * @param mixed $primaryKey The record primary key.
      * @return array The record.
      */
@@ -87,6 +113,7 @@ interface AdapterInterface
     /**
      * Inserts a record into a database table.
      *
+     * @see AdapterInterface::useTable()
      * @param array $data The record data.
      * @return bool Whether or not the record creation was successful.
      * @throws DbException Thrown when a query error occurs.
@@ -96,19 +123,12 @@ interface AdapterInterface
     /**
      * Deletes a record from a database table.
      *
+     * @see AdapterInterface::useTable()
      * @param mixed $id The record ID.
      * @return bool Whether or not the record deletion was successful.
      * @throws DbException Thrown when a query error occurs.
      */
     public function delete($id): bool;
-
-    /**
-     * Specifies the table to be used during the query.
-     *
-     * @param string $tableName The table name.
-     * @return AdapterInterface An implementation of this interface.
-     */
-    public function useTable(string $tableName): AdapterInterface;
 
     /**
      * Registers the client.
