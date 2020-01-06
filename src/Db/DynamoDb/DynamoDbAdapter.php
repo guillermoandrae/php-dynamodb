@@ -4,6 +4,7 @@ namespace Guillermoandrae\Db\DynamoDb;
 
 use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Exception\DynamoDbException;
+use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\Common\Collection;
 use Guillermoandrae\Common\CollectionInterface;
 use Guillermoandrae\Db\AdapterInterface;
