@@ -42,9 +42,9 @@ final class CreateTableRequest extends AbstractTableAwareRequest
     private $tags = [];
 
     /**
-     * Registers the JSON Marshaler, table name, and key schema with this object.
+     * Registers the Marshaler, table name, and key schema with this object.
      *
-     * @param Marshaler $marshaler The JSON Marshaler.
+     * @param Marshaler $marshaler The Marshaler.
      * @param string $tableName The table name.
      * @param array $keySchema OPTIONAL The key schema.
      */
