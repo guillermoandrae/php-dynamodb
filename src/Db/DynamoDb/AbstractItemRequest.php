@@ -18,10 +18,10 @@ abstract class AbstractItemRequest extends AbstractTableAwareRequest
      * Adds an ExpressionAttributeValue to the request.
      *
      * @param string $key The attribute token.
-     * @param string $value The attribute value.
+     * @param mixed $value The attribute value.
      * @return AbstractItemRequest An implementation of this abstract.
      */
-    final public function addExpressionAttributeValue(string $key, string $value): AbstractItemRequest
+    final public function addExpressionAttributeValue(string $key, $value): AbstractItemRequest
     {
         $this->expressionAttributeValues[sprintf(':%s', $key)] = $this->marshaler->marshalValue($value);
         return $this;
