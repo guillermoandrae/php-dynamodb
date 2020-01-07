@@ -16,10 +16,9 @@ The examples below are borrowed from Steps 1-5 found in [Amazon's PHP and Dynamo
 <?php
 
 require 'vendor/autoload.php';
-
-use Guillermoandrae\Db\DynamoDb\AttributeTypes;
-use Guillermoandrae\Db\DynamoDb\DynamoDbAdapter;
-use Guillermoandrae\Db\DynamoDb\KeyTypes;
+use Guillermoandrae\DynamoDb\DynamoDbAdapter;
+use Guillermoandrae\DynamoDb\AttributeTypes;
+use Guillermoandrae\DynamoDb\KeyTypes;
 
 // create a new adapter
 $adapter = new DynamoDbAdapter();

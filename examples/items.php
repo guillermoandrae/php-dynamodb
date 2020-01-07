@@ -2,9 +2,9 @@
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use Guillermoandrae\Db\DynamoDb\AttributeTypes;
-use Guillermoandrae\Db\DynamoDb\DynamoDbAdapter;
-use Guillermoandrae\Db\DynamoDb\KeyTypes;
+use Guillermoandrae\DynamoDb\AttributeTypes;
+use Guillermoandrae\DynamoDb\DynamoDbAdapter;
+use Guillermoandrae\DynamoDb\KeyTypes;
 
 // create a new adapter
 $adapter = new DynamoDbAdapter();
