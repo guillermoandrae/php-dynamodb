@@ -1,0 +1,53 @@
+<?php declare(strict_types=1);
+
+require dirname(__DIR__) . '/vendor/autoload.php';
+
+use Guillermoandrae\DynamoDb\AttributeTypes;
+use Guillermoandrae\DynamoDb\DynamoDbAdapter;
+use Guillermoandrae\DynamoDb\KeyTypes;
+
+// create a new adapter
+$adapter = new DynamoDbAdapter();
+
+try {
+    $tableName = 'myTable';
+
+    // create a table
+    $keys = [
+        'year' => [
+            'attributeType' => AttributeTypes::NUMBER,
+            'keyType' => KeyTypes::HASH
+        ],
+        'title' => [
+            'attributeType' => AttributeTypes::STRING,
+            'keyType' => KeyTypes::RANGE
+        ],
+    ];
+    $adapter->useTable($tableName)->createTable($keys);
+
+    // add an item to the table
+    $adapter->useTable($tableName)->insert([
+        'year' => 2015,
+        'title' => 'The Big New Movie',
+        'info' => [
+            'plot' => 'Nothing happens at all',
+            'rating' => 0,
+        ],
+    ]);
+
+    // fetch an item from the table
+    $item = $adapter->useTable($tableName)->findByPrimaryKey([
+        'year' => 2015,
+        'title' => 'The Big New Movie'
+    ]);
+
+    printf('Added item: %s - %s' . PHP_EOL, $item['year'], $item['title']);
+
+    print_r($item);
+
+    // delete the table
+    $adapter->useTable($tableName)->deleteTable();
+
+} catch (\Exception $ex) {
+    die($ex->getMessage());
+}

@@ -11,11 +11,11 @@ composer install guillermoandrae/php-dynamodb
 ```
 
 ## Quick Examples
-The examples below are borrowed from Steps 1-5 found in [Amazon's PHP and DynamoDB documentation](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.PHP.html) to illustrate this library's relative ease of use:
+The examples below are borrowed from [AWS' PHP and DynamoDB documentation](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.PHP.html) to illustrate this library's relative ease of use:
 ```php
 <?php declare(strict_types=1);
 
-require 'vendor/autoload.php';
+require dirname(__DIR__) . '/vendor/autoload.php';
 
 use Guillermoandrae\DynamoDb\DynamoDbAdapter;
 use Guillermoandrae\DynamoDb\AttributeTypes;
@@ -44,7 +44,10 @@ try {
     $adapter->useTable($tableName)->insert([
         'year' => 2015,
         'title' => 'The Big New Movie',
-        'plot' => 'Nothing happens at all'
+        'info' => [
+            'plot' => 'Nothing happens at all',
+            'rating' => 0,
+        ],
     ]);
 
     // fetch an item from the table
@@ -52,12 +55,13 @@ try {
         'year' => 2015,
         'title' => 'The Big New Movie'
     ]);
-    echo $item['plot'];
+
+    printf('Added item: %s - %s' . PHP_EOL, $item['year'], $item['title']);
 
     // delete the table
     $adapter->useTable($tableName)->deleteTable();
 
-} catch(\Exception $ex) {
+} catch (\Exception $ex) {
     die($ex->getMessage());
 }
 ```
