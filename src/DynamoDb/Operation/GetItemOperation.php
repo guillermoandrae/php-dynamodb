@@ -18,7 +18,7 @@ final class GetItemOperation extends AbstractKeyAwareOperation
             $results = $this->client->getItem($this->toArray());
             $item = [];
             if (is_array($results['Item'])) {
-                $item = $this->marshaler->unmarshalItem($results['Item']);
+                $item = $this->getMarshaler()->unmarshalItem($results['Item']);
             }
             return $item;
         } catch (DynamoDbException $ex) {

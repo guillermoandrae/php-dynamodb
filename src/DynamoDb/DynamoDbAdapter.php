@@ -37,7 +37,7 @@ final class DynamoDbAdapter extends AbstractDynamoDbClientAware implements Dynam
 
         if (empty($marshaler)) {
             $marshaler = MarshalerFactory::factory();
-            $this->marshaler = $marshaler;
+            $this->setMarshaler($marshaler);
             OperationFactory::setMarshaler($marshaler);
         }
     }
