@@ -8,6 +8,9 @@ use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\DynamoDb\Contract\AbstractItemOperation;
 use Guillermoandrae\DynamoDb\Exception;
 
+/**
+ * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#putitem
+ */
 final class PutItemOperation extends AbstractItemOperation
 {
     /**
@@ -54,7 +57,6 @@ final class PutItemOperation extends AbstractItemOperation
 
     /**
      * {@inheritDoc}
-     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#putitem
      */
     public function execute(): bool
     {

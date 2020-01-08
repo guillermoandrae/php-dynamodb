@@ -6,11 +6,13 @@ use Aws\DynamoDb\Exception\DynamoDbException;
 use Guillermoandrae\DynamoDb\Contract\AbstractTableAwareOperation;
 use Guillermoandrae\DynamoDb\Exception;
 
+/**
+ * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#describetable
+ */
 final class DescribeTableOperation extends AbstractTableAwareOperation
 {
     /**
      * {@inheritDoc}
-     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#describetable
      */
     public function execute(): ?array
     {

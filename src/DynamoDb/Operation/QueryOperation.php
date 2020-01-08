@@ -12,6 +12,9 @@ use Guillermoandrae\DynamoDb\Constant\Operators;
 use Guillermoandrae\DynamoDb\Contract\AbstractSearchOperation;
 use Guillermoandrae\DynamoDb\Exception;
 
+/**
+ * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#query
+ */
 final class QueryOperation extends AbstractSearchOperation
 {
     /**
@@ -95,7 +98,6 @@ final class QueryOperation extends AbstractSearchOperation
 
     /**
      * {@inheritDoc}
-     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#query
      */
     public function execute(): CollectionInterface
     {
