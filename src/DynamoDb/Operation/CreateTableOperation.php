@@ -247,8 +247,6 @@ final class CreateTableOperation extends AbstractTableAwareOperation
             throw new Exception($ex->getMessage());
         } catch (InvalidArgumentException $ex) {
             throw new Exception('Bad key schema: ' . $ex->getMessage());
-        } catch (\Exception $ex) {
-            die($ex->getMessage());
         }
     }
 }
