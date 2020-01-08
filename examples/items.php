@@ -2,9 +2,9 @@
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use Guillermoandrae\DynamoDb\AttributeTypes;
+use Guillermoandrae\DynamoDb\Constant\AttributeTypes;
+use Guillermoandrae\DynamoDb\Constant\KeyTypes;
 use Guillermoandrae\DynamoDb\DynamoDbAdapter;
-use Guillermoandrae\DynamoDb\KeyTypes;
 
 // create a new adapter
 $adapter = new DynamoDbAdapter();
@@ -14,7 +14,7 @@ try {
     $tableName = 'singers';
     $keys = [
         'name' => [
-            'attributeType' => AttributeTypes::STRING,
+            'attributeType' => \Guillermoandrae\DynamoDb\Constant\AttributeTypes::STRING,
             'keyType' => KeyTypes::HASH
         ],
         'year' => [
@@ -48,7 +48,7 @@ try {
     }
 
     // get an item
-    $item = $adapter->useTable($tableName)->findByPrimaryKey([
+    $item = $adapter->useTable($tableName)->find([
         'name' => 'Marvin Gaye',
         'year' => 1984
     ]);

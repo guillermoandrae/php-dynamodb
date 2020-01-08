@@ -3,9 +3,9 @@
 namespace GuillermoandraeTest\DynamoDb;
 
 use Aws\DynamoDb\DynamoDbClient;
+use Guillermoandrae\DynamoDb\Constant\Operators;
 use Guillermoandrae\DynamoDb\DynamoDbAdapter;
 use Guillermoandrae\DynamoDb\Exception;
-use Guillermoandrae\DynamoDb\RequestOperators;
 use PHPUnit\Framework\TestCase;
 
 final class DynamoDbAdapterTest extends TestCase
@@ -116,7 +116,7 @@ final class DynamoDbAdapterTest extends TestCase
             ],
             'sort' => [
                 'name' => 'age',
-                'operator' => RequestOperators::GTE,
+                'operator' => Operators::GTE,
                 'value' => 16
             ]
         ]);
@@ -124,42 +124,23 @@ final class DynamoDbAdapterTest extends TestCase
         $this->assertCount(2, $items);
     }
 
-    public function testBadFindLatest()
+    public function testBadFind()
     {
         $this->expectException(Exception::class);
-        $this->adapter->useTable('test')->findLatest();
+        $this->adapter->useTable('test')->find([]);
     }
 
-    public function testFindLatest()
+    public function testFind()
     {
         $adapter = $this->adapter->useTable('test');
         $adapter->createTable([
             'name' => ['attributeType' => 'S', 'keyType' => 'HASH'],
             'date' => ['attributeType' => 'N', 'keyType' => 'RANGE'],
         ]);
-        $adapter->insert(['name' => 'Guillermo', 'date' => time()]);
-        $adapter->insert(['name' => 'Fisher', 'date' => time()]);
-        $item = $adapter->findLatest();
-        $adapter->deleteTable();
-        $this->assertSame($item['name'], 'Fisher');
-    }
-
-    public function testBadFindById()
-    {
-        $this->expectException(Exception::class);
-        $this->adapter->useTable('test')->findById([]);
-    }
-
-    public function testFindById()
-    {
-        $adapter = $this->adapter->useTable('test');
-        $adapter->createTable([
-            'name' => ['attributeType' => 'S', 'keyType' => 'HASH'],
-            'date' => ['attributeType' => 'N', 'keyType' => 'RANGE'],
-        ]);
-        $key = ['name' => 'Guillermo', 'date' => time()];
-        $adapter->insert(array_merge(['name' => 'Guillermo', 'date' => time(), 'lastName' => 'Fisher']));
-        $item = $adapter->findById($key);
+        $timestamp = time();
+        $key = ['name' => 'Guillermo', 'date' => $timestamp];
+        $adapter->insert(array_merge($key, ['lastName' => 'Fisher']));
+        $item = $adapter->find($key);
         $this->assertSame($item['lastName'], 'Fisher');
         $adapter->deleteTable();
     }

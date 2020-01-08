@@ -18,8 +18,8 @@ The examples below are borrowed from [AWS' PHP and DynamoDB documentation](https
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 use Guillermoandrae\DynamoDb\DynamoDbAdapter;
-use Guillermoandrae\DynamoDb\AttributeTypes;
-use Guillermoandrae\DynamoDb\KeyTypes;
+use Guillermoandrae\DynamoDb\Constant\AttributeTypes;
+use Guillermoandrae\DynamoDb\Constant\KeyTypes;
 
 // create a new adapter
 $adapter = new DynamoDbAdapter();
@@ -51,7 +51,7 @@ try {
     ]);
 
     // fetch an item from the table
-    $item = $adapter->useTable($tableName)->findByPrimaryKey([
+    $item = $adapter->useTable($tableName)->find([
         'year' => 2015,
         'title' => 'The Big New Movie'
     ]);

@@ -2,9 +2,9 @@
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 
-use Guillermoandrae\DynamoDb\AttributeTypes;
+use Guillermoandrae\DynamoDb\Constant\AttributeTypes;
+use Guillermoandrae\DynamoDb\Constant\KeyTypes;
 use Guillermoandrae\DynamoDb\DynamoDbAdapter;
-use Guillermoandrae\DynamoDb\KeyTypes;
 
 // create a new adapter
 $adapter = new DynamoDbAdapter();
@@ -23,6 +23,11 @@ try {
             'keyType' => KeyTypes::RANGE
         ],
     ];
+
+    // check for the existence of a table
+    if ($adapter->useTable($tableName)->tableExists()) {
+        $adapter->useTable($tableName)->deleteTable();
+    }
 
     if ($adapter->useTable($tableName)->createTable($keys)) {
         printf("The '%s' table was successfully created!" . PHP_EOL, $tableName);
