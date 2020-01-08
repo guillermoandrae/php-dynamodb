@@ -2,11 +2,12 @@
 
 namespace Guillermoandrae\DynamoDb\Operation;
 
-use Aws\DynamoDb\Exception\DynamoDbException;
 use Guillermoandrae\DynamoDb\Contract\AbstractOperation;
 use Guillermoandrae\DynamoDb\Contract\LimitAwareOperationTrait;
-use Guillermoandrae\DynamoDb\Exception;
 
+/**
+ * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#listtables
+ */
 final class ListTablesOperation extends AbstractOperation
 {
     use LimitAwareOperationTrait;
@@ -45,15 +46,10 @@ final class ListTablesOperation extends AbstractOperation
 
     /**
      * {@inheritDoc}
-     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#listtables
      */
     public function execute(): ?array
     {
-        try {
-            $tables = $this->client->listTables($this->toArray());
-            return $tables['TableNames'];
-        } catch (DynamoDbException $ex) {
-            throw new Exception($ex->getMessage());
-        }
+        $tables = $this->client->listTables($this->toArray());
+        return $tables['TableNames'];
     }
 }
