@@ -19,7 +19,7 @@ final class DynamoDbClientFactory
     public static function factory(?array $options = []): DynamoDbClient
     {
         if (empty($options)) {
-            $options = static::$defaultOptions;
+            $options = self::$defaultOptions;
         }
         return new DynamoDbClient($options);
     }
