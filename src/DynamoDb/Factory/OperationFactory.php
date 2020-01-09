@@ -21,7 +21,7 @@ final class OperationFactory
      * @var Marshaler The Marshaler.
      */
     private static $marshaler;
-    
+
     /**
      * Creates and returns the desired request.
      *
@@ -52,6 +52,16 @@ final class OperationFactory
     }
 
     /**
+     * Returns the DynamoDb client.
+     *
+     * @return DynamoDbClient The DynamoDb client.
+     */
+    public static function getClient(): DynamoDbClient
+    {
+        return self::$client;
+    }
+
+    /**
      * Registers the DynamoDb client with this class.
      *
      * @param DynamoDbClient $client The DynamoDb client.
@@ -63,13 +73,13 @@ final class OperationFactory
     }
 
     /**
-     * Returns the DynamoDb client.
+     * Returns the Marshaler.
      *
-     * @return DynamoDbClient The DynamoDb client.
+     * @return Marshaler The Marshaler.
      */
-    public static function getClient(): DynamoDbClient
+    public static function getMarshaler(): Marshaler
     {
-        return self::$client;
+        return self::$marshaler;
     }
 
     /**
@@ -81,15 +91,5 @@ final class OperationFactory
     public static function setMarshaler(Marshaler $marshaler): void
     {
         self::$marshaler = $marshaler;
-    }
-
-    /**
-     * Returns the Marshaler.
-     *
-     * @return Marshaler The Marshaler.
-     */
-    public static function getMarshaler(): Marshaler
-    {
-        return self::$marshaler;
     }
 }

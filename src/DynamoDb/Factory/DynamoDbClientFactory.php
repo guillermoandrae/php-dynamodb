@@ -6,9 +6,12 @@ use Aws\DynamoDb\DynamoDbClient;
 
 final class DynamoDbClientFactory
 {
+    /**
+     * @var array The default client options.
+     */
     private static $defaultOptions = [
         'region' => 'us-west-2',
-        'version'  => 'latest',
+        'version' => 'latest',
         'endpoint' => 'http://localhost:8000',
         'credentials' => [
             'key' => 'not-a-real-key',
@@ -16,6 +19,12 @@ final class DynamoDbClientFactory
         ]
     ];
 
+    /**
+     * Returns a DynamoDb client.
+     *
+     * @param array|null $options OPTIONAL The client options.
+     * @return DynamoDbClient The DynamoDb client.
+     */
     public static function factory(?array $options = []): DynamoDbClient
     {
         if (empty($options)) {

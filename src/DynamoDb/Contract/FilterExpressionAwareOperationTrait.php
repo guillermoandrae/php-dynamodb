@@ -5,9 +5,9 @@ namespace Guillermoandrae\DynamoDb\Contract;
 use ErrorException;
 use Guillermoandrae\DynamoDb\Constant\Operators;
 
-abstract class AbstractFilterExpressionAwareOperation extends AbstractItemOperation
+trait FilterExpressionAwareOperationTrait
 {
-    use LimitAwareOperationTrait;
+    use DynamoDbClientAwareTrait;
 
     /**
      * @var string The filter expression.
@@ -15,13 +15,18 @@ abstract class AbstractFilterExpressionAwareOperation extends AbstractItemOperat
     protected $filterExpression;
 
     /**
+     * @var array Values that can be substituted in an expression.
+     */
+    protected $expressionAttributeValues = [];
+
+    /**
      * Registers the filter expression with this object.
      *
      * @param array $data The filter expression data.
-     * @return AbstractFilterExpressionAwareOperation An implementation of this abstract.
+     * @return mixed This object.
      * @throws ErrorException
      */
-    final public function setFilterExpression(array $data): AbstractFilterExpressionAwareOperation
+    final public function setFilterExpression(array $data)
     {
         $filterExpressionArray = [];
         foreach ($data as $key => $options) {
@@ -30,21 +35,6 @@ abstract class AbstractFilterExpressionAwareOperation extends AbstractItemOperat
         }
         $this->filterExpression = implode(' and ', $filterExpressionArray);
         return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function toArray(): array
-    {
-        $query = parent::toArray();
-        if ($this->limit) {
-            $query['Limit'] = $this->limit;
-        }
-        if ($this->filterExpression) {
-            $query['FilterExpression'] = $this->filterExpression;
-        }
-        return $query;
     }
 
     /**
@@ -75,5 +65,33 @@ abstract class AbstractFilterExpressionAwareOperation extends AbstractItemOperat
             default:
                 throw new ErrorException('The provided operator is not supported.');
         }
+    }
+
+    /**
+     * Adds an ExpressionAttributeValue to the request.
+     *
+     * @param string $key The attribute token.
+     * @param mixed $value The attribute value.
+     * @return mixed This object.
+     */
+    final public function addExpressionAttributeValue(string $key, $value)
+    {
+        $this->expressionAttributeValues[sprintf(':%s', $key)] = $this->getMarshaler()->marshalValue($value);
+        return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function toArray(): array
+    {
+        $query = [];
+        if (!empty($this->filterExpression)) {
+            $query['FilterExpression'] = $this->filterExpression;
+        }
+        if (!empty($this->expressionAttributeValues)) {
+            $query['ExpressionAttributeValues'] = $this->expressionAttributeValues;
+        }
+        return $query;
     }
 }

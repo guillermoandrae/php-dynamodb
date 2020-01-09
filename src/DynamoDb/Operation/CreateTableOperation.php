@@ -7,14 +7,14 @@ use Aws\DynamoDb\Exception\DynamoDbException;
 use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\DynamoDb\Constant\BillingModes;
 use Guillermoandrae\DynamoDb\Constant\KeyTypes;
-use Guillermoandrae\DynamoDb\Contract\AbstractTableAwareOperation;
+use Guillermoandrae\DynamoDb\Contract\AbstractTableOperation;
 use Guillermoandrae\DynamoDb\Exception;
 use InvalidArgumentException;
 
 /**
  * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#createtable
  */
-final class CreateTableOperation extends AbstractTableAwareOperation
+final class CreateTableOperation extends AbstractTableOperation
 {
     /**
      * @var array Attributes describing the key schema.
@@ -25,7 +25,7 @@ final class CreateTableOperation extends AbstractTableAwareOperation
      * @var array The primary key.
      */
     private $keySchema = [];
-    
+
     /**
      * @var int The maximum number of strongly consistent reads consumed per second.
      */
@@ -68,6 +68,39 @@ final class CreateTableOperation extends AbstractTableAwareOperation
     }
 
     /**
+     * Registers the key schema and attribute definitions.
+     *
+     * The key schema argument should be an associative array with the following keys:
+     *
+     * $keySchema = [
+     *      'MyAttribute' => [ // this is the name of your attribute
+     *          'attributeType' => 'S', // this can be one of the AttributeTypes constants
+     *          'keyType' => 'HASH' // this can be either 'HASH' or 'RANGE' (or one of the KeyTypes constants)
+     *     ]
+     * ];
+     *
+     * This method will use the information available in the provided array to build the 'KeySchema' and
+     * 'AttributeDefinitions' arrays needed for table creation requests.
+     *
+     * @param array $keySchema The key schema.
+     * @return CreateTableOperation This object.
+     */
+    public function setKeySchema(array $keySchema): CreateTableOperation
+    {
+        foreach ($keySchema as $name => $data) {
+            $this->keySchema[] = [
+                'AttributeName' => $name,
+                'KeyType' => $data['keyType']
+            ];
+            $this->attributeDefinitions[] = [
+                'AttributeName' => $name,
+                'AttributeType' => $data['attributeType']
+            ];
+        }
+        return $this;
+    }
+
+    /**
      * Registers the partition key.
      *
      * @param string $name The name of the partition key.
@@ -100,39 +133,6 @@ final class CreateTableOperation extends AbstractTableAwareOperation
                 'keyType' => KeyTypes::RANGE
             ]
         ]);
-        return $this;
-    }
-
-    /**
-     * Registers the key schema and attribute definitions.
-     *
-     * The key schema argument should be an associative array with the following keys:
-     *
-     * $keySchema = [
-     *      'MyAttribute' => [ // this is the name of your attribute
-     *          'attributeType' => 'S', // this can be one of the AttributeTypes constants
-     *          'keyType' => 'HASH' // this can be either 'HASH' or 'RANGE' (or one of the KeyTypes constants)
-     *     ]
-     * ];
-     *
-     * This method will use the information available in the provided array to build the 'KeySchema' and
-     * 'AttributeDefinitions' arrays needed for table creation requests.
-     *
-     * @param array $keySchema The key schema.
-     * @return CreateTableOperation This object.
-     */
-    public function setKeySchema(array $keySchema): CreateTableOperation
-    {
-        foreach ($keySchema as $name => $data) {
-            $this->keySchema[] = [
-                'AttributeName' => $name,
-                'KeyType' => $data['keyType']
-            ];
-            $this->attributeDefinitions[] = [
-                'AttributeName' => $name,
-                'AttributeType' => $data['attributeType']
-            ];
-        }
         return $this;
     }
 
@@ -214,6 +214,22 @@ final class CreateTableOperation extends AbstractTableAwareOperation
     /**
      * {@inheritDoc}
      */
+    public function execute(): bool
+    {
+        try {
+            $this->client->createTable($this->toArray());
+            //$this->client->waitUntil('TableExists', ['TableName' => $this->toArray()['TableName']]);
+            return true;
+        } catch (DynamoDbException $ex) {
+            throw new Exception($ex->getMessage());
+        } catch (InvalidArgumentException $ex) {
+            throw new Exception('Bad key schema: ' . $ex->getMessage());
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function toArray(): array
     {
         $query = parent::toArray();
@@ -231,21 +247,5 @@ final class CreateTableOperation extends AbstractTableAwareOperation
             $query['Tags'] = $this->tags;
         }
         return $query;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function execute(): bool
-    {
-        try {
-            $this->client->createTable($this->toArray());
-            //$this->client->waitUntil('TableExists', ['TableName' => $this->toArray()['TableName']]);
-            return true;
-        } catch (DynamoDbException $ex) {
-            throw new Exception($ex->getMessage());
-        } catch (InvalidArgumentException $ex) {
-            throw new Exception('Bad key schema: ' . $ex->getMessage());
-        }
     }
 }

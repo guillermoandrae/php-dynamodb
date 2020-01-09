@@ -15,6 +15,20 @@ final class QueryOperationTest extends TestCase
      */
     private $request;
 
+    public function testSetLimit()
+    {
+        $expectedLimit = 50;
+        $this->request->setLimit($expectedLimit);
+        $this->assertEquals($expectedLimit, $this->request->toArray()['Limit']);
+    }
+
+    public function testSetReturnConsumedCapacity()
+    {
+        $expectedReturnConsumedCapacity = 50;
+        $this->request->setReturnConsumedCapacity($expectedReturnConsumedCapacity);
+        $this->assertEquals($expectedReturnConsumedCapacity, $this->request->toArray()['ReturnConsumedCapacity']);
+    }
+
     public function testSetPartitionKeyConditionExpression()
     {
         $this->request->setPartitionKeyConditionExpression('test', 'something');

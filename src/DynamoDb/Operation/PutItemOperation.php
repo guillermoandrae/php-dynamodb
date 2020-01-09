@@ -14,22 +14,24 @@ use Guillermoandrae\DynamoDb\Exception;
 final class PutItemOperation extends AbstractItemOperation
 {
     /**
-     * @var array $item The item data.
+     * @var array $itemData The item data.
      */
-    private $item;
-    
+    protected $itemData;
+
     /**
-     * PutItemRequest constructor.
+     * Registers the DynamoDb client, Marshaler, table name, and item data with this object.
      *
      * @param DynamoDbClient $client The DynamoDb client.
      * @param Marshaler $marshaler The Marshaler.
      * @param string $tableName The table name.
-     * @param array $item The item data.
+     * @param array $itemData The item data.
      */
-    public function __construct(DynamoDbClient $client, Marshaler $marshaler, string $tableName, array $item)
+    public function __construct(DynamoDbClient $client, Marshaler $marshaler, string $tableName, array $itemData)
     {
-        parent::__construct($client, $marshaler, $tableName);
-        $this->setItem($item);
+        $this->setClient($client);
+        $this->setMarshaler($marshaler);
+        $this->setTableName($tableName);
+        $this->setItemData($itemData);
     }
 
     /**
@@ -38,21 +40,10 @@ final class PutItemOperation extends AbstractItemOperation
      * @param array $item The item data.
      * @return PutItemOperation This object.
      */
-    public function setItem(array $item): PutItemOperation
+    public function setItemData(array $item): PutItemOperation
     {
-        $this->item = $this->marshaler->marshalItem($item);
+        $this->itemData = $this->marshaler->marshalItem($item);
         return $this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function toArray(): array
-    {
-        return [
-            'TableName' => $this->tableName,
-            'Item' => $this->item,
-        ];
     }
 
     /**
@@ -61,10 +52,20 @@ final class PutItemOperation extends AbstractItemOperation
     public function execute(): bool
     {
         try {
-            $this->client->putItem($this->toArray());
+            $this->getClient()->putItem($this->toArray());
             return true;
         } catch (DynamoDbException $ex) {
             throw new Exception($ex->getMessage());
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function toArray(): array
+    {
+        return array_merge(parent::toArray(), [
+            'Item' => $this->itemData,
+        ]);
     }
 }

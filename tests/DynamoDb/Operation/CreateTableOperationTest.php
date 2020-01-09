@@ -8,10 +8,12 @@ use Guillermoandrae\DynamoDb\Constant\KeyTypes;
 use Guillermoandrae\DynamoDb\Factory\DynamoDbClientFactory;
 use Guillermoandrae\DynamoDb\Factory\MarshalerFactory;
 use Guillermoandrae\DynamoDb\Operation\CreateTableOperation;
-use PHPUnit\Framework\TestCase;
+use GuillermoandraeTest\DynamoDb\TestCase;
 
 final class CreateTableOperationTest extends TestCase
 {
+    private $tableName = 'test';
+
     private $data = ['name' => ['attributeType' => AttributeTypes::STRING, 'keyType' => KeyTypes::HASH]];
 
     public function testSetPartitionKey()

@@ -3,15 +3,14 @@
 namespace GuillermoandraeTest\DynamoDb\Contract;
 
 use Guillermoandrae\DynamoDb\Constant\Operators;
-use Guillermoandrae\DynamoDb\Contract\AbstractFilterExpressionAwareOperation;
-use Guillermoandrae\DynamoDb\Factory\DynamoDbClientFactory;
+use Guillermoandrae\DynamoDb\Contract\FilterExpressionAwareOperationTrait;
 use Guillermoandrae\DynamoDb\Factory\MarshalerFactory;
 use PHPUnit\Framework\TestCase;
 
-final class FilterExpressionAwareOperationTest extends TestCase
+final class FilterExpressionAwareOperationTraitTest extends TestCase
 {
     /**
-     * @var AbstractFilterExpressionAwareOperation The request.
+     * @var FilterExpressionAwareOperationTrait The request.
      */
     private $request;
 
@@ -91,8 +90,6 @@ final class FilterExpressionAwareOperationTest extends TestCase
             ]
         ]);
         $expectedQuery = [
-            'TableName' => 'test',
-            'ReturnConsumedCapacity' => 'NONE',
             'FilterExpression' => 'color = :color and contains(shape, :shape) and width >= :width',
             'ExpressionAttributeValues' => [
                 ':color' => [
@@ -108,34 +105,13 @@ final class FilterExpressionAwareOperationTest extends TestCase
         ];
         $this->assertEquals($expectedQuery, $this->request->toArray());
     }
-    
-    public function testSetReturnConsumedCapacity()
-    {
-        $this->request->setReturnConsumedCapacity('INDEXES');
-        $expectedQuery = [
-            'TableName' => 'test',
-            'ReturnConsumedCapacity' => 'INDEXES'
-        ];
-        $this->assertEquals($expectedQuery, $this->request->toArray());
-    }
-
-    public function testSetLimit()
-    {
-        $this->request->setLimit(2);
-        $expectedQuery = [
-            'TableName' => 'test',
-            'ReturnConsumedCapacity' => 'NONE',
-            'Limit' => 2
-        ];
-        $this->assertEquals($expectedQuery, $this->request->toArray());
-    }
 
     protected function setUp(): void
     {
-        $this->request = $this->getMockForAbstractClass(
-            AbstractFilterExpressionAwareOperation::class,
-            [DynamoDbClientFactory::factory(), MarshalerFactory::factory(), 'test']
+        $this->request = $this->getMockForTrait(
+            FilterExpressionAwareOperationTrait::class
         );
+        $this->request->setMarshaler(MarshalerFactory::factory());
     }
 
     protected function tearDown(): void

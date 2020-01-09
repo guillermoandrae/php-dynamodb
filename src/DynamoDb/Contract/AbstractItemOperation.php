@@ -2,42 +2,46 @@
 
 namespace Guillermoandrae\DynamoDb\Contract;
 
-use Guillermoandrae\DynamoDb\Constant\ConsumedCapacityOptions;
+use Aws\DynamoDb\DynamoDbClient;
+use Aws\DynamoDb\Marshaler;
 
-abstract class AbstractItemOperation extends AbstractTableAwareOperation
+abstract class AbstractItemOperation extends AbstractOperation implements ItemOperationInterface
 {
-    /**
-     * @var array Values that can be substituted in an expression.
-     */
-    protected $expressionAttributeValues = [];
-    
-    /**
-     * @var string The level of detail about provisioned throughput consumption that is returned in the response.
-     */
-    protected $returnConsumedCapacity = ConsumedCapacityOptions::NONE;
-
-    /**
-     * Adds an ExpressionAttributeValue to the request.
-     *
-     * @param string $key The attribute token.
-     * @param mixed $value The attribute value.
-     * @return AbstractItemOperation An implementation of this abstract.
-     */
-    final public function addExpressionAttributeValue(string $key, $value): AbstractItemOperation
-    {
-        $this->expressionAttributeValues[sprintf(':%s', $key)] = $this->marshaler->marshalValue($value);
-        return $this;
+    use FilterExpressionAwareOperationTrait, ReturnConsumedCapacityAwareOperationTrait {
+        FilterExpressionAwareOperationTrait::toArray as filterExpressionAwareTraitToArray;
+        ReturnConsumedCapacityAwareOperationTrait::toArray as returnConsumedCapacityAwareTraitToArray;
     }
 
     /**
-     * Registers the desired level of consumption detail to return.
-     *
-     * @param string $returnConsumedCapacity The level of consumption detail to return.
-     * @return AbstractItemOperation An implementation of this abstract.
+     * @var array The primary key.
      */
-    final public function setReturnConsumedCapacity(string $returnConsumedCapacity): AbstractItemOperation
+    protected $primaryKey;
+
+    /**
+     * Registers the DynamoDb client, Marshaler, and table name with this object.
+     *
+     * @param DynamoDbClient $client The DynamoDb client.
+     * @param Marshaler $marshaler The Marshaler.
+     * @param string $tableName The table name.
+     * @param array $primaryKey The primary key.
+     */
+    public function __construct(DynamoDbClient $client, Marshaler $marshaler, string $tableName, array $primaryKey)
     {
-        $this->returnConsumedCapacity = $returnConsumedCapacity;
+        $this->setClient($client);
+        $this->setMarshaler($marshaler);
+        $this->setTableName($tableName);
+        $this->setPrimaryKey($primaryKey);
+    }
+
+    /**
+     * Registers the operation's primary key with this object.
+     *
+     * @param array $primaryKey The primary key values to be used when retrieving items.
+     * @return mixed An implementation of this abstract.
+     */
+    public function setPrimaryKey(array $primaryKey)
+    {
+        $this->primaryKey = $this->getMarshaler()->marshalItem($primaryKey);
         return $this;
     }
 
@@ -47,10 +51,9 @@ abstract class AbstractItemOperation extends AbstractTableAwareOperation
     public function toArray(): array
     {
         $query = parent::toArray();
-        if (!empty($this->expressionAttributeValues)) {
-            $query['ExpressionAttributeValues'] = $this->expressionAttributeValues;
-        }
-        $query['ReturnConsumedCapacity'] = $this->returnConsumedCapacity;
+        $query += $this->returnConsumedCapacityAwareTraitToArray();
+        $query += $this->filterExpressionAwareTraitToArray();
+        $query['Key'] = $this->primaryKey;
         return $query;
     }
 }

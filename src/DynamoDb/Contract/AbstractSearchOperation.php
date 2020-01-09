@@ -2,8 +2,14 @@
 
 namespace Guillermoandrae\DynamoDb\Contract;
 
-abstract class AbstractSearchOperation extends AbstractFilterExpressionAwareOperation
+abstract class AbstractSearchOperation extends AbstractOperation implements SearchOperationInterface
 {
+    use LimitAwareOperationTrait, FilterExpressionAwareOperationTrait, ReturnConsumedCapacityAwareOperationTrait {
+        LimitAwareOperationTrait::toArray as limitAwareTraitToArray;
+        FilterExpressionAwareOperationTrait::toArray as filterExpressionAwareTraitToArray;
+        ReturnConsumedCapacityAwareOperationTrait::toArray as returnConsumedCapacityAwareTraitToArray;
+    }
+
     /**
      * @var boolean Whether or not to scan forward.
      */
@@ -95,6 +101,11 @@ abstract class AbstractSearchOperation extends AbstractFilterExpressionAwareOper
     public function toArray(): array
     {
         $query = parent::toArray();
+        if ($this->limit) {
+            $query += $this->limitAwareTraitToArray();
+        }
+        $query += $this->returnConsumedCapacityAwareTraitToArray();
+        $query += $this->filterExpressionAwareTraitToArray();
         $query['ScanIndexForward'] = $this->scanIndexForward;
         $query['ConsistentRead'] = $this->consistentRead;
         if (!empty($this->indexName)) {

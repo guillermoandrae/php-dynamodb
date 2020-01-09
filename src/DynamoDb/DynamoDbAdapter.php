@@ -5,14 +5,16 @@ namespace Guillermoandrae\DynamoDb;
 use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\Common\CollectionInterface;
-use Guillermoandrae\DynamoDb\Contract\AbstractDynamoDbClientAware;
 use Guillermoandrae\DynamoDb\Contract\DynamoDbAdapterInterface;
+use Guillermoandrae\DynamoDb\Contract\DynamoDbClientAwareTrait;
 use Guillermoandrae\DynamoDb\Factory\DynamoDbClientFactory;
 use Guillermoandrae\DynamoDb\Factory\MarshalerFactory;
 use Guillermoandrae\DynamoDb\Factory\OperationFactory;
 
-final class DynamoDbAdapter extends AbstractDynamoDbClientAware implements DynamoDbAdapterInterface
+final class DynamoDbAdapter implements DynamoDbAdapterInterface
 {
+    use DynamoDbClientAwareTrait;
+
     /**
      * @var string The table name.
      */
@@ -77,7 +79,6 @@ final class DynamoDbAdapter extends AbstractDynamoDbClientAware implements Dynam
 
     /**
      * {@inheritDoc}
-     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#listtables
      */
     public function tableExists(string $tableName = ''): bool
     {
@@ -96,7 +97,6 @@ final class DynamoDbAdapter extends AbstractDynamoDbClientAware implements Dynam
 
     /**
      * {@inheritDoc}
-     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#listtables
      */
     public function listTables(): ?array
     {
@@ -114,7 +114,6 @@ final class DynamoDbAdapter extends AbstractDynamoDbClientAware implements Dynam
 
     /**
      * {@inheritDoc}
-     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#query
      */
     public function findWhere(array $conditions, int $offset = 0, ?int $limit = null): CollectionInterface
     {
@@ -123,7 +122,6 @@ final class DynamoDbAdapter extends AbstractDynamoDbClientAware implements Dynam
 
     /**
      * {@inheritDoc}
-     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#scan
      */
     public function findAll(int $offset = 0, ?int $limit = null, ?array $conditions = []): CollectionInterface
     {
@@ -132,7 +130,6 @@ final class DynamoDbAdapter extends AbstractDynamoDbClientAware implements Dynam
 
     /**
      * {@inheritDoc}
-     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#getitem
      */
     public function find($primaryKey): array
     {
@@ -141,7 +138,6 @@ final class DynamoDbAdapter extends AbstractDynamoDbClientAware implements Dynam
 
     /**
      * {@inheritDoc}
-     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#putitem
      */
     public function insert(array $data): bool
     {
@@ -150,7 +146,6 @@ final class DynamoDbAdapter extends AbstractDynamoDbClientAware implements Dynam
 
     /**
      * {@inheritDoc}
-     * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#deleteitem
      */
     public function delete($id): bool
     {

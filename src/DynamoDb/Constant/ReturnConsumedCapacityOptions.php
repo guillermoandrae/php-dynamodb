@@ -2,7 +2,7 @@
 
 namespace Guillermoandrae\DynamoDb\Constant;
 
-final class ConsumedCapacityOptions
+final class ReturnConsumedCapacityOptions
 {
     /**
      * @var string

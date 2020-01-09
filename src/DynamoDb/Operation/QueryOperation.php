@@ -89,16 +89,6 @@ final class QueryOperation extends AbstractSearchOperation
     /**
      * {@inheritDoc}
      */
-    public function toArray(): array
-    {
-        $query = parent::toArray();
-        $query['KeyConditionExpression'] = $this->keyConditionExpression;
-        return $query;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function execute(): CollectionInterface
     {
         try {
@@ -111,5 +101,15 @@ final class QueryOperation extends AbstractSearchOperation
         } catch (DynamoDbException $ex) {
             throw new Exception($ex->getMessage());
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function toArray(): array
+    {
+        $query = parent::toArray();
+        $query['KeyConditionExpression'] = $this->keyConditionExpression;
+        return $query;
     }
 }

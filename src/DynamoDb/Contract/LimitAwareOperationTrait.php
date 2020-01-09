@@ -20,4 +20,14 @@ trait LimitAwareOperationTrait
         $this->limit = $limit;
         return $this;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function toArray(): array
+    {
+        return [
+            'Limit' => $this->limit
+        ];
+    }
 }

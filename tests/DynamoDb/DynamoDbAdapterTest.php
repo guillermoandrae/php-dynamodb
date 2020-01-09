@@ -4,17 +4,10 @@ namespace GuillermoandraeTest\DynamoDb;
 
 use Aws\DynamoDb\DynamoDbClient;
 use Guillermoandrae\DynamoDb\Constant\Operators;
-use Guillermoandrae\DynamoDb\DynamoDbAdapter;
 use Guillermoandrae\DynamoDb\Exception;
-use PHPUnit\Framework\TestCase;
 
 final class DynamoDbAdapterTest extends TestCase
 {
-    /**
-     * @var DynamoDbAdapter
-     */
-    private $adapter;
-
     public function testCreateDeleteListTable()
     {
         $this->adapter->useTable('widgets')->createTable([
@@ -174,18 +167,5 @@ final class DynamoDbAdapterTest extends TestCase
     public function testGetClient()
     {
         $this->assertInstanceOf(DynamoDbClient::class, $this->adapter->getClient());
-    }
-
-    protected function setUp(): void
-    {
-        $this->adapter = new DynamoDbAdapter();
-    }
-
-    protected function tearDown(): void
-    {
-        $tables = $this->adapter->listTables();
-        foreach ($tables as $table) {
-            $this->adapter->useTable($table)->deleteTable();
-        }
     }
 }

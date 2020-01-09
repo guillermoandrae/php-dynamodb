@@ -2,20 +2,36 @@
 
 namespace Guillermoandrae\DynamoDb\Operation;
 
-use Guillermoandrae\DynamoDb\Contract\AbstractOperation;
+use Aws\DynamoDb\DynamoDbClient;
+use Aws\DynamoDb\Marshaler;
+use Guillermoandrae\DynamoDb\Contract\AbstractTableOperation;
 use Guillermoandrae\DynamoDb\Contract\LimitAwareOperationTrait;
 
 /**
  * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#listtables
  */
-final class ListTablesOperation extends AbstractOperation
+final class ListTablesOperation extends AbstractTableOperation
 {
-    use LimitAwareOperationTrait;
+    use LimitAwareOperationTrait {
+        LimitAwareOperationTrait::toArray as limitAwareTraitToArray;
+    }
 
     /**
      * @var string The name of the last table in the current page of results.
      */
     protected $lastEvaluatedTableName;
+
+    /**
+     * Registers the DynamoDb client and Marshaler with this object.
+     *
+     * @param DynamoDbClient $client The DynamoDb client.
+     * @param Marshaler $marshaler The Marshaler.
+     */
+    public function __construct(DynamoDbClient $client, Marshaler $marshaler)
+    {
+        $this->setClient($client);
+        $this->setMarshaler($marshaler);
+    }
 
     /**
      * Registers the name of table to be used as the last in the current page of results.
@@ -32,24 +48,25 @@ final class ListTablesOperation extends AbstractOperation
     /**
      * {@inheritDoc}
      */
-    public function toArray(): array
+    public function execute(): ?array
     {
-        $query = [];
-        if ($this->lastEvaluatedTableName) {
-            $query['LastEvaluatedTableName'] = $this->lastEvaluatedTableName;
-        }
-        if ($this->limit) {
-            $query['Limit'] = $this->limit;
-        }
-        return $query;
+        $tables = $this->client->listTables($this->toArray());
+        return $tables['TableNames'];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function execute(): ?array
+    public function toArray(): array
     {
-        $tables = $this->client->listTables($this->toArray());
-        return $tables['TableNames'];
+        $query = parent::toArray();
+        unset($query['TableName']);
+        if ($this->lastEvaluatedTableName) {
+            $query['LastEvaluatedTableName'] = $this->lastEvaluatedTableName;
+        }
+        if ($this->limit) {
+            $query += $this->limitAwareTraitToArray();
+        }
+        return $query;
     }
 }
