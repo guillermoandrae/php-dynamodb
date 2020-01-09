@@ -21,7 +21,7 @@ final class CreateTableOperationTest extends TestCase
         $request = new CreateTableOperation(
             DynamoDbClientFactory::factory(),
             MarshalerFactory::factory(),
-            'test'
+            $this->tableName
         );
         $request->setPartitionKey('test', AttributeTypes::STRING);
         $this->assertEquals(KeyTypes::HASH, $request->toArray()['KeySchema'][0]['KeyType']);
@@ -32,7 +32,7 @@ final class CreateTableOperationTest extends TestCase
         $request = new CreateTableOperation(
             DynamoDbClientFactory::factory(),
             MarshalerFactory::factory(),
-            'test'
+            $this->tableName
         );
         $request->setSortKey('test', AttributeTypes::STRING);
         $this->assertEquals(KeyTypes::RANGE, $request->toArray()['KeySchema'][0]['KeyType']);
@@ -43,7 +43,7 @@ final class CreateTableOperationTest extends TestCase
         $request = new CreateTableOperation(
             DynamoDbClientFactory::factory(),
             MarshalerFactory::factory(),
-            'test',
+            $this->tableName,
             $this->data
         );
         $request->setReadCapacityUnits(10);
@@ -55,7 +55,7 @@ final class CreateTableOperationTest extends TestCase
         $request = new CreateTableOperation(
             DynamoDbClientFactory::factory(),
             MarshalerFactory::factory(),
-            'test',
+            $this->tableName,
             $this->data
         );
         $request->setWriteCapacityUnits(20);
@@ -67,7 +67,7 @@ final class CreateTableOperationTest extends TestCase
         $request = new CreateTableOperation(
             DynamoDbClientFactory::factory(),
             MarshalerFactory::factory(),
-            'test',
+            $this->tableName,
             $this->data
         );
         $request->setBillingMode(BillingModes::PAY_PER_REQUEST);
@@ -79,7 +79,7 @@ final class CreateTableOperationTest extends TestCase
         $request = new CreateTableOperation(
             DynamoDbClientFactory::factory(),
             MarshalerFactory::factory(),
-            'test',
+            $this->tableName,
             $this->data
         );
         $request->setSSESpecification(true, 'someKey');
@@ -93,7 +93,7 @@ final class CreateTableOperationTest extends TestCase
         $request = new CreateTableOperation(
             DynamoDbClientFactory::factory(),
             MarshalerFactory::factory(),
-            'test',
+            $this->tableName,
             $this->data
         );
         $request->addTag('someKey', 'someValue');

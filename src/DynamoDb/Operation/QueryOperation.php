@@ -109,7 +109,9 @@ final class QueryOperation extends AbstractSearchOperation
     public function toArray(): array
     {
         $query = parent::toArray();
-        $query['KeyConditionExpression'] = $this->keyConditionExpression;
+        if (!empty($this->keyConditionExpression)) {
+            $query['KeyConditionExpression'] = $this->keyConditionExpression;
+        }
         return $query;
     }
 }

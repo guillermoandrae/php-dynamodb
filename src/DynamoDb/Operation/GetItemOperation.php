@@ -4,7 +4,6 @@ namespace Guillermoandrae\DynamoDb\Operation;
 
 use Aws\DynamoDb\Exception\DynamoDbException;
 use Guillermoandrae\DynamoDb\Contract\AbstractItemOperation;
-use Guillermoandrae\DynamoDb\Contract\KeyAwareTrait;
 use Guillermoandrae\DynamoDb\Exception;
 
 /**
