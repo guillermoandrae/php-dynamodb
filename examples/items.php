@@ -84,5 +84,5 @@ try {
     $adapter->useTable($tableName)->deleteTable();
 
 } catch (\Exception $ex) {
-    die($ex->getMessage());
+    die($ex->getMessage() . PHP_EOL);
 }
