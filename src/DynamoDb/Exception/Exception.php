@@ -1,6 +1,6 @@
 <?php
 
-namespace Guillermoandrae\DynamoDb;
+namespace Guillermoandrae\DynamoDb\Exception;
 
 use ErrorException;
 

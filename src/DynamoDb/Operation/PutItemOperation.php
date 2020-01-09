@@ -6,7 +6,7 @@ use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Exception\DynamoDbException;
 use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\DynamoDb\Contract\AbstractItemOperation;
-use Guillermoandrae\DynamoDb\Exception;
+use Guillermoandrae\DynamoDb\Factory\ExceptionFactory;
 
 /**
  * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#putitem
@@ -55,7 +55,7 @@ final class PutItemOperation extends AbstractItemOperation
             $this->getClient()->putItem($this->toArray());
             return true;
         } catch (DynamoDbException $ex) {
-            throw new Exception($ex->getMessage());
+            throw ExceptionFactory::factory($ex);
         }
     }
 

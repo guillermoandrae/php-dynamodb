@@ -8,8 +8,8 @@ use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\DynamoDb\Constant\BillingModes;
 use Guillermoandrae\DynamoDb\Constant\KeyTypes;
 use Guillermoandrae\DynamoDb\Contract\AbstractTableOperation;
-use Guillermoandrae\DynamoDb\Exception;
-use InvalidArgumentException;
+use Guillermoandrae\DynamoDb\Exception\Exception;
+use Guillermoandrae\DynamoDb\Factory\ExceptionFactory;
 
 /**
  * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#createtable
@@ -221,9 +221,9 @@ final class CreateTableOperation extends AbstractTableOperation
             //$this->client->waitUntil('TableExists', ['TableName' => $this->toArray()['TableName']]);
             return true;
         } catch (DynamoDbException $ex) {
+            throw ExceptionFactory::factory($ex);
+        } catch (\Exception $ex) {
             throw new Exception($ex->getMessage());
-        } catch (InvalidArgumentException $ex) {
-            throw new Exception('Bad key schema: ' . $ex->getMessage());
         }
     }
 

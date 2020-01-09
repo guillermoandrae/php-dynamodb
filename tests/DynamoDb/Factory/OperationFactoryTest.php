@@ -2,7 +2,7 @@
 
 namespace GuillermoandraeTest\DynamoDb\Factory;
 
-use Guillermoandrae\DynamoDb\Exception;
+use Guillermoandrae\DynamoDb\Exception\Exception;
 use Guillermoandrae\DynamoDb\Factory\OperationFactory;
 use PHPUnit\Framework\TestCase;
 

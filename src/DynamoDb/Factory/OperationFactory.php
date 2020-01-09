@@ -5,7 +5,7 @@ namespace Guillermoandrae\DynamoDb\Factory;
 use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\DynamoDb\Contract\OperationInterface;
-use Guillermoandrae\DynamoDb\Exception;
+use Guillermoandrae\DynamoDb\Exception\Exception;
 use ICanBoogie\Inflector;
 use ReflectionClass;
 use ReflectionException;

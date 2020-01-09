@@ -4,7 +4,7 @@ namespace GuillermoandraeTest\DynamoDb;
 
 use Aws\DynamoDb\DynamoDbClient;
 use Guillermoandrae\DynamoDb\Constant\Operators;
-use Guillermoandrae\DynamoDb\Exception;
+use Guillermoandrae\DynamoDb\Exception\Exception;
 
 final class DynamoDbAdapterTest extends TestCase
 {

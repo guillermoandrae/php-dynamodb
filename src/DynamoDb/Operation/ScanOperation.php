@@ -8,7 +8,7 @@ use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\Common\Collection;
 use Guillermoandrae\Common\CollectionInterface;
 use Guillermoandrae\DynamoDb\Contract\AbstractSearchOperation;
-use Guillermoandrae\DynamoDb\Exception;
+use Guillermoandrae\DynamoDb\Factory\ExceptionFactory;
 
 /**
  * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#scan
@@ -42,7 +42,7 @@ final class ScanOperation extends AbstractSearchOperation
             }
             return Collection::make($rows);
         } catch (DynamoDbException $ex) {
-            throw new Exception($ex->getMessage());
+            throw ExceptionFactory::factory($ex);
         }
     }
 }
