@@ -17,9 +17,9 @@ final class GetItemOperation extends AbstractItemOperation
     public function execute(): array
     {
         try {
-            $results = $this->client->getItem($this->toArray());
             $item = [];
-            if (is_array($results['Item'])) {
+            $results = $this->client->getItem($this->toArray());
+            if (!empty($results['Item']) && is_array($results['Item'])) {
                 $item = $this->getMarshaler()->unmarshalItem($results['Item']);
             }
             return $item;
