@@ -68,7 +68,8 @@ php ./exmaples/tables.php
 ## Running DynamoDB locally
 To aid in your development, you can run the following commands to manage DynamoDB locally:
 ```shell script
-composer start-db # downloads, installs, and starts DynamoDB locally
+composer install-db # downloads and installs DynamoDB locally
+composer start-db # starts DynamoDB locally
 composer stop-db # stops DynamoDB locally
 composer restart-db # calls stop-db then start-db
 ```

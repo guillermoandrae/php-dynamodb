@@ -7,6 +7,7 @@ matrix:
     - php: 7.3
   fast_finish: true
 before_install:
+  - composer install-db
   - travis_wait composer start-db > /dev/null &
 script:
   - composer install --optimize-autoloader
