@@ -23,6 +23,11 @@ final class QueryOperation extends AbstractSearchOperation
     private $keyConditionExpression = '';
 
     /**
+     * @var boolean Whether or not to scan forward.
+     */
+    private $scanIndexForward = false;
+
+    /**
      * QueryRequest constructor.
      *
      * @param DynamoDbClient $client The DynamoDb client.
@@ -87,6 +92,18 @@ final class QueryOperation extends AbstractSearchOperation
     }
 
     /**
+     * Registers the ScanIndexForward value with this object.
+     *
+     * @param boolean $scanIndexForward Whether or not to scan forward.
+     * @return QueryOperation This object.
+     */
+    public function setScanIndexForward(bool $scanIndexForward): QueryOperation
+    {
+        $this->scanIndexForward = $scanIndexForward;
+        return $this;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function execute(): CollectionInterface
@@ -109,6 +126,7 @@ final class QueryOperation extends AbstractSearchOperation
     public function toArray(): array
     {
         $operation = parent::toArray();
+        $operation['ScanIndexForward'] = $this->scanIndexForward;
         if (!empty($this->keyConditionExpression)) {
             $operation['KeyConditionExpression'] = $this->keyConditionExpression;
         }
