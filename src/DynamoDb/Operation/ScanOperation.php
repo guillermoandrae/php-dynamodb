@@ -2,9 +2,7 @@
 
 namespace Guillermoandrae\DynamoDb\Operation;
 
-use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Exception\DynamoDbException;
-use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\Common\Collection;
 use Guillermoandrae\Common\CollectionInterface;
 use Guillermoandrae\DynamoDb\Contract\AbstractSearchOperation;
@@ -15,20 +13,6 @@ use Guillermoandrae\DynamoDb\Factory\ExceptionFactory;
  */
 final class ScanOperation extends AbstractSearchOperation
 {
-    /**
-     * Registers the DynamoDb client, Marshaler, and table name with this object.
-     *
-     * @param DynamoDbClient $client The DynamoDb client.
-     * @param Marshaler $marshaler The Marshaler.
-     * @param string $tableName The table name.
-     */
-    public function __construct(DynamoDbClient $client, Marshaler $marshaler, string $tableName)
-    {
-        $this->setClient($client);
-        $this->setMarshaler($marshaler);
-        $this->setTableName($tableName);
-    }
-
     /**
      * {@inheritDoc}
      */
