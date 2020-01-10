@@ -11,8 +11,8 @@ interface DynamoDbAdapterInterface
      * Creates a table.
      *
      * @param array $data The table options.
-     * @param string $tableName OPTIONAL The name of the table to create.
-     * @param array $options OPTIONAL The table options.
+     * @param string|null $tableName OPTIONAL The name of the table to create.
+     * @param array|null $options OPTIONAL The table options.
      * @return bool Whether or not the table creation was successful.
      * @throws Exception Thrown when an error occurs during creation.
      * @see CreateTableOperation
@@ -22,7 +22,7 @@ interface DynamoDbAdapterInterface
     /**
      * Deletes a table.
      *
-     * @param string $tableName OPTIONAL The name of the table to delete.
+     * @param string|null $tableName OPTIONAL The name of the table to delete.
      * @return boolean Whether or not the table deletion was successful.
      * @throws Exception Thrown when an error occurs during deletion.
      * @see DeleteItemOperation
@@ -32,7 +32,7 @@ interface DynamoDbAdapterInterface
     /**
      * Returns information about a table.
      *
-     * @param string $tableName OPTIONAL The desired table name.
+     * @param string|null $tableName OPTIONAL The name of the table to delete.
      * @return array The table data.
      * @throws Exception Thrown when an error occurs during the existence check.
      * @see DescribeTableOperation
@@ -42,7 +42,7 @@ interface DynamoDbAdapterInterface
     /**
      * Determines whether or not a table exists.
      *
-     * @param string $tableName OPTIONAL The desired table name.
+     * @param string|null $tableName OPTIONAL The name of the table to delete.
      * @return boolean Whether or not the table exists.
      * @see ListTablesOperation
      */
@@ -71,7 +71,7 @@ interface DynamoDbAdapterInterface
      *
      * @param array $conditions The conditions.
      * @param integer $offset OPTIONAL The offset.
-     * @param integer $limit OPTIONAL The limit.
+     * @param integer|null $limit OPTIONAL The limit.
      * @return CollectionInterface A collection of rows.
      * @throws Exception Thrown when a query error occurs.
      * @see QueryOperation
@@ -85,10 +85,10 @@ interface DynamoDbAdapterInterface
      * When an offset and limit are provided, the desired slice is returned.
      *
      * @param integer $offset OPTIONAL The offset.
-     * @param integer $limit OPTIONAL The limit.
-     * @param array $conditions OPTIONAL The conditions.
+     * @param integer|null $limit OPTIONAL The limit.
+     * @param array|null $conditions OPTIONAL The conditions.
      * @return CollectionInterface A collection of rows.
-     * @throws Exception Thrown when a query error occurs.
+     * @throws Exception Thrown when a scan error occurs.
      * @see ScanOperation
      * @see DynamoDbAdapterInterface::useTable()
      */
@@ -99,6 +99,7 @@ interface DynamoDbAdapterInterface
      *
      * @param array $primaryKey The item primary key.
      * @return array The item.
+     * @throws Exception Thrown when an operation error occurs.
      * @see GetItemOperation
      * @see DynamoDbAdapterInterface::useTable()
      */

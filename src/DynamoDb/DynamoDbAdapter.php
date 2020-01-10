@@ -26,8 +26,8 @@ final class DynamoDbAdapter implements DynamoDbAdapterInterface
      * Registers the AWS DynamoDB client and Marshaler with this object. If no arguments are provided, we use the
      * respective factories to generate the necessary objects.
      *
-     * @param DynamoDbClient $client The DynamoDB client.
-     * @param Marshaler $marshaler The Marshaler.
+     * @param DynamoDbClient|null $client OPTIONAL The DynamoDB client.
+     * @param Marshaler|null $marshaler OPTIONAL The Marshaler.
      */
     public function __construct(?DynamoDbClient $client = null, ?Marshaler $marshaler = null)
     {

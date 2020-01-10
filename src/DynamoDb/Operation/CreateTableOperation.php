@@ -22,34 +22,9 @@ final class CreateTableOperation extends AbstractTableOperation
     private $attributeDefinitions = [];
 
     /**
-     * @var array The primary key.
-     */
-    private $keySchema = [];
-
-    /**
-     * @var int The maximum number of strongly consistent reads consumed per second.
-     */
-    private $readCapacityUnits = 5;
-
-    /**
-     * @var int The maximum number of writes consumed per second.
-     */
-    private $writeCapacityUnits = 5;
-
-    /**
      * @var string The billing mode.
      */
     private $billingMode = BillingModes::PROVISIONED;
-
-    /**
-     * @var array The server-side encryption settings.
-     */
-    private $sseSpecification = [];
-
-    /**
-     * @var array The stream specification.
-     */
-    private $streamSpecification = [];
 
     /**
      * @var array The global secondary indexes.
@@ -62,9 +37,34 @@ final class CreateTableOperation extends AbstractTableOperation
     private $localSecondaryIndexes = [];
 
     /**
+     * @var array The primary key.
+     */
+    private $keySchema = [];
+
+    /**
+     * @var int The maximum number of strongly consistent reads consumed per second.
+     */
+    private $readCapacityUnits = 5;
+
+    /**
+     * @var array The server-side encryption settings.
+     */
+    private $sseSpecification = [];
+
+    /**
+     * @var array The stream specification.
+     */
+    private $streamSpecification = [];
+
+    /**
      * @var array The tags.
      */
     private $tags = [];
+
+    /**
+     * @var int The maximum number of writes consumed per second.
+     */
+    private $writeCapacityUnits = 5;
 
     /**
      * CreateTableRequest constructor.
@@ -72,9 +72,9 @@ final class CreateTableOperation extends AbstractTableOperation
      * @param DynamoDbClient $client The DynamoDb client.
      * @param Marshaler $marshaler The Marshaler.
      * @param string $tableName The table name.
-     * @param array $keySchema OPTIONAL The key schema.
+     * @param array|null $keySchema OPTIONAL The key schema.
      */
-    public function __construct(DynamoDbClient $client, Marshaler $marshaler, string $tableName, array $keySchema = [])
+    public function __construct(DynamoDbClient $client, Marshaler $marshaler, string $tableName, ?array $keySchema = [])
     {
         parent::__construct($client, $marshaler, $tableName);
         if (!empty($keySchema)) {
@@ -185,10 +185,10 @@ final class CreateTableOperation extends AbstractTableOperation
      * Registers the server-side encryption settings.
      *
      * @param bool $isEnabled Whether or not SSE is enabled.
-     * @param string $masterKeyId OPTIONAL The ID of the master key.
+     * @param string|null $masterKeyId OPTIONAL The ID of the master key.
      * @return CreateTableOperation This object.
      */
-    public function setSSESpecification(bool $isEnabled, string $masterKeyId = '')
+    public function setSSESpecification(bool $isEnabled, ?string $masterKeyId = '')
     {
         $sseSpecification = [];
         if ($isEnabled) {
@@ -296,9 +296,15 @@ final class CreateTableOperation extends AbstractTableOperation
     public function toArray(): array
     {
         $operation = parent::toArray();
-        $operation['KeySchema'] = $this->keySchema;
         $operation['AttributeDefinitions'] = $this->attributeDefinitions;
         $operation['BillingMode'] = $this->billingMode;
+        if (!empty($this->globalSecondaryIndexes)) {
+            $operation['GlobalSecondaryIndexes'] = $this->globalSecondaryIndexes;
+        }
+        if (!empty($this->localSecondaryIndexes)) {
+            $operation['LocalSecondaryIndexes'] = $this->localSecondaryIndexes;
+        }
+        $operation['KeySchema'] = $this->keySchema;
         $operation['ProvisionedThroughput'] = [
             'ReadCapacityUnits' => $this->readCapacityUnits,
             'WriteCapacityUnits' => $this->writeCapacityUnits,
@@ -308,12 +314,6 @@ final class CreateTableOperation extends AbstractTableOperation
         }
         if (!empty($this->streamSpecification)) {
             $operation['StreamSpecification'] = $this->streamSpecification;
-        }
-        if (!empty($this->globalSecondaryIndexes)) {
-            $operation['GlobalSecondaryIndexes'] = $this->globalSecondaryIndexes;
-        }
-        if (!empty($this->localSecondaryIndexes)) {
-            $operation['LocalSecondaryIndexes'] = $this->localSecondaryIndexes;
         }
         if (!empty($this->tags)) {
             $operation['Tags'] = $this->tags;

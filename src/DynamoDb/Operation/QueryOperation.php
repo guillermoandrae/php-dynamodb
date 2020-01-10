@@ -33,14 +33,14 @@ final class QueryOperation extends AbstractSearchOperation
      * @param DynamoDbClient $client The DynamoDb client.
      * @param Marshaler $marshaler The Marshaler.
      * @param string $tableName The table name.
-     * @param array $keyConditions OPTIONAL The key conditions.
+     * @param array|null $keyConditions OPTIONAL The key conditions.
      * @throws ErrorException
      */
     public function __construct(
         DynamoDbClient $client,
         Marshaler $marshaler,
         string $tableName,
-        array $keyConditions = []
+        ?array $keyConditions = []
     ) {
         parent::__construct($client, $marshaler, $tableName);
         if (!empty($keyConditions)) {
