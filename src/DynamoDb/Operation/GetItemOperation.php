@@ -19,8 +19,8 @@ final class GetItemOperation extends AbstractItemOperation
         try {
             $item = [];
             $results = $this->client->getItem($this->toArray());
-            if (!is_null($results['Item']) && is_array($results['Item'])) {
-                $item = $this->getMarshaler()->unmarshalItem($results['Item']);
+            if (is_array($results['Item'])) {
+                $item = $this->getMarshaler()->unmarshalItem($results['Item'], false);
             }
             return $item;
         } catch (DynamoDbException $ex) {
