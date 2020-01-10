@@ -47,6 +47,11 @@ final class CreateTableOperation extends AbstractTableOperation
     private $sseSpecification = [];
 
     /**
+     * @var array The stream specification.
+     */
+    private $streamSpecification = [];
+
+    /**
      * @var array The global secondary indexes.
      */
     private $globalSecondaryIndexes = [];
@@ -236,6 +241,24 @@ final class CreateTableOperation extends AbstractTableOperation
     }
 
     /**
+     * Registers the stream specification.
+     *
+     * @param bool $isEnabled Whether or not the stream specification is enabled.
+     * @param string|null $viewType OPTIONAL The stream view type.
+     * @return CreateTableOperation This object.
+     */
+    public function setStreamSpecification(bool $isEnabled, ?string $viewType = ''): CreateTableOperation
+    {
+        $this->streamSpecification = [
+            'StreamEnabled' => $isEnabled
+        ];
+        if ($isEnabled && !empty($viewType)) {
+            $this->streamSpecification['StreamViewType'] = $viewType;
+        }
+        return $this;
+    }
+
+    /**
      * Registers a tag.
      *
      * @param string $key The tag key.
@@ -282,6 +305,9 @@ final class CreateTableOperation extends AbstractTableOperation
         ];
         if (!empty($this->sseSpecification)) {
             $operation['SSESpecification'] = $this->sseSpecification;
+        }
+        if (!empty($this->streamSpecification)) {
+            $operation['StreamSpecification'] = $this->streamSpecification;
         }
         if (!empty($this->globalSecondaryIndexes)) {
             $operation['GlobalSecondaryIndexes'] = $this->globalSecondaryIndexes;
