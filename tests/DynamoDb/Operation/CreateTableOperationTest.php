@@ -6,6 +6,7 @@ use Guillermoandrae\DynamoDb\Constant\AttributeTypes;
 use Guillermoandrae\DynamoDb\Constant\BillingModes;
 use Guillermoandrae\DynamoDb\Constant\KeyTypes;
 use Guillermoandrae\DynamoDb\Constant\ProjectionTypes;
+use Guillermoandrae\DynamoDb\Constant\StreamViewTypes;
 use Guillermoandrae\DynamoDb\Factory\DynamoDbClientFactory;
 use Guillermoandrae\DynamoDb\Factory\MarshalerFactory;
 use Guillermoandrae\DynamoDb\Operation\CreateTableOperation;
@@ -154,6 +155,23 @@ final class CreateTableOperationTest extends TestCase
         $this->assertEquals($expectedKeySchema[0][1], $request['KeySchema'][0]['KeyType']);
         $this->assertEquals($expectedProjection[0], $request['Projection']['NonKeyAttributes']);
         $this->assertEquals($expectedProjection[1], $request['Projection']['ProjectionType']);
+    }
+
+    public function testSetStreamSpecification()
+    {
+        $operation = new CreateTableOperation(
+            DynamoDbClientFactory::factory(),
+            MarshalerFactory::factory(),
+            $this->tableName
+        );
+        $expectedStreamEnabled = true;
+        $expectedStreamViewType = StreamViewTypes::KEYS_ONLY;
+        $operation->setStreamSpecification($expectedStreamEnabled, $expectedStreamViewType);
+        $request = $operation->toArray()['StreamSpecification'];
+        $this->assertEquals($expectedStreamEnabled, $request['StreamEnabled']);
+        $this->assertEquals($expectedStreamViewType, $request['StreamViewType']);
+        $operation->setStreamSpecification(false);
+        $this->assertArrayNotHasKey('StreamViewType', $operation->toArray()['StreamSpecification']);
     }
 
     public function testAddTag()
