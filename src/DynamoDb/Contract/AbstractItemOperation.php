@@ -34,12 +34,9 @@ abstract class AbstractItemOperation extends AbstractOperation implements ItemOp
     }
 
     /**
-     * Registers the operation's primary key with this object.
-     *
-     * @param array $primaryKey The primary key values to be used when retrieving items.
-     * @return mixed An implementation of this abstract.
+     * {@inheritDoc}
      */
-    public function setPrimaryKey(array $primaryKey)
+    final public function setPrimaryKey(array $primaryKey): ItemOperationInterface
     {
         $this->primaryKey = $this->getMarshaler()->marshalItem($primaryKey);
         return $this;

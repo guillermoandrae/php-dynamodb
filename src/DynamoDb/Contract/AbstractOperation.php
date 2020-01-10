@@ -29,10 +29,7 @@ abstract class AbstractOperation implements OperationInterface
     }
 
     /**
-     * Registers the table name.
-     *
-     * @param string $tableName The table name.
-     * @return OperationInterface This object.
+     * {@inheritDoc}
      */
     final public function setTableName(string $tableName): OperationInterface
     {
