@@ -52,6 +52,11 @@ final class CreateTableOperation extends AbstractTableOperation
     private $globalSecondaryIndexes = [];
 
     /**
+     * @var array The local secondary indexes.
+     */
+    private $localSecondaryIndexes = [];
+
+    /**
      * @var array The tags.
      */
     private $tags = [];
@@ -194,34 +199,40 @@ final class CreateTableOperation extends AbstractTableOperation
         return $this;
     }
 
+    /**
+     * Adds a global secondary index.
+     *
+     * @see CreateTableOperation::addSecondaryIndex()
+     * @param string $indexName The index name.
+     * @param array $keySchema The key schema.
+     * @param array $projection The projection.
+     * @param array|null $provisionedThroughput OPTIONAL The provisioned throughput.
+     * @return CreateTableOperation This object.
+     */
     public function addGlobalSecondaryIndex(
         string $indexName,
         array $keySchema,
         array $projection,
         ?array $provisionedThroughput = []
     ): CreateTableOperation {
-        $index = [
-            'IndexName' => $indexName,
-            'KeySchema' => [],
-            'Projection' => [
-                'NonKeyAttributes' => $projection[0],
-                'ProjectionType' => $projection[1]
-            ]
-        ];
-        foreach ($keySchema as $key) {
-            $index['KeySchema'][] = [
-                'AttributeName' => $key[0],
-                'KeyType' => $key[1]
-            ];
-        }
-        if (!empty($provisionedThroughput)) {
-            $index['ProvisionedThroughput'] = [
-                'ReadCapacityUnits' => $provisionedThroughput[0],
-                'WriteCapacityUnits' => $provisionedThroughput[1],
-            ];
-        }
-        $this->globalSecondaryIndexes[] = $index;
-        return $this;
+        return $this->addSecondaryIndex('global', $indexName, $keySchema, $projection, $provisionedThroughput);
+    }
+
+    /**
+     * Adds a local secondary index.
+     *
+     * @see CreateTableOperation::addSecondaryIndex()
+     * @param string $indexName The index name.
+     * @param array $keySchema The key schema.
+     * @param array $projection The projection.
+     * @return CreateTableOperation This object.
+     */
+    public function addLocalSecondaryIndex(
+        string $indexName,
+        array $keySchema,
+        array $projection
+    ): CreateTableOperation {
+        return $this->addSecondaryIndex('local', $indexName, $keySchema, $projection);
     }
 
     /**
@@ -275,9 +286,61 @@ final class CreateTableOperation extends AbstractTableOperation
         if (!empty($this->globalSecondaryIndexes)) {
             $operation['GlobalSecondaryIndexes'] = $this->globalSecondaryIndexes;
         }
+        if (!empty($this->localSecondaryIndexes)) {
+            $operation['LocalSecondaryIndexes'] = $this->localSecondaryIndexes;
+        }
         if (!empty($this->tags)) {
             $operation['Tags'] = $this->tags;
         }
         return $operation;
+    }
+
+    /**
+     * Adds a secondary index.
+     *
+     * @see CreateTableOperation::addSecondaryIndex()
+     * @param string $indexType The index type.
+     * @param string $indexName The index name.
+     * @param array $keySchema The key schema.
+     * @param array $projection The projection.
+     * @param array|null $provisionedThroughput OPTIONAL The provisioned throughput.
+     * @return CreateTableOperation This object.
+     */
+    private function addSecondaryIndex(
+        string $indexType,
+        string $indexName,
+        array $keySchema,
+        array $projection,
+        ?array $provisionedThroughput = []
+    ): CreateTableOperation {
+        $index = [
+            'IndexName' => $indexName,
+            'KeySchema' => [],
+            'Projection' => [
+                'NonKeyAttributes' => $projection[0],
+                'ProjectionType' => $projection[1]
+            ]
+        ];
+        foreach ($keySchema as $key) {
+            $index['KeySchema'][] = [
+                'AttributeName' => $key[0],
+                'KeyType' => $key[1]
+            ];
+        }
+        switch ($indexType) {
+            case 'local':
+                $this->localSecondaryIndexes[] = $index;
+                break;
+            case 'global':
+                if (!empty($provisionedThroughput)) {
+                    $index['ProvisionedThroughput'] = [
+                        'ReadCapacityUnits' => $provisionedThroughput[0],
+                        'WriteCapacityUnits' => $provisionedThroughput[1],
+                    ];
+                }
+                $this->globalSecondaryIndexes[] = $index;
+                break;
+        }
+        return $this;
     }
 }

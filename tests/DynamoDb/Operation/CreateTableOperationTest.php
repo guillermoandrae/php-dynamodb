@@ -137,6 +137,25 @@ final class CreateTableOperationTest extends TestCase
         );
     }
 
+    public function testAddLocalSecondaryIndex()
+    {
+        $operation = new CreateTableOperation(
+            DynamoDbClientFactory::factory(),
+            MarshalerFactory::factory(),
+            $this->tableName
+        );
+        $expectedIndexName = 'test';
+        $expectedKeySchema = [['class', KeyTypes::HASH]];
+        $expectedProjection = ['thing', ProjectionTypes::INCLUDE];
+        $operation->addLocalSecondaryIndex($expectedIndexName, $expectedKeySchema, $expectedProjection);
+        $request = $operation->toArray()['LocalSecondaryIndexes'][0];
+        $this->assertEquals($expectedIndexName, $request['IndexName']);
+        $this->assertEquals($expectedKeySchema[0][0], $request['KeySchema'][0]['AttributeName']);
+        $this->assertEquals($expectedKeySchema[0][1], $request['KeySchema'][0]['KeyType']);
+        $this->assertEquals($expectedProjection[0], $request['Projection']['NonKeyAttributes']);
+        $this->assertEquals($expectedProjection[1], $request['Projection']['ProjectionType']);
+    }
+
     public function testAddTag()
     {
         $operation = new CreateTableOperation(
