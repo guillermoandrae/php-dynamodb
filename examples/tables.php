@@ -14,14 +14,8 @@ try {
 
     // create a table
     $keys = [
-        'name' => [
-            'attributeType' => AttributeTypes::STRING,
-            'keyType' => KeyTypes::HASH
-        ],
-        'date' => [
-            'attributeType' => AttributeTypes::NUMBER,
-            'keyType' => KeyTypes::RANGE
-        ],
+        'name' => [AttributeTypes::STRING, KeyTypes::HASH],
+        'date' => [AttributeTypes::NUMBER, KeyTypes::RANGE],
     ];
 
     // check for the existence of a table

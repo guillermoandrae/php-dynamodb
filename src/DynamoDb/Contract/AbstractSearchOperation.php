@@ -100,23 +100,23 @@ abstract class AbstractSearchOperation extends AbstractOperation implements Sear
      */
     public function toArray(): array
     {
-        $query = parent::toArray();
+        $operation = parent::toArray();
         if ($this->limit) {
-            $query += $this->limitAwareTraitToArray();
+            $operation += $this->limitAwareTraitToArray();
         }
-        $query += $this->returnConsumedCapacityAwareTraitToArray();
-        $query += $this->filterExpressionAwareTraitToArray();
-        $query['ScanIndexForward'] = $this->scanIndexForward;
-        $query['ConsistentRead'] = $this->consistentRead;
+        $operation += $this->returnConsumedCapacityAwareTraitToArray();
+        $operation += $this->filterExpressionAwareTraitToArray();
+        $operation['ScanIndexForward'] = $this->scanIndexForward;
+        $operation['ConsistentRead'] = $this->consistentRead;
         if (!empty($this->indexName)) {
-            $query['IndexName'] = $this->indexName;
+            $operation['IndexName'] = $this->indexName;
         }
         if (!empty($this->select)) {
-            $query['Select'] = $this->select;
+            $operation['Select'] = $this->select;
         }
         if (!empty($this->projectionExpression)) {
-            $query['ProjectionExpression'] = $this->projectionExpression;
+            $operation['ProjectionExpression'] = $this->projectionExpression;
         }
-        return $query;
+        return $operation;
     }
 }

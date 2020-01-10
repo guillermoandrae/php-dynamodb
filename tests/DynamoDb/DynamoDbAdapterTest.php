@@ -3,6 +3,8 @@
 namespace GuillermoandraeTest\DynamoDb;
 
 use Aws\DynamoDb\DynamoDbClient;
+use Guillermoandrae\DynamoDb\Constant\AttributeTypes;
+use Guillermoandrae\DynamoDb\Constant\KeyTypes;
 use Guillermoandrae\DynamoDb\Constant\Operators;
 use Guillermoandrae\DynamoDb\Exception\Exception;
 
@@ -11,8 +13,8 @@ final class DynamoDbAdapterTest extends TestCase
     public function testCreateDeleteListTable()
     {
         $this->adapter->useTable('widgets')->createTable([
-            'name' => ['attributeType' => 'S', 'keyType' => 'HASH'],
-            'date' => ['attributeType' => 'N', 'keyType' => 'RANGE'],
+            'name' => [AttributeTypes::STRING, KeyTypes::HASH],
+            'date' => [AttributeTypes::NUMBER, KeyTypes::RANGE],
         ]);
         $this->assertTrue($this->adapter->useTable('widgets')->tableExists());
         $this->adapter->useTable('widgets')->deleteTable();
@@ -22,8 +24,8 @@ final class DynamoDbAdapterTest extends TestCase
     public function testTableExists()
     {
         $this->adapter->useTable('widgets')->createTable([
-            'name' => ['attributeType' => 'S', 'keyType' => 'HASH'],
-            'date' => ['attributeType' => 'N', 'keyType' => 'RANGE'],
+            'name' => [AttributeTypes::STRING, KeyTypes::HASH],
+            'date' => [AttributeTypes::NUMBER, KeyTypes::RANGE],
         ]);
         $this->assertFalse($this->adapter->tableExists('nonexistent'));
         $this->assertTrue($this->adapter->useTable('nonexistent')->tableExists('widgets'));
@@ -34,7 +36,9 @@ final class DynamoDbAdapterTest extends TestCase
     public function testBadCreateTable()
     {
         $this->expectException(Exception::class);
-        $this->adapter->useTable('te\st')->createTable(['name' => ['attributeType' => 'S', 'keyType' => 'HASH']]);
+        $this->adapter->useTable('te\st')->createTable([
+            'name' => [AttributeTypes::STRING, KeyTypes::HASH],
+        ]);
     }
 
     public function testBadCreateTableBadKeySchema()
@@ -51,7 +55,9 @@ final class DynamoDbAdapterTest extends TestCase
 
     public function testDescribeTable()
     {
-        $this->adapter->useTable('test')->createTable(['name' => ['attributeType' => 'S', 'keyType' => 'HASH']]);
+        $this->adapter->useTable('test')->createTable([
+            'name' => [AttributeTypes::STRING, KeyTypes::HASH]
+        ]);
         $results = $this->adapter->useTable('test')->describeTable();
         $this->assertSame(5, $results['ProvisionedThroughput']['ReadCapacityUnits']);
         $this->adapter->useTable('test')->deleteTable();
@@ -73,8 +79,8 @@ final class DynamoDbAdapterTest extends TestCase
     {
         $adapter = $this->adapter->useTable('test');
         $adapter->createTable([
-            'name' => ['attributeType' => 'S', 'keyType' => 'HASH'],
-            'date' => ['attributeType' => 'N', 'keyType' => 'RANGE'],
+            'name' => [AttributeTypes::STRING, KeyTypes::HASH],
+            'date' => [AttributeTypes::NUMBER, KeyTypes::RANGE],
         ]);
         $adapter->insert(['name' => 'Guillermo', 'date' => time()]);
         $adapter->insert(['name' => 'Fisher', 'date' => time()]);
@@ -93,8 +99,8 @@ final class DynamoDbAdapterTest extends TestCase
     {
         $adapter = $this->adapter->useTable('test');
         $adapter->createTable([
-            'firstName' => ['attributeType' => 'S', 'keyType' => 'HASH'],
-            'age' => ['attributeType' => 'N', 'keyType' => 'RANGE'],
+            'firstName' => [AttributeTypes::STRING, KeyTypes::HASH],
+            'age' => [AttributeTypes::NUMBER, KeyTypes::RANGE],
         ]);
         $adapter->insert(['firstName' => 'Guillermo', 'hobby' => 'sleeping', 'age' => 40]);
         $adapter->insert(['firstName' => 'Guillermo', 'hobby' => 'coding', 'age' => 40]);
@@ -127,8 +133,8 @@ final class DynamoDbAdapterTest extends TestCase
     {
         $adapter = $this->adapter->useTable('test');
         $adapter->createTable([
-            'name' => ['attributeType' => 'S', 'keyType' => 'HASH'],
-            'date' => ['attributeType' => 'N', 'keyType' => 'RANGE'],
+            'name' => [AttributeTypes::STRING, KeyTypes::HASH],
+            'date' => [AttributeTypes::NUMBER, KeyTypes::RANGE],
         ]);
         $timestamp = time();
         $key = ['name' => 'Guillermo', 'date' => $timestamp];
@@ -154,8 +160,8 @@ final class DynamoDbAdapterTest extends TestCase
     {
         $adapter = $this->adapter->useTable('test');
         $adapter->createTable([
-            'name' => ['attributeType' => 'S', 'keyType' => 'HASH'],
-            'date' => ['attributeType' => 'N', 'keyType' => 'RANGE'],
+            'name' => [AttributeTypes::STRING, KeyTypes::HASH],
+            'date' => [AttributeTypes::NUMBER, KeyTypes::RANGE],
         ]);
         $key = ['name' => 'Guillermo', 'date' => time()];
         $adapter->insert(array_merge(['name' => 'Guillermo', 'date' => time(), 'lastName' => 'Fisher']));

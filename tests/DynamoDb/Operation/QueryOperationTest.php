@@ -12,69 +12,69 @@ use PHPUnit\Framework\TestCase;
 final class QueryOperationTest extends TestCase
 {
     /**
-     * @var QueryOperation The request.
+     * @var QueryOperation The operation.
      */
-    private $request;
+    private $operation;
 
     public function testSetLimit()
     {
         $expectedLimit = 50;
-        $this->request->setLimit($expectedLimit);
-        $this->assertEquals($expectedLimit, $this->request->toArray()['Limit']);
+        $this->operation->setLimit($expectedLimit);
+        $this->assertEquals($expectedLimit, $this->operation->toArray()['Limit']);
     }
 
     public function testFilterExpressionGT()
     {
         $expectedExpression = 'width > :width';
-        $this->request->setFilterExpression([
+        $this->operation->setFilterExpression([
             'width' => [
                 'operator' => Operators::GT,
                 'value' => '10',
             ]
         ]);
-        $this->assertEquals($expectedExpression, $this->request->toArray()['FilterExpression']);
+        $this->assertEquals($expectedExpression, $this->operation->toArray()['FilterExpression']);
     }
 
     public function testFilterExpressionGTE()
     {
         $expectedExpression = 'width >= :width';
-        $this->request->setFilterExpression([
+        $this->operation->setFilterExpression([
             'width' => [
                 'operator' => Operators::GTE,
                 'value' => '10',
             ]
         ]);
-        $this->assertEquals($expectedExpression, $this->request->toArray()['FilterExpression']);
+        $this->assertEquals($expectedExpression, $this->operation->toArray()['FilterExpression']);
     }
 
     public function testFilterExpressionLT()
     {
         $expectedExpression = 'width < :width';
-        $this->request->setFilterExpression([
+        $this->operation->setFilterExpression([
             'width' => [
                 'operator' => Operators::LT,
                 'value' => '10',
             ]
         ]);
-        $this->assertEquals($expectedExpression, $this->request->toArray()['FilterExpression']);
+        $this->assertEquals($expectedExpression, $this->operation->toArray()['FilterExpression']);
     }
 
     public function testFilterExpressionLTE()
     {
         $expectedExpression = 'width <= :width';
-        $this->request->setFilterExpression([
+        $this->operation->setFilterExpression([
             'width' => [
                 'operator' => Operators::LTE,
                 'value' => '10',
             ]
         ]);
-        $this->assertEquals($expectedExpression, $this->request->toArray()['FilterExpression']);
+        $this->assertEquals($expectedExpression, $this->operation->toArray()['FilterExpression']);
     }
 
     public function testFilterExpressionBadOperator()
     {
         $this->expectException(\ErrorException::class);
-        $this->request->setFilterExpression([
+        $this->operation->setFilterExpression([
             'width' => [
                 'operator' => 'TEST',
                 'value' => '10',
@@ -84,7 +84,7 @@ final class QueryOperationTest extends TestCase
 
     public function testSetFilterExpressionAndExpressionAttributeValues()
     {
-        $this->request->setFilterExpression([
+        $this->operation->setFilterExpression([
             'color' => [
                 'operator' => Operators::EQ,
                 'value' => 'black',
@@ -110,72 +110,75 @@ final class QueryOperationTest extends TestCase
                 'N' => 10
             ]
         ];
-        $this->assertEquals($expectedFilterExpression, $this->request->toArray()['FilterExpression']);
-        $this->assertEquals($expectedExpressionAttributeValues, $this->request->toArray()['ExpressionAttributeValues']);
+        $this->assertEquals($expectedFilterExpression, $this->operation->toArray()['FilterExpression']);
+        $this->assertEquals(
+            $expectedExpressionAttributeValues,
+            $this->operation->toArray()['ExpressionAttributeValues']
+        );
     }
 
     public function testSetReturnConsumedCapacity()
     {
         $expectedReturnConsumedCapacity = 50;
-        $this->request->setReturnConsumedCapacity($expectedReturnConsumedCapacity);
-        $this->assertEquals($expectedReturnConsumedCapacity, $this->request->toArray()['ReturnConsumedCapacity']);
+        $this->operation->setReturnConsumedCapacity($expectedReturnConsumedCapacity);
+        $this->assertEquals($expectedReturnConsumedCapacity, $this->operation->toArray()['ReturnConsumedCapacity']);
     }
 
     public function testSetScanIndexForward()
     {
-        $this->request->setScanIndexForward(true);
+        $this->operation->setScanIndexForward(true);
         $expectedQuery = [
             'TableName' => 'test',
             'ScanIndexForward' => true,
             'ConsistentRead' => false,
             'ReturnConsumedCapacity' => 'NONE'
         ];
-        $this->assertEquals($expectedQuery, $this->request->toArray());
+        $this->assertEquals($expectedQuery, $this->operation->toArray());
     }
 
     public function testSetConsistentRead()
     {
-        $this->request->setConsistentRead(true);
+        $this->operation->setConsistentRead(true);
         $expectedQuery = [
             'TableName' => 'test',
             'ScanIndexForward' => false,
             'ConsistentRead' => true,
             'ReturnConsumedCapacity' => 'NONE'
         ];
-        $this->assertEquals($expectedQuery, $this->request->toArray());
+        $this->assertEquals($expectedQuery, $this->operation->toArray());
     }
 
     public function testSetIndexName()
     {
-        $this->request->setIndexName('test');
-        $this->assertEquals('test', $this->request->toArray()['IndexName']);
+        $this->operation->setIndexName('test');
+        $this->assertEquals('test', $this->operation->toArray()['IndexName']);
     }
 
     public function testSetSelect()
     {
-        $this->request->setSelect(Select::ALL_ATTRIBUTES);
-        $this->assertEquals('ALL_ATTRIBUTES', $this->request->toArray()['Select']);
+        $this->operation->setSelect(Select::ALL_ATTRIBUTES);
+        $this->assertEquals('ALL_ATTRIBUTES', $this->operation->toArray()['Select']);
     }
 
     public function testSetProjectionExpression()
     {
-        $this->request->setProjectionExpression('test');
-        $this->assertEquals('test', $this->request->toArray()['ProjectionExpression']);
+        $this->operation->setProjectionExpression('test');
+        $this->assertEquals('test', $this->operation->toArray()['ProjectionExpression']);
     }
 
     public function testSetPartitionKeyConditionExpression()
     {
-        $this->request->setPartitionKeyConditionExpression('test', 'something');
-        $requestArray = $this->request->toArray();
+        $this->operation->setPartitionKeyConditionExpression('test', 'something');
+        $requestArray = $this->operation->toArray();
         $this->assertEquals('test = :test', $requestArray['KeyConditionExpression']);
         $this->assertEquals(['S' => 'something'], $requestArray['ExpressionAttributeValues'][':test']);
     }
 
     public function testSetSortKeyConditionExpression()
     {
-        $this->request->setPartitionKeyConditionExpression('test', 'something');
-        $this->request->setSortKeyConditionExpression('anotherTest', Operators::BEGINS_WITH, 'somethingElse');
-        $requestArray = $this->request->toArray();
+        $this->operation->setPartitionKeyConditionExpression('test', 'something');
+        $this->operation->setSortKeyConditionExpression('anotherTest', Operators::BEGINS_WITH, 'somethingElse');
+        $requestArray = $this->operation->toArray();
         $this->assertEquals(
             'test = :test AND begins_with(anotherTest, :anotherTest)',
             $requestArray['KeyConditionExpression']
@@ -186,11 +189,11 @@ final class QueryOperationTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->request = new QueryOperation(DynamoDbClientFactory::factory(), MarshalerFactory::factory(), 'test');
+        $this->operation = new QueryOperation(DynamoDbClientFactory::factory(), MarshalerFactory::factory(), 'test');
     }
 
     protected function tearDown(): void
     {
-        $this->request = null;
+        $this->operation = null;
     }
 }

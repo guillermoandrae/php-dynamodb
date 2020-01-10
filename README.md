@@ -29,14 +29,8 @@ try {
 
     // create a table
     $keys = [
-        'year' => [
-            'attributeType' => AttributeTypes::NUMBER,
-            'keyType' => KeyTypes::HASH
-        ],
-        'title' => [
-            'attributeType' => AttributeTypes::STRING,
-            'keyType' => KeyTypes::RANGE
-        ],
+        'year' => [AttributeTypes::NUMBER, KeyTypes::HASH],
+        'title' => [AttributeTypes::STRING, KeyTypes::RANGE],
     ];
     $adapter->useTable($tableName)->createTable($keys);
 

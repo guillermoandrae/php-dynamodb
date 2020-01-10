@@ -59,14 +59,14 @@ final class ListTablesOperation extends AbstractTableOperation
      */
     public function toArray(): array
     {
-        $query = parent::toArray();
-        unset($query['TableName']);
+        $operation = parent::toArray();
+        unset($operation['TableName']);
         if ($this->lastEvaluatedTableName) {
-            $query['LastEvaluatedTableName'] = $this->lastEvaluatedTableName;
+            $operation['LastEvaluatedTableName'] = $this->lastEvaluatedTableName;
         }
         if ($this->limit) {
-            $query += $this->limitAwareTraitToArray();
+            $operation += $this->limitAwareTraitToArray();
         }
-        return $query;
+        return $operation;
     }
 }

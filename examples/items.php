@@ -13,14 +13,8 @@ try {
     // create the table
     $tableName = 'singers';
     $keys = [
-        'name' => [
-            'attributeType' => \Guillermoandrae\DynamoDb\Constant\AttributeTypes::STRING,
-            'keyType' => KeyTypes::HASH
-        ],
-        'year' => [
-            'attributeType' => AttributeTypes::NUMBER,
-            'keyType' => KeyTypes::RANGE
-        ],
+        'name' => [AttributeTypes::STRING, KeyTypes::HASH],
+        'year' => [AttributeTypes::NUMBER, KeyTypes::RANGE],
     ];
     $adapter->useTable($tableName)->createTable($keys);
 

@@ -85,13 +85,13 @@ trait FilterExpressionAwareOperationTrait
      */
     public function toArray(): array
     {
-        $query = [];
+        $operation = [];
         if (!empty($this->filterExpression)) {
-            $query['FilterExpression'] = $this->filterExpression;
+            $operation['FilterExpression'] = $this->filterExpression;
         }
         if (!empty($this->expressionAttributeValues)) {
-            $query['ExpressionAttributeValues'] = $this->expressionAttributeValues;
+            $operation['ExpressionAttributeValues'] = $this->expressionAttributeValues;
         }
-        return $query;
+        return $operation;
     }
 }

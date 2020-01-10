@@ -11,21 +11,17 @@ final class ListTablesOperationTest extends TestCase
 {
     public function testSetLastEvaluatedTableName()
     {
-        $request = new ListTablesOperation(DynamoDbClientFactory::factory(), MarshalerFactory::factory());
-        $request->setLastEvaluatedTableName('test');
-        $expectedQuery = [
-            'LastEvaluatedTableName' => 'test',
-        ];
-        $this->assertEquals($expectedQuery, $request->toArray());
+        $expectedLastEvaluatedTableName = 'test';
+        $operation = new ListTablesOperation(DynamoDbClientFactory::factory(), MarshalerFactory::factory());
+        $operation->setLastEvaluatedTableName($expectedLastEvaluatedTableName);
+        $this->assertEquals($expectedLastEvaluatedTableName, $operation->toArray()['LastEvaluatedTableName']);
     }
 
     public function testSetLimit()
     {
-        $request = new ListTablesOperation(DynamoDbClientFactory::factory(), MarshalerFactory::factory());
-        $request->setLimit(5);
-        $expectedQuery = [
-            'Limit' => 5,
-        ];
-        $this->assertEquals($expectedQuery, $request->toArray());
+        $expectedLimit = 5;
+        $operation = new ListTablesOperation(DynamoDbClientFactory::factory(), MarshalerFactory::factory());
+        $operation->setLimit($expectedLimit);
+        $this->assertEquals($expectedLimit, $operation->toArray()['Limit']);
     }
 }

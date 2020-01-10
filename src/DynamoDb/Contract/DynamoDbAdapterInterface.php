@@ -3,7 +3,7 @@
 namespace Guillermoandrae\DynamoDb\Contract;
 
 use Guillermoandrae\Common\CollectionInterface;
-use Guillermoandrae\DynamoDb\Exception;
+use Guillermoandrae\DynamoDb\Exception\Exception;
 
 interface DynamoDbAdapterInterface
 {

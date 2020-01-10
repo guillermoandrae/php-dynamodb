@@ -50,10 +50,10 @@ abstract class AbstractItemOperation extends AbstractOperation implements ItemOp
      */
     public function toArray(): array
     {
-        $query = parent::toArray();
-        $query += $this->returnConsumedCapacityAwareTraitToArray();
-        $query += $this->filterExpressionAwareTraitToArray();
-        $query['Key'] = $this->primaryKey;
-        return $query;
+        $operation = parent::toArray();
+        $operation += $this->returnConsumedCapacityAwareTraitToArray();
+        $operation += $this->filterExpressionAwareTraitToArray();
+        $operation['Key'] = $this->primaryKey;
+        return $operation;
     }
 }

@@ -47,6 +47,11 @@ final class CreateTableOperation extends AbstractTableOperation
     private $sseSpecification = [];
 
     /**
+     * @var array The global secondary indexes.
+     */
+    private $globalSecondaryIndexes = [];
+
+    /**
      * @var array The tags.
      */
     private $tags = [];
@@ -74,8 +79,8 @@ final class CreateTableOperation extends AbstractTableOperation
      *
      * $keySchema = [
      *      'MyAttribute' => [ // this is the name of your attribute
-     *          'attributeType' => 'S', // this can be one of the AttributeTypes constants
-     *          'keyType' => 'HASH' // this can be either 'HASH' or 'RANGE' (or one of the KeyTypes constants)
+     *          'S', // this must be one of the AttributeTypes constants
+     *          'HASH' // this must be one of the KeyTypes constants
      *     ]
      * ];
      *
@@ -90,11 +95,11 @@ final class CreateTableOperation extends AbstractTableOperation
         foreach ($keySchema as $name => $data) {
             $this->keySchema[] = [
                 'AttributeName' => $name,
-                'KeyType' => $data['keyType']
+                'KeyType' => $data[1]
             ];
             $this->attributeDefinitions[] = [
                 'AttributeName' => $name,
-                'AttributeType' => $data['attributeType']
+                'AttributeType' => $data[0]
             ];
         }
         return $this;
@@ -110,10 +115,7 @@ final class CreateTableOperation extends AbstractTableOperation
     public function setPartitionKey(string $name, string $attributeType): CreateTableOperation
     {
         $this->setKeySchema([
-            $name => [
-                'attributeType' => $attributeType,
-                'keyType' => KeyTypes::HASH
-            ]
+            $name => [$attributeType, KeyTypes::HASH]
         ]);
         return $this;
     }
@@ -128,10 +130,7 @@ final class CreateTableOperation extends AbstractTableOperation
     public function setSortKey(string $name, string $attributeType): CreateTableOperation
     {
         $this->setKeySchema([
-            $name => [
-                'attributeType' => $attributeType,
-                'keyType' => KeyTypes::RANGE
-            ]
+            $name => [$attributeType, KeyTypes::RANGE]
         ]);
         return $this;
     }
@@ -195,6 +194,36 @@ final class CreateTableOperation extends AbstractTableOperation
         return $this;
     }
 
+    public function addGlobalSecondaryIndex(
+        string $indexName,
+        array $keySchema,
+        array $projection,
+        ?array $provisionedThroughput = []
+    ): CreateTableOperation {
+        $index = [
+            'IndexName' => $indexName,
+            'KeySchema' => [],
+            'Projection' => [
+                'NonKeyAttributes' => $projection[0],
+                'ProjectionType' => $projection[1]
+            ]
+        ];
+        foreach ($keySchema as $key) {
+            $index['KeySchema'][] = [
+                'AttributeName' => $key[0],
+                'KeyType' => $key[1]
+            ];
+        }
+        if (!empty($provisionedThroughput)) {
+            $index['ProvisionedThroughput'] = [
+                'ReadCapacityUnits' => $provisionedThroughput[0],
+                'WriteCapacityUnits' => $provisionedThroughput[1],
+            ];
+        }
+        $this->globalSecondaryIndexes[] = $index;
+        return $this;
+    }
+
     /**
      * Registers a tag.
      *
@@ -232,20 +261,23 @@ final class CreateTableOperation extends AbstractTableOperation
      */
     public function toArray(): array
     {
-        $query = parent::toArray();
-        $query['KeySchema'] = $this->keySchema;
-        $query['AttributeDefinitions'] = $this->attributeDefinitions;
-        $query['BillingMode'] = $this->billingMode;
-        $query['ProvisionedThroughput'] = [
+        $operation = parent::toArray();
+        $operation['KeySchema'] = $this->keySchema;
+        $operation['AttributeDefinitions'] = $this->attributeDefinitions;
+        $operation['BillingMode'] = $this->billingMode;
+        $operation['ProvisionedThroughput'] = [
             'ReadCapacityUnits' => $this->readCapacityUnits,
             'WriteCapacityUnits' => $this->writeCapacityUnits,
         ];
         if (!empty($this->sseSpecification)) {
-            $query['SSESpecification'] = $this->sseSpecification;
+            $operation['SSESpecification'] = $this->sseSpecification;
+        }
+        if (!empty($this->globalSecondaryIndexes)) {
+            $operation['GlobalSecondaryIndexes'] = $this->globalSecondaryIndexes;
         }
         if (!empty($this->tags)) {
-            $query['Tags'] = $this->tags;
+            $operation['Tags'] = $this->tags;
         }
-        return $query;
+        return $operation;
     }
 }
