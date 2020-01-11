@@ -46,9 +46,6 @@ final class PutItemOperation extends AbstractItemOperation
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function execute(): bool
     {
         try {
@@ -59,9 +56,6 @@ final class PutItemOperation extends AbstractItemOperation
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function toArray(): array
     {
         return array_merge(parent::toArray(), [

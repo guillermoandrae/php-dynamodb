@@ -33,18 +33,12 @@ abstract class AbstractItemOperation extends AbstractOperation implements ItemOp
         $this->setPrimaryKey($primaryKey);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     final public function setPrimaryKey(array $primaryKey): ItemOperationInterface
     {
         $this->primaryKey = $this->getMarshaler()->marshalItem($primaryKey);
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function toArray(): array
     {
         $operation = parent::toArray();

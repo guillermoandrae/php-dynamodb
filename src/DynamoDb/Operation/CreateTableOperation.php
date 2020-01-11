@@ -274,9 +274,6 @@ final class CreateTableOperation extends AbstractTableOperation
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function execute(): bool
     {
         try {

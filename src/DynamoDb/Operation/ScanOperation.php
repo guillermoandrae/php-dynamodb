@@ -13,9 +13,6 @@ use Guillermoandrae\DynamoDb\Factory\ExceptionFactory;
  */
 final class ScanOperation extends AbstractSearchOperation
 {
-    /**
-     * {@inheritDoc}
-     */
     public function execute(): CollectionInterface
     {
         try {

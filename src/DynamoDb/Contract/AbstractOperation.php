@@ -28,18 +28,12 @@ abstract class AbstractOperation implements OperationInterface
         $this->setTableName($tableName);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     final public function setTableName(string $tableName): OperationInterface
     {
         $this->tableName = $tableName;
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function toArray(): array
     {
         return [

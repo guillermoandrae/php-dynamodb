@@ -85,9 +85,6 @@ trait ExpressionAttributeValueAwareOperationTrait
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function toArray(): array
     {
         $operation = [];

@@ -21,9 +21,6 @@ trait LimitAwareOperationTrait
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function toArray(): array
     {
         return [

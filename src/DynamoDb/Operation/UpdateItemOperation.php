@@ -36,10 +36,7 @@ class UpdateItemOperation extends AbstractItemOperation
         parent::__construct($client, $marshaler, $tableName, $primaryKey);
         $this->setExpression($updateData);
     }
-
-    /**
-     * {@inheritDoc}
-     */
+    
     public function execute(): bool
     {
         try {
@@ -50,9 +47,6 @@ class UpdateItemOperation extends AbstractItemOperation
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function toArray(): array
     {
         $operation = parent::toArray();

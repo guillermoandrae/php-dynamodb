@@ -45,18 +45,12 @@ final class ListTablesOperation extends AbstractTableOperation
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function execute(): ?array
     {
         $tables = $this->client->listTables($this->toArray());
         return $tables['TableNames'];
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function toArray(): array
     {
         $operation = parent::toArray();

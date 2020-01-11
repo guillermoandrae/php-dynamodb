@@ -11,9 +11,6 @@ use Guillermoandrae\DynamoDb\Factory\ExceptionFactory;
  */
 final class DeleteTableOperation extends AbstractOperation
 {
-    /**
-     * {@inheritDoc}
-     */
     public function execute(): bool
     {
         try {

@@ -11,9 +11,6 @@ use Guillermoandrae\DynamoDb\Factory\ExceptionFactory;
  */
 final class DescribeTableOperation extends AbstractOperation
 {
-    /**
-     * {@inheritDoc}
-     */
     public function execute(): ?array
     {
         try {

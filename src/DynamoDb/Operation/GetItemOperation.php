@@ -11,9 +11,6 @@ use Guillermoandrae\DynamoDb\Factory\ExceptionFactory;
  */
 final class GetItemOperation extends AbstractItemOperation
 {
-    /**
-     * {@inheritDoc}
-     */
     public function execute(): array
     {
         try {

@@ -103,9 +103,6 @@ final class QueryOperation extends AbstractSearchOperation
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function execute(): CollectionInterface
     {
         try {
@@ -120,9 +117,6 @@ final class QueryOperation extends AbstractSearchOperation
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function toArray(): array
     {
         $operation = parent::toArray();

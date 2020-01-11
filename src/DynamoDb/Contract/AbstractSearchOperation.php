@@ -32,45 +32,30 @@ abstract class AbstractSearchOperation extends AbstractOperation implements Sear
      */
     private $select = '';
 
-    /**
-     * {@inheritDoc}
-     */
     final public function setConsistentRead(bool $consistentRead): SearchOperationInterface
     {
         $this->consistentRead = $consistentRead;
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     final public function setIndexName(string $indexName): SearchOperationInterface
     {
         $this->indexName = $indexName;
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     final public function setSelect(string $select): SearchOperationInterface
     {
         $this->select = $select;
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     final public function setProjectionExpression(string $projectionExpression): SearchOperationInterface
     {
         $this->projectionExpression = $projectionExpression;
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function toArray(): array
     {
         $operation = parent::toArray();

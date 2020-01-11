@@ -44,9 +44,6 @@ final class DynamoDbAdapter implements DynamoDbAdapterInterface
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function createTable(array $data, ?string $tableName = '', ?array $options = []): bool
     {
         if (empty($tableName)) {
@@ -55,9 +52,6 @@ final class DynamoDbAdapter implements DynamoDbAdapterInterface
         return OperationFactory::factory('create-table', $tableName, $data)->execute();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function deleteTable(string $tableName = ''): bool
     {
         if (empty($tableName)) {
@@ -66,9 +60,6 @@ final class DynamoDbAdapter implements DynamoDbAdapterInterface
         return OperationFactory::factory('delete-table', $tableName)->execute();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function describeTable(string $tableName = ''): ?array
     {
         if (empty($tableName)) {
@@ -77,9 +68,6 @@ final class DynamoDbAdapter implements DynamoDbAdapterInterface
         return OperationFactory::factory('describe-table', $tableName)->execute();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function tableExists(string $tableName = ''): bool
     {
         if (empty($tableName)) {
@@ -95,66 +83,42 @@ final class DynamoDbAdapter implements DynamoDbAdapterInterface
         );
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function listTables(): ?array
     {
         return OperationFactory::factory('list-tables')->execute();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function useTable(string $tableName): DynamoDbAdapterInterface
     {
         $this->tableName = $tableName;
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function findWhere(array $conditions, int $offset = 0, ?int $limit = null): CollectionInterface
     {
         return OperationFactory::factory('query', $this->tableName, $conditions)->execute();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function findAll(int $offset = 0, ?int $limit = null, ?array $conditions = []): CollectionInterface
     {
         return OperationFactory::factory('scan', $this->tableName, $conditions)->execute();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function find($primaryKey): array
     {
         return OperationFactory::factory('get-item', $this->tableName, $primaryKey)->execute();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function insert(array $data): bool
     {
         return OperationFactory::factory('put-item', $this->tableName, $data)->execute();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function update(array $primaryKey, array $data): bool
     {
         return OperationFactory::factory('update-item', $this->tableName, $primaryKey, $data)->execute();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function delete($id): bool
     {
         return OperationFactory::factory('delete-item', $this->tableName, $id)->execute();

@@ -23,9 +23,6 @@ trait ReturnConsumedCapacityAwareOperationTrait
         return $this;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function toArray(): array
     {
         return [
