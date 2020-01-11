@@ -150,6 +150,32 @@ final class DynamoDbAdapterTest extends TestCase
         $this->adapter->useTable('test')->insert([]);
     }
 
+    public function testBadUpdate()
+    {
+        $this->expectException(Exception::class);
+        $this->adapter->useTable('test')->update([], []);
+    }
+
+    public function testUpdate()
+    {
+        $adapter = $this->adapter->useTable('test');
+        $adapter->createTable([
+            'name' => [AttributeTypes::STRING, KeyTypes::HASH],
+            'date' => [AttributeTypes::NUMBER, KeyTypes::RANGE],
+        ]);
+        $timestamp = time();
+        $expectedLastName = 'del Toro';
+        $primaryKey = ['name' => 'Guillermo', 'date' => $timestamp];
+        $adapter->insert(array_merge($primaryKey, ['lastName' => 'Fisher']));
+        $adapter->update($primaryKey, [
+            'lastName' => [
+                'operator' => Operators::EQ,
+                'value' => $expectedLastName,
+            ]
+        ]);
+        $this->assertEquals($expectedLastName, $adapter->find($primaryKey)['lastName']);
+    }
+
     public function testBadDelete()
     {
         $this->expectException(Exception::class);

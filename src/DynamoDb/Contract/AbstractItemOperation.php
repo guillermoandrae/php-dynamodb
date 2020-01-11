@@ -7,8 +7,8 @@ use Aws\DynamoDb\Marshaler;
 
 abstract class AbstractItemOperation extends AbstractOperation implements ItemOperationInterface
 {
-    use FilterExpressionAwareOperationTrait, ReturnConsumedCapacityAwareOperationTrait {
-        FilterExpressionAwareOperationTrait::toArray as filterExpressionAwareTraitToArray;
+    use ExpressionAttributeValueAwareOperationTrait, ReturnConsumedCapacityAwareOperationTrait {
+        ExpressionAttributeValueAwareOperationTrait::toArray as expressionAwareTraitToArray;
         ReturnConsumedCapacityAwareOperationTrait::toArray as returnConsumedCapacityAwareTraitToArray;
     }
 
@@ -49,7 +49,7 @@ abstract class AbstractItemOperation extends AbstractOperation implements ItemOp
     {
         $operation = parent::toArray();
         $operation += $this->returnConsumedCapacityAwareTraitToArray();
-        $operation += $this->filterExpressionAwareTraitToArray();
+        $operation += $this->expressionAwareTraitToArray();
         $operation['Key'] = $this->primaryKey;
         return $operation;
     }

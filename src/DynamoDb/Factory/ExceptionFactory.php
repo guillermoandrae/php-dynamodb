@@ -18,7 +18,7 @@ final class ExceptionFactory
                 $ex->getAwsErrorCode()
             );
             $reflectionClass = new ReflectionClass($className);
-            $args = [sprintf('An error has occurred: %s', $ex->getAwsErrorMessage()), $ex->getCode()];
+            $args = [sprintf('An error has occurred => %s', $ex->getAwsErrorMessage()), $ex->getCode()];
             return $reflectionClass->newInstanceArgs($args);
         } catch (ReflectionException $ex) {
             return new Exception($ex->getMessage(), $ex->getCode());

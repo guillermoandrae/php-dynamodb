@@ -117,6 +117,18 @@ interface DynamoDbAdapterInterface
     public function insert(array $data): bool;
 
     /**
+     * Updates an item in a table.
+     *
+     * @param array $primaryKey The primary key of the item to be updated.
+     * @param array $data The update data.
+     * @return bool Whether or not the item creation was successful.
+     * @throws Exception Thrown when an operation error occurs.
+     * @see PutItemOperation
+     * @see DynamoDbAdapterInterface::useTable()
+     */
+    public function update(array $primaryKey, array $data): bool;
+
+    /**
      * Deletes an item from a table.
      *
      * @param array $primaryKey The item primary key.

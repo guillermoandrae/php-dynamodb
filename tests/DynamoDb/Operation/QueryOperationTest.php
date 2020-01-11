@@ -26,7 +26,7 @@ final class QueryOperationTest extends TestCase
     public function testFilterExpressionGT()
     {
         $expectedExpression = 'width > :width';
-        $this->operation->setFilterExpression([
+        $this->operation->setExpression([
             'width' => [
                 'operator' => Operators::GT,
                 'value' => '10',
@@ -38,7 +38,7 @@ final class QueryOperationTest extends TestCase
     public function testFilterExpressionGTE()
     {
         $expectedExpression = 'width >= :width';
-        $this->operation->setFilterExpression([
+        $this->operation->setExpression([
             'width' => [
                 'operator' => Operators::GTE,
                 'value' => '10',
@@ -50,7 +50,7 @@ final class QueryOperationTest extends TestCase
     public function testFilterExpressionLT()
     {
         $expectedExpression = 'width < :width';
-        $this->operation->setFilterExpression([
+        $this->operation->setExpression([
             'width' => [
                 'operator' => Operators::LT,
                 'value' => '10',
@@ -62,7 +62,7 @@ final class QueryOperationTest extends TestCase
     public function testFilterExpressionLTE()
     {
         $expectedExpression = 'width <= :width';
-        $this->operation->setFilterExpression([
+        $this->operation->setExpression([
             'width' => [
                 'operator' => Operators::LTE,
                 'value' => '10',
@@ -74,7 +74,7 @@ final class QueryOperationTest extends TestCase
     public function testFilterExpressionBadOperator()
     {
         $this->expectException(\ErrorException::class);
-        $this->operation->setFilterExpression([
+        $this->operation->setExpression([
             'width' => [
                 'operator' => 'TEST',
                 'value' => '10',
@@ -84,7 +84,7 @@ final class QueryOperationTest extends TestCase
 
     public function testSetFilterExpressionAndExpressionAttributeValues()
     {
-        $this->operation->setFilterExpression([
+        $this->operation->setExpression([
             'color' => [
                 'operator' => Operators::EQ,
                 'value' => 'black',

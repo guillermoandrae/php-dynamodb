@@ -4,9 +4,11 @@ namespace Guillermoandrae\DynamoDb\Contract;
 
 abstract class AbstractSearchOperation extends AbstractOperation implements SearchOperationInterface
 {
-    use LimitAwareOperationTrait, FilterExpressionAwareOperationTrait, ReturnConsumedCapacityAwareOperationTrait {
+    use LimitAwareOperationTrait,
+        ExpressionAttributeValueAwareOperationTrait,
+        ReturnConsumedCapacityAwareOperationTrait {
         LimitAwareOperationTrait::toArray as limitAwareTraitToArray;
-        FilterExpressionAwareOperationTrait::toArray as filterExpressionAwareTraitToArray;
+        ExpressionAttributeValueAwareOperationTrait::toArray as expressionAwareTraitToArray;
         ReturnConsumedCapacityAwareOperationTrait::toArray as returnConsumedCapacityAwareTraitToArray;
     }
 
@@ -76,7 +78,7 @@ abstract class AbstractSearchOperation extends AbstractOperation implements Sear
             $operation += $this->limitAwareTraitToArray();
         }
         $operation += $this->returnConsumedCapacityAwareTraitToArray();
-        $operation += $this->filterExpressionAwareTraitToArray();
+        $operation += $this->expressionAwareTraitToArray();
         $operation['ConsistentRead'] = $this->consistentRead;
         if (!empty($this->indexName)) {
             $operation['IndexName'] = $this->indexName;

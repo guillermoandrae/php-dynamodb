@@ -5,14 +5,19 @@ namespace Guillermoandrae\DynamoDb\Contract;
 use ErrorException;
 use Guillermoandrae\DynamoDb\Constant\Operators;
 
-trait FilterExpressionAwareOperationTrait
+trait ExpressionAttributeValueAwareOperationTrait
 {
     use DynamoDbClientAwareTrait;
 
     /**
-     * @var string The filter expression.
+     * @var string The name of the desired expression field.
      */
-    protected $filterExpression;
+    protected $expressionFieldName = 'FilterExpression';
+
+    /**
+     * @var string The expression.
+     */
+    protected $expression = '';
 
     /**
      * @var array Values that can be substituted in an expression.
@@ -20,20 +25,20 @@ trait FilterExpressionAwareOperationTrait
     protected $expressionAttributeValues = [];
 
     /**
-     * Registers the filter expression with this object.
+     * Registers the expression with this object.
      *
      * @param array $data The filter expression data.
      * @return mixed This object.
-     * @throws ErrorException
+     * @throws ErrorException Thrown when an invalid operator is provided.
      */
-    final public function setFilterExpression(array $data)
+    final public function setExpression(array $data)
     {
-        $filterExpressionArray = [];
+        $expressionArray = [];
         foreach ($data as $key => $options) {
-            $filterExpressionArray[] = $this->parseExpression($options['operator'], $key);
+            $expressionArray[] = $this->parseExpression($options['operator'], $key);
             $this->addExpressionAttributeValue($key, $options['value']);
         }
-        $this->filterExpression = implode(' and ', $filterExpressionArray);
+        $this->expression = implode(' and ', $expressionArray);
         return $this;
     }
 
@@ -43,7 +48,7 @@ trait FilterExpressionAwareOperationTrait
      * @param string $operator The request operator.
      * @param string $key The attribute key.
      * @return string The expression.
-     * @throws ErrorException
+     * @throws ErrorException Thrown when an invalid operator is provided.
      */
     protected function parseExpression(string $operator, string $key): string
     {
@@ -86,8 +91,8 @@ trait FilterExpressionAwareOperationTrait
     public function toArray(): array
     {
         $operation = [];
-        if (!empty($this->filterExpression)) {
-            $operation['FilterExpression'] = $this->filterExpression;
+        if (!empty($this->expression)) {
+            $operation[$this->expressionFieldName] = $this->expression;
         }
         if (!empty($this->expressionAttributeValues)) {
             $operation['ExpressionAttributeValues'] = $this->expressionAttributeValues;
