@@ -2,6 +2,7 @@
     "name": "guillermoandrae/php-dynamodb",
     "description": "A PHP library that can be used to interact with Amazon DynamoDB",
     "license": "MIT",
+    "minimum-stability": "dev",
     "require": {
         "php": "^7.2",
         "aws/aws-sdk-php": "^3.95",

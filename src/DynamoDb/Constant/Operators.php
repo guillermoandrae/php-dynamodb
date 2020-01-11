@@ -2,70 +2,95 @@
 
 namespace Guillermoandrae\DynamoDb\Constant;
 
+/**
+ * Available comparison operators.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
+ * @link https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#FilteringResults
+ */
 final class Operators
 {
     /**
+     * The equality comparison operator.
+     *
      * @var string
      */
-    const EQ = 'EQ';
+    public const EQ = 'EQ';
 
     /**
+     * The inequality comparison operator.
+     *
      * @var string
      */
-    const NE = 'NE';
+    public const NE = 'NE';
 
     /**
+     * The less-than-or-equal-to comparison operator.
+     *
      * @var string
      */
-    const IN = 'IN';
+    public const LTE = 'LTE';
 
     /**
+     * The less-than comparison operator.
+     *
      * @var string
      */
-    const LTE = 'LTE';
+    public const LT = 'LT';
 
     /**
+     * The greater-than-or-equal-to comparison operator.
+     *
      * @var string
      */
-    const LT = 'LT';
+    public const GTE = 'GTE';
 
     /**
+     * The greater-than comparison operator.
+     *
      * @var string
      */
-    const GTE = 'GTE';
+    public const GT = 'GT';
 
     /**
+     * The between comparison operator.
+     *
      * @var string
      */
-    const GT = 'GT';
+    public const BETWEEN = 'BETWEEN';
 
     /**
+     * The not-null comparison operator.
+     *
      * @var string
      */
-    const BETWEEN = 'BETWEEN';
+    public const NOT_NULL = 'NOT_NULL';
 
     /**
+     * The null comparison operator.
+     *
      * @var string
      */
-    const NOT_NULL = 'NOT_NULL';
+    public const IS_NULL = 'NULL'; // because NULL is reserved
 
     /**
+     * The contains comparison operator.
+     *
      * @var string
      */
-    const IS_NULL = 'NULL'; // because NULL is reserved
+    public const CONTAINS = 'CONTAINS';
 
     /**
+     * The not-contains comparison operator.
+     *
      * @var string
      */
-    const CONTAINS = 'CONTAINS';
+    public const NOT_CONTAINS = 'NOT_CONTAINS';
 
     /**
+     * The begins-with comparison operator.
+     *
      * @var string
      */
-    const NOT_CONTAINS = 'NOT_CONTAINS';
-
-    /**
-     * @var string
-     */
-    const BEGINS_WITH = 'BEGINS_WITH';
+    public const BEGINS_WITH = 'BEGINS_WITH';
 }
