@@ -287,9 +287,6 @@ final class CreateTableOperation extends AbstractTableOperation
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function toArray(): array
     {
         $operation = parent::toArray();
