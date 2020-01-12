@@ -2,6 +2,11 @@
 
 namespace Guillermoandrae\DynamoDb\Contract;
 
+/**
+ * Trait for limit aware operations.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
+ */
 trait LimitAwareOperationTrait
 {
     /**

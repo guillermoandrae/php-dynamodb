@@ -7,6 +7,11 @@ use Guillermoandrae\DynamoDb\Exception\Exception;
 use ReflectionClass;
 use ReflectionException;
 
+/**
+ * Exception factory.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
+ */
 final class ExceptionFactory
 {
     public static function factory(DynamoDbException $ex): Exception

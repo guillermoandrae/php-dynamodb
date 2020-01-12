@@ -10,6 +10,11 @@ use ICanBoogie\Inflector;
 use ReflectionClass;
 use ReflectionException;
 
+/**
+ * Operation factory.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
+ */
 final class OperationFactory
 {
     /**

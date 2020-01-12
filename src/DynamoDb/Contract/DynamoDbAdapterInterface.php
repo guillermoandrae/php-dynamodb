@@ -5,6 +5,11 @@ namespace Guillermoandrae\DynamoDb\Contract;
 use Guillermoandrae\Common\CollectionInterface;
 use Guillermoandrae\DynamoDb\Exception\Exception;
 
+/**
+ * The DynamoDB adapter interface.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
+ */
 interface DynamoDbAdapterInterface
 {
     /**

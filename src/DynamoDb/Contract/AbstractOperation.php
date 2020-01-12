@@ -5,6 +5,11 @@ namespace Guillermoandrae\DynamoDb\Contract;
 use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Marshaler;
 
+/**
+ * Abstract for operations.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
+ */
 abstract class AbstractOperation implements OperationInterface
 {
     use DynamoDbClientAwareTrait;

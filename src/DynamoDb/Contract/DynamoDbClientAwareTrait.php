@@ -5,6 +5,11 @@ namespace Guillermoandrae\DynamoDb\Contract;
 use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Marshaler;
 
+/**
+ * Trait for DynamoDb client aware classes.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
+ */
 trait DynamoDbClientAwareTrait
 {
     /**

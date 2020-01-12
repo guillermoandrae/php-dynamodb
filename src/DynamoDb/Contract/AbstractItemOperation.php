@@ -5,6 +5,11 @@ namespace Guillermoandrae\DynamoDb\Contract;
 use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Marshaler;
 
+/**
+ * Abstract for item operations.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
+ */
 abstract class AbstractItemOperation extends AbstractOperation implements ItemOperationInterface
 {
     use ExpressionAttributeValueAwareOperationTrait, ReturnConsumedCapacityAwareOperationTrait {
@@ -18,7 +23,7 @@ abstract class AbstractItemOperation extends AbstractOperation implements ItemOp
     protected $primaryKey;
 
     /**
-     * Registers the DynamoDb client, Marshaler, and table name with this object.
+     * Registers the DynamoDb client, Marshaler, table name, and primary key with this object.
      *
      * @param DynamoDbClient $client The DynamoDb client.
      * @param Marshaler $marshaler The Marshaler.
@@ -27,9 +32,7 @@ abstract class AbstractItemOperation extends AbstractOperation implements ItemOp
      */
     public function __construct(DynamoDbClient $client, Marshaler $marshaler, string $tableName, array $primaryKey)
     {
-        $this->setClient($client);
-        $this->setMarshaler($marshaler);
-        $this->setTableName($tableName);
+        parent::__construct($client, $marshaler, $tableName);
         $this->setPrimaryKey($primaryKey);
     }
 

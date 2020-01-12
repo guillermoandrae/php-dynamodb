@@ -2,6 +2,11 @@
 
 namespace Guillermoandrae\DynamoDb\Contract;
 
+/**
+ * Interface for search (query, scan) operations.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
+ */
 interface SearchOperationInterface extends OperationInterface
 {
     /**

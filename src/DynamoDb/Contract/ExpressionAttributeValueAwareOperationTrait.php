@@ -5,6 +5,11 @@ namespace Guillermoandrae\DynamoDb\Contract;
 use ErrorException;
 use Guillermoandrae\DynamoDb\Constant\Operators;
 
+/**
+ * Trait for ExpressionAttributeValue aware operations.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
+ */
 trait ExpressionAttributeValueAwareOperationTrait
 {
     use DynamoDbClientAwareTrait;

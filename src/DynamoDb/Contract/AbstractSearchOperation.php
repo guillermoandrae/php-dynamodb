@@ -2,6 +2,11 @@
 
 namespace Guillermoandrae\DynamoDb\Contract;
 
+/**
+ * Abstract for search operations.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
+ */
 abstract class AbstractSearchOperation extends AbstractOperation implements SearchOperationInterface
 {
     use LimitAwareOperationTrait,

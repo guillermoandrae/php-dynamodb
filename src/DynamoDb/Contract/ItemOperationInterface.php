@@ -2,6 +2,11 @@
 
 namespace Guillermoandrae\DynamoDb\Contract;
 
+/**
+ * Interface for item operations.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
+ */
 interface ItemOperationInterface extends OperationInterface
 {
     /**

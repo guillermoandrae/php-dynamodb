@@ -4,6 +4,11 @@ namespace Guillermoandrae\DynamoDb\Contract;
 
 use Guillermoandrae\DynamoDb\Constant\ReturnConsumedCapacityOptions;
 
+/**
+ * Trait for ReturnConsumedCapacity aware operations.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
+ */
 trait ReturnConsumedCapacityAwareOperationTrait
 {
     /**

@@ -4,6 +4,11 @@ namespace Guillermoandrae\DynamoDb\Factory;
 
 use Aws\DynamoDb\DynamoDbClient;
 
+/**
+ * DynamoDB client factory.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
+ */
 final class DynamoDbClientFactory
 {
     /**
