@@ -8,6 +8,9 @@ use Guillermoandrae\DynamoDb\Contract\AbstractTableOperation;
 use Guillermoandrae\DynamoDb\Contract\LimitAwareOperationTrait;
 
 /**
+ * ListTables operation.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
  * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#listtables
  */
 final class ListTablesOperation extends AbstractTableOperation

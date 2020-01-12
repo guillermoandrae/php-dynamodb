@@ -9,6 +9,9 @@ use Guillermoandrae\DynamoDb\Contract\AbstractItemOperation;
 use Guillermoandrae\DynamoDb\Factory\ExceptionFactory;
 
 /**
+ * PutItem operation.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
  * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#putitem
  */
 final class PutItemOperation extends AbstractItemOperation

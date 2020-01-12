@@ -12,6 +12,9 @@ use Guillermoandrae\DynamoDb\Exception\Exception;
 use Guillermoandrae\DynamoDb\Factory\ExceptionFactory;
 
 /**
+ * CreateTable operation.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
  * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#createtable
  */
 final class CreateTableOperation extends AbstractTableOperation

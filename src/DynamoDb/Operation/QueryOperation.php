@@ -13,6 +13,9 @@ use Guillermoandrae\DynamoDb\Contract\AbstractSearchOperation;
 use Guillermoandrae\DynamoDb\Factory\ExceptionFactory;
 
 /**
+ * Query operation.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
  * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#query
  */
 final class QueryOperation extends AbstractSearchOperation

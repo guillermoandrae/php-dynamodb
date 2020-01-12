@@ -11,6 +11,11 @@ use Guillermoandrae\DynamoDb\Factory\DynamoDbClientFactory;
 use Guillermoandrae\DynamoDb\Factory\MarshalerFactory;
 use Guillermoandrae\DynamoDb\Factory\OperationFactory;
 
+/**
+ * The DynamoDB adapter.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
+ */
 final class DynamoDbAdapter implements DynamoDbAdapterInterface
 {
     use DynamoDbClientAwareTrait;
