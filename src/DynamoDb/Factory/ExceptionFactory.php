@@ -14,6 +14,14 @@ use ReflectionException;
  */
 final class ExceptionFactory
 {
+    /**
+     * Returns an exception object.
+     *
+     * I'd rather deal with "physical" exceptions, so I created this class so that I can get actual objects.
+     *
+     * @param DynamoDbException $ex A DynamoDB exception.
+     * @return Exception The exception object.
+     */
     public static function factory(DynamoDbException $ex): Exception
     {
         try {
