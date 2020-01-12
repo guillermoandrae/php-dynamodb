@@ -12,6 +12,8 @@ use Guillermoandrae\DynamoDb\Factory\ExceptionFactory;
 /**
  * UpdateItem operation.
  *
+ * Currently, only SET is supported.
+ *
  * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
  * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#updateitem
  */
