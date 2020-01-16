@@ -109,8 +109,13 @@ final class DynamoDbAdapter implements DynamoDbAdapterInterface
         return OperationFactory::factory('scan', $this->tableName, $conditions)->execute();
     }
 
-    public function find($primaryKey): array
+    public function find(array $primaryKey): array
     {
+        foreach ($primaryKey as $key => $value) {
+            if (is_array($value)) {
+                return OperationFactory::factory('batch-get-item', $primaryKey)->execute();
+            }
+        }
         return OperationFactory::factory('get-item', $this->tableName, $primaryKey)->execute();
     }
 

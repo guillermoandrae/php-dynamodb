@@ -2,6 +2,9 @@
 
 namespace Guillermoandrae\DynamoDb\Contract;
 
+use Aws\DynamoDb\DynamoDbClient;
+use Aws\DynamoDb\Marshaler;
+
 /**
  * Abstract for search operations.
  *
@@ -9,9 +12,11 @@ namespace Guillermoandrae\DynamoDb\Contract;
  */
 abstract class AbstractSearchOperation extends AbstractOperation implements SearchOperationInterface
 {
-    use LimitAwareOperationTrait,
+    use TableAwareOperationTrait,
+        LimitAwareOperationTrait,
         ExpressionAttributeValueAwareOperationTrait,
         ReturnConsumedCapacityAwareOperationTrait {
+        TableAwareOperationTrait::toArray as tableAwareTraitToArray;
         LimitAwareOperationTrait::toArray as limitAwareTraitToArray;
         ExpressionAttributeValueAwareOperationTrait::toArray as expressionAwareTraitToArray;
         ReturnConsumedCapacityAwareOperationTrait::toArray as returnConsumedCapacityAwareTraitToArray;
@@ -36,6 +41,19 @@ abstract class AbstractSearchOperation extends AbstractOperation implements Sear
      * @var string The attributes to be returned in the result.
      */
     private $select = '';
+
+    /**
+     * Registers the DynamoDb client, Marshaler, and the table name with this object.
+     *
+     * @param DynamoDbClient $client The DynamoDb client.
+     * @param Marshaler $marshaler The Marshaler.
+     * @param string $tableName The table name.
+     */
+    public function __construct(DynamoDbClient $client, Marshaler $marshaler, string $tableName)
+    {
+        parent::__construct($client, $marshaler);
+        $this->setTableName($tableName);
+    }
 
     final public function setConsistentRead(bool $consistentRead): SearchOperationInterface
     {
@@ -63,7 +81,7 @@ abstract class AbstractSearchOperation extends AbstractOperation implements Sear
 
     public function toArray(): array
     {
-        $operation = parent::toArray();
+        $operation = $this->tableAwareTraitToArray();
         if ($this->limit) {
             $operation += $this->limitAwareTraitToArray();
         }

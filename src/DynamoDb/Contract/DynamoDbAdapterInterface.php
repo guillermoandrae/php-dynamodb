@@ -100,9 +100,9 @@ interface DynamoDbAdapterInterface
     public function findAll(int $offset = 0, ?int $limit = null, ?array $conditions = []): CollectionInterface;
 
     /**
-     * Retrieves an item from a table by primary key.
+     * Retrieves an item or items from a table or tables.
      *
-     * @param array $primaryKey The item primary key.
+     * @param array $primaryKey The item primary key or a map of tables to primary keys.
      * @return array The item.
      * @throws Exception Thrown when an operation error occurs.
      * @see GetItemOperation

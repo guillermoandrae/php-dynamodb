@@ -12,7 +12,10 @@ use Aws\DynamoDb\Marshaler;
  */
 abstract class AbstractItemOperation extends AbstractOperation implements ItemOperationInterface
 {
-    use ExpressionAttributeValueAwareOperationTrait, ReturnConsumedCapacityAwareOperationTrait {
+    use TableAwareOperationTrait,
+        ExpressionAttributeValueAwareOperationTrait,
+        ReturnConsumedCapacityAwareOperationTrait {
+        TableAwareOperationTrait::toArray as tableAwareTraitToArray;
         ExpressionAttributeValueAwareOperationTrait::toArray as expressionAwareTraitToArray;
         ReturnConsumedCapacityAwareOperationTrait::toArray as returnConsumedCapacityAwareTraitToArray;
     }
@@ -32,7 +35,8 @@ abstract class AbstractItemOperation extends AbstractOperation implements ItemOp
      */
     public function __construct(DynamoDbClient $client, Marshaler $marshaler, string $tableName, array $primaryKey)
     {
-        parent::__construct($client, $marshaler, $tableName);
+        parent::__construct($client, $marshaler);
+        $this->setTableName($tableName);
         $this->setPrimaryKey($primaryKey);
     }
 
@@ -44,7 +48,7 @@ abstract class AbstractItemOperation extends AbstractOperation implements ItemOp
 
     public function toArray(): array
     {
-        $operation = parent::toArray();
+        $operation = $this->tableAwareTraitToArray();
         $operation += $this->returnConsumedCapacityAwareTraitToArray();
         $operation += $this->expressionAwareTraitToArray();
         $operation['Key'] = $this->primaryKey;

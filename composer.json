@@ -43,7 +43,7 @@
         ],
         "check-style": [
             "phpcbf --standard=PSR2 --extensions=php src tests",
-            "phpcs --standard=PSR2 --extensions=php src tests"            
+            "phpcs --standard=PSR2 --extensions=php src tests"
         ],
         "test": [
             "@check-style",

@@ -220,12 +220,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "cd1ef1a270d70920bbeede4c82471e26d4a5862e"
+                "reference": "39be17b98c24bf310876690af6d567967914a5d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/cd1ef1a270d70920bbeede4c82471e26d4a5862e",
-                "reference": "cd1ef1a270d70920bbeede4c82471e26d4a5862e",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/39be17b98c24bf310876690af6d567967914a5d9",
+                "reference": "39be17b98c24bf310876690af6d567967914a5d9",
                 "shasum": ""
             },
             "require": {
@@ -287,7 +287,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2020-01-10T11:44:52+00:00"
+            "time": "2020-01-12T02:43:13+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -665,12 +665,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "7b4aab9743c30be783b73de055d24a39cf4b954f"
+                "reference": "ed92f9e64b32efc1d218410146737c5ca796f267"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7b4aab9743c30be783b73de055d24a39cf4b954f",
-                "reference": "7b4aab9743c30be783b73de055d24a39cf4b954f",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/ed92f9e64b32efc1d218410146737c5ca796f267",
+                "reference": "ed92f9e64b32efc1d218410146737c5ca796f267",
                 "shasum": ""
             },
             "require": {
@@ -716,7 +716,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-11-27T14:18:11+00:00"
+            "time": "2020-01-13T11:02:47+00:00"
         }
     ],
     "packages-dev": [
@@ -988,12 +988,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-                "reference": "43f90ab91c74983651778dfcb4b906cd6d6e7fa2"
+                "reference": "f256f0b49e236c3b4705804d9998379282e0f75d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/43f90ab91c74983651778dfcb4b906cd6d6e7fa2",
-                "reference": "43f90ab91c74983651778dfcb4b906cd6d6e7fa2",
+                "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/f256f0b49e236c3b4705804d9998379282e0f75d",
+                "reference": "f256f0b49e236c3b4705804d9998379282e0f75d",
                 "shasum": ""
             },
             "require": {
@@ -1033,7 +1033,7 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2019-12-30T09:40:11+00:00"
+            "time": "2020-01-12T12:26:24+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -2100,12 +2100,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "b477a41ac565dad7a01c8b42f4804280723ad02f"
+                "reference": "f4662e8b7b982d52d72a558b421d48f200376fb7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/b477a41ac565dad7a01c8b42f4804280723ad02f",
-                "reference": "b477a41ac565dad7a01c8b42f4804280723ad02f",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/f4662e8b7b982d52d72a558b421d48f200376fb7",
+                "reference": "f4662e8b7b982d52d72a558b421d48f200376fb7",
                 "shasum": ""
             },
             "require": {
@@ -2143,7 +2143,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2020-01-10T04:04:04+00:00"
+            "time": "2020-01-12T21:02:48+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",

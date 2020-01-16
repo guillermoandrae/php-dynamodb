@@ -144,6 +144,40 @@ final class DynamoDbAdapterTest extends TestCase
         $adapter->deleteTable();
     }
 
+    public function testFindBatch()
+    {
+        $adapter = $this->adapter->useTable('test');
+        $adapter->createTable([
+            'name' => [AttributeTypes::STRING, KeyTypes::HASH],
+            'date' => [AttributeTypes::NUMBER, KeyTypes::RANGE],
+        ]);
+        $timestamp1 = time();
+        $timestamp2 = strtotime('tomorrow');
+        $adapter->insert(['name' => 'Guillermo', 'date' => $timestamp1, 'lastName' => 'Fisher']);
+        $adapter->insert(['name' => 'Andrae', 'date' => $timestamp2, 'lastName' => 'Fisher']);
+        $adapter->insert(['name' => 'Guillermo', 'date' => time(), 'lastName' => 'Fisher']);
+        $items = $adapter->find([
+            'test' => [
+                ['name' => 'Guillermo', 'date' => $timestamp1],
+                ['name' => 'Andrae', 'date' => $timestamp2],
+            ]
+        ]);
+        $this->assertEquals($items[0]['lastName'], $items[1]['lastName']);
+        $this->assertNotEquals($items[0]['name'], $items[1]['name']);
+        $adapter->deleteTable();
+    }
+
+    public function testBadFindBatch()
+    {
+        $this->expectException(Exception::class);
+        $this->adapter->useTable('test')->find([
+            'test' => [
+                ['name' => 'Guillermo', 'date' => time()],
+                ['name' => 'Andrae', 'date' => time()],
+            ]
+        ]);
+    }
+
     public function testBadInsert()
     {
         $this->expectException(Exception::class);
