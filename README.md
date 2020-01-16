@@ -62,7 +62,7 @@ try {
 
 To run the examples found in the `examples` directory, run a command similar to the following:
 ```shell script
-php ./exmaples/tables.php
+php ./examples/tables.php
 ```
 
 ## Running DynamoDB locally
