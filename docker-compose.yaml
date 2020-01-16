@@ -1,0 +1,12 @@
+version: "3.5"
+services:
+  dynamodb:
+    image: amazon/dynamodb-local
+    ports:
+      - 8080:8000
+    volumes:
+      - dynamodb_data:/home/dynamodblocal
+    working_dir: /home/dynamodblocal
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ."
+volumes:
+  dynamodb_data:
