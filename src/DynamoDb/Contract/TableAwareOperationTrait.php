@@ -2,6 +2,11 @@
 
 namespace Guillermoandrae\DynamoDb\Contract;
 
+/**
+ * Trait for table aware operation classes.
+ *
+ * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
+ */
 trait TableAwareOperationTrait
 {
     /**
