@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.132.3",
+            "version": "3.133.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "f814995664d4ad616f674e664ae069b9f4e340bf"
+                "reference": "fc59f16e01317c7445204baaeff7224050153a97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/f814995664d4ad616f674e664ae069b9f4e340bf",
-                "reference": "f814995664d4ad616f674e664ae069b9f4e340bf",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/fc59f16e01317c7445204baaeff7224050153a97",
+                "reference": "fc59f16e01317c7445204baaeff7224050153a97",
                 "shasum": ""
             },
             "require": {
@@ -88,7 +88,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-01-10T19:14:49+00:00"
+            "time": "2020-01-15T19:18:01+00:00"
         },
         {
             "name": "guillermoandrae/php-collection",
@@ -665,12 +665,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "ed92f9e64b32efc1d218410146737c5ca796f267"
+                "reference": "34094cfa9abe1f0f14f48f490772db7a775559f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/ed92f9e64b32efc1d218410146737c5ca796f267",
-                "reference": "ed92f9e64b32efc1d218410146737c5ca796f267",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/34094cfa9abe1f0f14f48f490772db7a775559f2",
+                "reference": "34094cfa9abe1f0f14f48f490772db7a775559f2",
                 "shasum": ""
             },
             "require": {
@@ -682,7 +682,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13-dev"
+                    "dev-master": "1.14-dev"
                 }
             },
             "autoload": {
@@ -716,7 +716,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2020-01-13T11:02:47+00:00"
+            "time": "2020-01-13T11:15:53+00:00"
         }
     ],
     "packages-dev": [
@@ -2100,12 +2100,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "f4662e8b7b982d52d72a558b421d48f200376fb7"
+                "reference": "bb50f790f17a431f8cf294274081a723bf376878"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/f4662e8b7b982d52d72a558b421d48f200376fb7",
-                "reference": "f4662e8b7b982d52d72a558b421d48f200376fb7",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/bb50f790f17a431f8cf294274081a723bf376878",
+                "reference": "bb50f790f17a431f8cf294274081a723bf376878",
                 "shasum": ""
             },
             "require": {
@@ -2143,7 +2143,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2020-01-12T21:02:48+00:00"
+            "time": "2020-01-14T22:43:20+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -2151,12 +2151,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "f8f0b461be3385e56d6de3dbb5a0df24c0c275e3"
+                "reference": "fbdeaec0df06cf3d51c93de80c7eb76e271f5a38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/f8f0b461be3385e56d6de3dbb5a0df24c0c275e3",
-                "reference": "f8f0b461be3385e56d6de3dbb5a0df24c0c275e3",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/fbdeaec0df06cf3d51c93de80c7eb76e271f5a38",
+                "reference": "fbdeaec0df06cf3d51c93de80c7eb76e271f5a38",
                 "shasum": ""
             },
             "require": {
@@ -2168,7 +2168,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13-dev"
+                    "dev-master": "1.14-dev"
                 }
             },
             "autoload": {
@@ -2201,7 +2201,7 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2019-11-27T13:56:44+00:00"
+            "time": "2020-01-13T11:15:53+00:00"
         },
         {
             "name": "theseer/tokenizer",
