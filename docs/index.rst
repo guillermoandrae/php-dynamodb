@@ -8,3 +8,13 @@ Quickstart
 .. literalinclude:: ../examples/quickstart.php
     :linenos:
     :language: php
+
+User Guide
+###########
+
+.. toctree::
+    :maxdepth: 3
+
+    overview
+    items
+    tables
