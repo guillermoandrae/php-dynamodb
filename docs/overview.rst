@@ -4,8 +4,7 @@ Overview
 Installation
 ###############
 The recommended way to install this library is through [Composer](https://getcomposer.org/):
-::
-    .. code-block:: bash
+.. code-block: bash
     composer install guillermoandrae/php-dynamodb
 
 Running DynamoDB locally
