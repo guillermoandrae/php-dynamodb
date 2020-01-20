@@ -43,4 +43,4 @@ php ./examples/tables.php
 ```
 
 ## Documentation
-More documentation can be found at [https://php-dynamodb.readthedocs.org](https://php-dynamodb.readthedocs.org).
+More information about this project can be found at the [documentation site](https://php-dynamodb.readthedocs.org).
