@@ -19,4 +19,3 @@ Run the following command to check style, run tests, and generate an HTML report
 ```shell script
 composer test-html
 ```
-

@@ -22,11 +22,8 @@ use Guillermoandrae\DynamoDb\Constant\AttributeTypes;
 use Guillermoandrae\DynamoDb\Constant\KeyTypes;
 
 try {
-    // create a new adapter
+    // create a new table
     $adapter = new DynamoDbAdapter();
-
-    // create a table
-    $keys = ;
     $adapter->useTable('myTable')->createTable([
         'year' => [AttributeTypes::NUMBER, KeyTypes::HASH],
         'title' => [AttributeTypes::STRING, KeyTypes::RANGE],
