@@ -12,7 +12,7 @@ The recommended way to install this library is through `Composer <https://getcom
 Running DynamoDB locally
 ##############################
 To aid in your development, you can run the following commands to manage DynamoDB locally:
-
+::
 .. code-block:: sh
     composer install-db # downloads and installs DynamoDB locally
     composer start-db # starts DynamoDB locally
