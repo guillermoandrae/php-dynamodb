@@ -9,7 +9,7 @@ The recommended way to install this library is through `Composer <https://getcom
     composer install guillermoandrae/php-dynamodb
 
 You can also specify this library as a dependency in your project using your composer.json file:
-.. code-block:: json
+.. code-block:: javascript
     {
        "require": {
           "guillermoandrae/php-dynamodb": "*"
