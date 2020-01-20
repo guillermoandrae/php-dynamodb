@@ -17,6 +17,6 @@ composer test
 
 Run the following command to check style, run tests, and generate an HTML report (access the report at http://localhost:8080):
 ```shell script
-    composer test-html
+composer test-html
 ```
 
