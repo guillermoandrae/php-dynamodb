@@ -18,5 +18,5 @@ User Guide
     :maxdepth: 3
 
     overview
-    items
     tables
+    items
