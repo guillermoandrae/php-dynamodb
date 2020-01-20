@@ -1,6 +1,6 @@
 Overview
 **************************
-**php-dynamodb** is a PHP library that can be used to interact with `Amazon DynamoDB <https://aws.amazon.com/dynamodb/>`. It provides a layer of abstraction between your code and the DynamoDB-related classes made available by the `AWS SDK for PHP <https://github.com/aws/aws-sdk-php>`_.
+**php-dynamodb** is a PHP library that can be used to interact with `Amazon DynamoDB <https://aws.amazon.com/dynamodb/>`_. It provides a layer of abstraction between your code and the DynamoDB-related classes made available by the `AWS SDK for PHP <https://github.com/aws/aws-sdk-php>`_.
 
 Installation
 ###############
