@@ -22,6 +22,7 @@ use Guillermoandrae\DynamoDb\Constant\AttributeTypes;
 use Guillermoandrae\DynamoDb\Constant\KeyTypes;
 
 try {
+
     // create a new table
     $adapter = new DynamoDbAdapter();
     $adapter->useTable('myTable')->createTable([
@@ -39,5 +40,5 @@ You can also run the examples found in the `examples` directory:
 php ./examples/tables.php
 ```
 
-## Documentation
+## Docs
 More information about this project can be found at the [documentation site](https://php-dynamodb.readthedocs.org).
