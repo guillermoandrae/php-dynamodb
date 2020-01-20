@@ -10,11 +10,11 @@ The recommended way to install this library is through `Composer <https://getcom
 
 You can also specify this library as a dependency in your project using your composer.json file:
 ::
-{
-   "require": {
-      "guillermoandrae/php-dynamodb": "*"
-   }
-}
+    {
+       "require": {
+          "guillermoandrae/php-dynamodb": "*"
+       }
+    }
 
 Running DynamoDB Locally
 ##############################
