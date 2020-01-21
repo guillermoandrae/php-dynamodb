@@ -34,6 +34,7 @@ More complex table creation can be accomplished using the ``CreateTableOperation
         'year' => [AttributeTypes::NUMBER, KeyTypes::RANGE],
     ]);
     $operation->setReadCapacityUnits(10);
+    $result = $operation->execute();
 
 .. note::
     By default, php-dynamodb will use 5 read capacity units and 5 write capacity units when creating tables.
