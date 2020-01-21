@@ -13,11 +13,10 @@ try {
     $tableName = 'myTable';
 
     // create a table
-    $keys = [
+    $adapter->useTable($tableName)->createTable([
         'year' => [AttributeTypes::NUMBER, KeyTypes::HASH],
         'title' => [AttributeTypes::STRING, KeyTypes::RANGE],
-    ];
-    $adapter->useTable($tableName)->createTable($keys);
+    ]);
 
     // add an item to the table
     $adapter->useTable($tableName)->insert([
