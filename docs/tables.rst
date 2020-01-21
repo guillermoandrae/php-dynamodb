@@ -29,11 +29,11 @@ More complex table creation can be accomplished using the ``CreateTableOperation
     use Guillermoandrae\DynamoDb\Constant\KeyTypes;
     use Guillermoandrae\DynamoDb\DynamoDbAdapter;
 
-    $operation = new CreateTableOperation('myTable');
-    $operation->setKeySchema([
+    $operation = new CreateTableOperation('myTable', [
         'name' => [AttributeTypes::STRING, KeyTypes::HASH],
         'year' => [AttributeTypes::NUMBER, KeyTypes::RANGE],
     ]);
+    $operation->setReadCapacityUnits(10);
 
 .. note::
     By default, php-dynamodb will use 5 read capacity units and 5 write capacity units when creating tables.
