@@ -19,21 +19,24 @@ Simple table creation can be accomplished using the adapter's ``createTable()`` 
 
 **Example**
 ::
-    $tables = $adapter->useTable('myTable')->createTable();
-    foreach ($tables as $table) {
-        echo $table . PHP_EOL;
-    }
+    $result = $adapter->useTable('myTable')->createTable();
 
 More complex table creation can be accomplished using the ``CreateTableOperation`` class.
 
 **Example**
 ::
+    use Guillermoandrae\DynamoDb\Constant\AttributeTypes;
+    use Guillermoandrae\DynamoDb\Constant\KeyTypes;
+    use Guillermoandrae\DynamoDb\DynamoDbAdapter;
+
     $operation = new CreateTableOperation('myTable');
     $operation->setKeySchema([
+        'name' => [AttributeTypes::STRING, KeyTypes::HASH],
+        'year' => [AttributeTypes::NUMBER, KeyTypes::RANGE],
     ]);
 
 .. note::
-By default, php-dynamodb will use 5 read capacity units and 5 write capacity units when creating tables.
+    By default, php-dynamodb will use 5 read capacity units and 5 write capacity units when creating tables.
 
 Deleting Tables
 ####################
