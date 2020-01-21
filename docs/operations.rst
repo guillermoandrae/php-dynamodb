@@ -4,12 +4,14 @@ You can easily create DynamoDB operations using a straightforward API.
 
 The DynamoDB Client Factory
 ##########################
+**Example**
 ::
     use Guillermoandrae\DynamoDb\Factory\DynamoDbClientFactory;
 
     $client = DynamoDbClientFactory::factory();
 
 or
+**Example**
 ::
     use Guillermoandrae\DynamoDb\Factory\DynamoDbClientFactory;
 
@@ -18,6 +20,7 @@ or
 
 The Marshaler Factory
 ##########################
+**Example**
 ::
     use Guillermoandrae\DynamoDb\Factory\MarshalerFactory;
 
@@ -25,6 +28,7 @@ The Marshaler Factory
 
 The DynamoDB Adapter
 ##########################
+**Example**
 ::
     use Guillermoandrae\DynamoDb\DynamoDbAdapter;
 
@@ -32,6 +36,7 @@ The DynamoDB Adapter
 
 The Operation Factory
 ##########################
+**Example**
 ::
     use Guillermoandrae\DynamoDb\Factory\DynamoDbClientFactory;
     use Guillermoandrae\DynamoDb\Factory\MarshalerFactory;
@@ -41,6 +46,3 @@ The Operation Factory
     OperationFactory::registerMarshaler(MarshalerFactory::factory());
     $operation = OperationFactory::factory('list-tables', 'myTable');
     $operation->execute();
-
-Instantiating Operations
-##########################
