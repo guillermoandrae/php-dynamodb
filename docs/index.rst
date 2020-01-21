@@ -18,5 +18,6 @@ User Guide
     :maxdepth: 3
 
     overview
+    operations
     tables
     items

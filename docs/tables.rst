@@ -21,7 +21,7 @@ Simple table creation can be accomplished using the adapter's ``createTable()`` 
 ::
     $result = $adapter->useTable('myTable')->createTable();
 
-More complex table creation can be accomplished using the ``CreateTableOperation`` class.
+More complex table creation can be accomplished using the ``CreateTableOperation`` class, an instance of which can be created using the OperationFactory.
 
 **Example**
 ::
