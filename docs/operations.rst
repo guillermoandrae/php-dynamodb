@@ -1,6 +1,6 @@
 Executing Operations
 **************************
-You can easily create DynamoDB operations using a straightforward API.
+You can easily execute DynamoDB operations using a straightforward API.
 
 The DynamoDB Client Factory
 ############################
@@ -21,7 +21,7 @@ or
     $client = DynamoDbClientFactory::factory([
         'region' => '<your region>',
         'version' => 'latest',
-        'endpoint' => '<your endpoint?',
+        'endpoint' => '<your endpoint>',
         'credentials' => [
             'key' => '<your key>',
             'secret' => '<your secret>',
