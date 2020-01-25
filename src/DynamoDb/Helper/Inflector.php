@@ -9,6 +9,12 @@ namespace Guillermoandrae\DynamoDb\Helper;
  */
 final class Inflector
 {
+    /**
+     * Returns a camel-cased string.
+     *
+     * @param string $input The input string.
+     * @return string The camel-cased string.
+     */
     public static function camelize(string $input): string
     {
         $output = $input;
@@ -16,7 +22,7 @@ final class Inflector
             $output = '';
             $segments = explode('-', $input);
             foreach ($segments as $segment) {
-                $output .= strtoupper($segment);
+                $output .= ucfirst(strtolower($segment));
             }
         }
         return $output;
