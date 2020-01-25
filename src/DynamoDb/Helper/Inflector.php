@@ -17,13 +17,10 @@ final class Inflector
      */
     public static function camelize(string $input): string
     {
-        $output = $input;
-        if (strstr($input, '-')) {
-            $output = '';
-            $segments = explode('-', $input);
-            foreach ($segments as $segment) {
-                $output .= ucfirst(strtolower($segment));
-            }
+        $output = '';
+        $segments = explode('-', $input);
+        foreach ($segments as $segment) {
+            $output .= ucfirst(strtolower($segment));
         }
         return $output;
     }
