@@ -6,7 +6,7 @@ use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\DynamoDb\Contract\OperationInterface;
 use Guillermoandrae\DynamoDb\Exception\Exception;
-use ICanBoogie\Inflector;
+use Guillermoandrae\DynamoDb\Helper\Inflector;
 use ReflectionClass;
 use ReflectionException;
 
@@ -41,7 +41,7 @@ final class OperationFactory
             $className = sprintf(
                 '%s\%sOperation',
                 '\Guillermoandrae\DynamoDb\Operation',
-                Inflector::get()->camelize($type)
+                Inflector::camelize($type)
             );
             $reflectionClass = new ReflectionClass($className);
             $args = [self::getClient(), self::getMarshaler()];
