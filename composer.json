@@ -6,8 +6,7 @@
     "require": {
         "php": "^7.2",
         "aws/aws-sdk-php": "^3.95",
-        "guillermoandrae/php-repository": "^1.2",
-        "icanboogie/inflector": "^1.5"
+        "guillermoandrae/php-repository": "^1.2"
     },
     "autoload": {
         "psr-4": {
