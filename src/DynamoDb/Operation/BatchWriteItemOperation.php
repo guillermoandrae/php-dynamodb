@@ -7,6 +7,7 @@ use Aws\DynamoDb\Exception\DynamoDbException;
 use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\DynamoDb\Contract\AbstractBatchItemOperation;
 use Guillermoandrae\DynamoDb\Factory\ExceptionFactory;
+use Guillermoandrae\DynamoDb\Helper\Inflector;
 
 /**
  * BatchWriteItem operation.
@@ -72,7 +73,7 @@ final class BatchWriteItemOperation extends AbstractBatchItemOperation
      */
     private function setWriteRequest(string $type, array $requestItems): BatchWriteItemOperation
     {
-        $type = ucfirst(strtolower($type));
+        $type = Inflector::camelize($type);
         $keyName = ($type == 'Put') ? 'Item' : 'Key';
         foreach ($requestItems as $tableName => $items) {
             if (!isset($this->requestItems[$tableName])) {
