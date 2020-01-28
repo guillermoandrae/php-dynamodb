@@ -67,10 +67,10 @@ final class BatchWriteItemOperation extends AbstractBatchItemOperation
      * Registers request options.
      *
      * @param string $type The request type (Put or Delete).
-     * @param $requestItems The table(s) and associated options.
+     * @param array $requestItems The table(s) and associated options.
      * @return BatchWriteItemOperation
      */
-    private function setWriteRequest(string $type, $requestItems): BatchWriteItemOperation
+    private function setWriteRequest(string $type, array $requestItems): BatchWriteItemOperation
     {
         $type = ucfirst(strtolower($type));
         $keyName = ($type == 'Put') ? 'Item' : 'Key';
