@@ -18,6 +18,6 @@ final class MarshalerFactory
      */
     public static function factory()
     {
-        return new Marshaler(['wrap_numbers' => true]);
+        return new Marshaler();
     }
 }

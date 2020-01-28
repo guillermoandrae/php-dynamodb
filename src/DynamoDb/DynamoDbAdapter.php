@@ -129,8 +129,8 @@ final class DynamoDbAdapter implements DynamoDbAdapterInterface
         return OperationFactory::factory('update-item', $this->tableName, $primaryKey, $data)->execute();
     }
 
-    public function delete($id): bool
+    public function delete($primaryKey): bool
     {
-        return OperationFactory::factory('delete-item', $this->tableName, $id)->execute();
+        return OperationFactory::factory('delete-item', $this->tableName, $primaryKey)->execute();
     }
 }
