@@ -4,7 +4,7 @@ The following table operations are supported by **php-dynamodb**.
 
 Listing Tables
 ####################
-To see a list of the tables that exist your database, use the ``listTables()`` method. It will return an indexed array that stores the names of the existing tables.
+To see a list of the tables that exist in your database, use the ``listTables()`` method. It will return an indexed array that stores the names of the existing tables.
 
 **Example**
 ::
