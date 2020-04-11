@@ -18,7 +18,6 @@ final class DeleteTableOperation extends AbstractTableOperation
     {
         try {
             $this->client->deleteTable($this->toArray());
-            //$this->client->waitUntil('TableExists', ['TableName' => $this->tableName]);
             return true;
         } catch (DynamoDbException $ex) {
             throw ExceptionFactory::factory($ex);
