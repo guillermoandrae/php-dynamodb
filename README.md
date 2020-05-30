@@ -42,3 +42,6 @@ php ./examples/tables.php
 
 ## Docs
 More information about this project can be found at the [documentation site](https://php-dynamodb.readthedocs.org).
+
+## Thanks
+Special thanks to [Jason McCallister](https://github.com/jasonmccallister) for encouraging me to finish this, and to [Ryan McGovern](https://github.com/TekGadgt) for his contributions.
