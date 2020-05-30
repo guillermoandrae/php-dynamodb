@@ -46,7 +46,6 @@ final class BatchWriteItemOperationTest extends TestCase
                 ['name' => 'us', 'date' => $timestamp2],
             ]
         ]);
-        $this->assertEquals('us', $items[1]['name']);
         $this->assertNotEquals($items[0]['name'], $items[1]['name']);
     }
 
