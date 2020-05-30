@@ -7,7 +7,7 @@ namespace Guillermoandrae\DynamoDb\Contract;
  *
  * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
  */
-trait LimitAwareOperationTrait
+trait PaginationAwareOperationTrait
 {
     /**
      * @var int The result limit.
