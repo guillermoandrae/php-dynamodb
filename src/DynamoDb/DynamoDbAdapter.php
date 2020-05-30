@@ -101,12 +101,18 @@ final class DynamoDbAdapter implements DynamoDbAdapterInterface
 
     public function findWhere(array $conditions, int $offset = 0, ?int $limit = null): CollectionInterface
     {
-        return OperationFactory::factory('query', $this->tableName, $conditions)->execute();
+        return OperationFactory::factory('query', $this->tableName, $conditions)
+            ->setOffset($offset)
+            ->setLimit($limit)
+            ->execute();
     }
 
     public function findAll(int $offset = 0, ?int $limit = null, ?array $conditions = []): CollectionInterface
     {
-        return OperationFactory::factory('scan', $this->tableName, $conditions)->execute();
+        return OperationFactory::factory('scan', $this->tableName, $conditions)
+            ->setOffset($offset)
+            ->setLimit($limit)
+            ->execute();
     }
 
     public function find(array $primaryKey): array

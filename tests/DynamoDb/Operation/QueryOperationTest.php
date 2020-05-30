@@ -23,6 +23,16 @@ final class QueryOperationTest extends TestCase
         $this->assertEquals($expectedLimit, $this->operation->toArray()['Limit']);
     }
 
+    public function testPagination()
+    {
+        $offset = 5;
+        $expectedLimit = 50;
+        $expectedPaginationLimit = $offset + $expectedLimit;
+        $this->operation->setOffset($offset);
+        $this->operation->setLimit($expectedLimit);
+        $this->assertEquals($expectedPaginationLimit, $this->operation->toArray()['Limit']);
+    }
+
     public function testFilterExpressionGT()
     {
         $expectedExpression = 'width > :width';

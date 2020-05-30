@@ -15,6 +15,8 @@ use Guillermoandrae\DynamoDb\Factory\ExceptionFactory;
 /**
  * Query operation.
  *
+ * Note about offset and limit: https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#Query.Limit
+ *
  * @author Guillermo A. Fisher <me@guillermoandraefisher.com>
  * @link https://docs.aws.amazon.com/aws-sdk-php/v3/api/api-dynamodb-2012-08-10.html#query
  */
@@ -114,7 +116,7 @@ final class QueryOperation extends AbstractSearchOperation
             foreach ($results['Items'] as $item) {
                 $rows[] = $this->marshaler->unmarshalItem($item);
             }
-            return Collection::make($rows);
+            return Collection::make($rows)->limit($this->offset);
         } catch (DynamoDbException $ex) {
             throw ExceptionFactory::factory($ex);
         }

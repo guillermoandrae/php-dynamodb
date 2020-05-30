@@ -5,7 +5,7 @@ namespace Guillermoandrae\DynamoDb\Operation;
 use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Marshaler;
 use Guillermoandrae\DynamoDb\Contract\AbstractTableOperation;
-use Guillermoandrae\DynamoDb\Contract\PaginationAwareOperationTrait;
+use Guillermoandrae\DynamoDb\Contract\LimitAwareOperationTrait;
 
 /**
  * ListTables operation.
@@ -15,8 +15,8 @@ use Guillermoandrae\DynamoDb\Contract\PaginationAwareOperationTrait;
  */
 final class ListTablesOperation extends AbstractTableOperation
 {
-    use PaginationAwareOperationTrait {
-        PaginationAwareOperationTrait::toArray as paginationAwareTraitToArray;
+    use LimitAwareOperationTrait {
+        LimitAwareOperationTrait::toArray as limitAwareTraitToArray;
     }
 
     /**
@@ -61,8 +61,8 @@ final class ListTablesOperation extends AbstractTableOperation
         if ($this->lastEvaluatedTableName) {
             $operation['LastEvaluatedTableName'] = $this->lastEvaluatedTableName;
         }
-        if ($this->limit) {
-            $operation += $this->paginationAwareTraitToArray();
+        if ($this->offset || $this->limit) {
+            $operation += $this->limitAwareTraitToArray();
         }
         return $operation;
     }

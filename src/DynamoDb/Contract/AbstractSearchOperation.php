@@ -13,11 +13,11 @@ use Aws\DynamoDb\Marshaler;
 abstract class AbstractSearchOperation extends AbstractOperation implements SearchOperationInterface
 {
     use TableAwareOperationTrait,
-        PaginationAwareOperationTrait,
+        LimitAwareOperationTrait,
         ExpressionAttributeValueAwareOperationTrait,
         ReturnConsumedCapacityAwareOperationTrait {
         TableAwareOperationTrait::toArray as tableAwareTraitToArray;
-        PaginationAwareOperationTrait::toArray as paginationAwareTraitToArray;
+        LimitAwareOperationTrait::toArray as limitAwareTraitToArray;
         ExpressionAttributeValueAwareOperationTrait::toArray as expressionAwareTraitToArray;
         ReturnConsumedCapacityAwareOperationTrait::toArray as returnConsumedCapacityAwareTraitToArray;
     }
@@ -82,8 +82,8 @@ abstract class AbstractSearchOperation extends AbstractOperation implements Sear
     public function toArray(): array
     {
         $operation = $this->tableAwareTraitToArray();
-        if ($this->limit) {
-            $operation += $this->paginationAwareTraitToArray();
+        if ($this->offset || $this->limit) {
+            $operation += $this->limitAwareTraitToArray();
         }
         $operation += $this->returnConsumedCapacityAwareTraitToArray();
         $operation += $this->expressionAwareTraitToArray();
