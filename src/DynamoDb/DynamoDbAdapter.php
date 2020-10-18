@@ -38,15 +38,15 @@ final class DynamoDbAdapter implements DynamoDbAdapterInterface
     {
         if (empty($client)) {
             $client = DynamoDbClientFactory::factory();
-            $this->setClient($client);
-            OperationFactory::setClient($client);
         }
+        $this->setClient($client);
+        OperationFactory::setClient($client);
 
         if (empty($marshaler)) {
             $marshaler = MarshalerFactory::factory();
-            $this->setMarshaler($marshaler);
-            OperationFactory::setMarshaler($marshaler);
         }
+        $this->setMarshaler($marshaler);
+        OperationFactory::setMarshaler($marshaler);
     }
 
     public function createTable(array $data, ?string $tableName = '', ?array $options = []): bool
