@@ -6,6 +6,7 @@ use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Exception\DynamoDbException;
 use Aws\DynamoDb\Marshaler;
 use ErrorException;
+use Guillermoandrae\DynamoDb\Constant\Operators;
 use Guillermoandrae\DynamoDb\Contract\AbstractItemOperation;
 use Guillermoandrae\DynamoDb\Factory\ExceptionFactory;
 
@@ -42,7 +43,18 @@ class UpdateItemOperation extends AbstractItemOperation
         array $updateData
     ) {
         parent::__construct($client, $marshaler, $tableName, $primaryKey);
-        $this->setExpression($updateData);
+        $updateDataArray = [];
+        foreach ($updateData as $key => $options) {
+            if (!isset($options['operator'])) {
+                $updateDataArray[$key] = [
+                    'operator' => Operators::EQ,
+                    'value' => $options
+                ];
+            } else {
+                $updateDataArray[$key] = $options;
+            }
+        }
+        $this->setExpression($updateDataArray);
     }
     
     public function execute(): bool
