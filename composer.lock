@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "15033472eec44375829cbfc3109e487b",
+    "content-hash": "b1007bb299614a386ebb29f7d6a12a90",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.185.7",
+            "version": "3.185.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "7c0cd260e749374b5df247c4768c8f33f9a604e4"
+                "reference": "d30661623a1835ba4bb406675f865c4b40b4b425"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7c0cd260e749374b5df247c4768c8f33f9a604e4",
-                "reference": "7c0cd260e749374b5df247c4768c8f33f9a604e4",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d30661623a1835ba4bb406675f865c4b40b4b425",
+                "reference": "d30661623a1835ba4bb406675f865c4b40b4b425",
                 "shasum": ""
             },
             "require": {
@@ -92,30 +92,30 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.185.7"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.185.8"
             },
-            "time": "2021-07-06T18:16:14+00:00"
+            "time": "2021-07-07T18:14:28+00:00"
         },
         {
             "name": "guillermoandrae/php-collection",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guillermoandrae/php-collection.git",
-                "reference": "9531a5880f3675f7fad3fa9560878ec3ca2eb7d9"
+                "reference": "6737f15bb88fc87965df6ff15b23e2ec55503830"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guillermoandrae/php-collection/zipball/9531a5880f3675f7fad3fa9560878ec3ca2eb7d9",
-                "reference": "9531a5880f3675f7fad3fa9560878ec3ca2eb7d9",
+                "url": "https://api.github.com/repos/guillermoandrae/php-collection/zipball/6737f15bb88fc87965df6ff15b23e2ec55503830",
+                "reference": "6737f15bb88fc87965df6ff15b23e2ec55503830",
                 "shasum": ""
             },
             "require": {
                 "guillermoandrae/php-debug": "1.*",
-                "php": "^7.2"
+                "php": "^7.3||~8.0.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^7.1",
+                "phpunit/phpunit": "^7.1||~8.0",
                 "squizlabs/php_codesniffer": "^3.2"
             },
             "type": "library",
@@ -140,9 +140,9 @@
             "description": "A PHP Collection Library",
             "support": {
                 "issues": "https://github.com/guillermoandrae/php-collection/issues",
-                "source": "https://github.com/guillermoandrae/php-collection/tree/1.0.0"
+                "source": "https://github.com/guillermoandrae/php-collection/tree/1.1.0"
             },
-            "time": "2020-05-31T00:49:59+00:00"
+            "time": "2021-07-07T14:37:01+00:00"
         },
         {
             "name": "guillermoandrae/php-debug",
@@ -2552,8 +2552,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2||~8.0.0"
+        "php": "^7.3||~8.0.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.0.0"
 }
