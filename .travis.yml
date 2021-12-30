@@ -1,15 +1,12 @@
 language: php
 matrix:
   include:
-    - php: 7.3
-    - php: 7.4
     - php: 8.0
     - php: nightly
   allow_failures:
     - php: nightly
   fast_finish: true
 before_install:
-  - composer install-db
   - travis_wait composer start-db > /dev/null &
 script:
   - composer install --optimize-autoloader

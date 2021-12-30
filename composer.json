@@ -3,9 +3,9 @@
     "description": "A PHP library that can be used to interact with Amazon DynamoDB",
     "license": "MIT",
     "require": {
-        "php": "^7.3||~8.0.0",
+        "php": "^8.0",
         "aws/aws-sdk-php": "^3.95",
-        "guillermoandrae/php-collection": "^1.0"
+        "guillermoandrae/php-collection": "*"
     },
     "autoload": {
         "psr-4": {
@@ -13,7 +13,7 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.1",
+        "phpunit/phpunit": "^9.0",
         "squizlabs/php_codesniffer": "^3.4"
     },
     "autoload-dev": {
@@ -22,12 +22,10 @@
         }
     },
     "scripts": {
-        "install-db": [
-            "mkdir ./database",
-            "wget --directory-prefix=./database https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_latest.zip",
-            "unzip ./database/dynamodb_local_latest.zip -d database"
-        ],
         "start-db": [
+            "mkdir -p ./database",
+            "if [ ! -f ./database/dynamodb_local_latest.zip ]; then wget --directory-prefix=./database https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_latest.zip; fi",
+            "if [ ! -d ./database/DynamoDBLocal_lib ]; then unzip ./database/dynamodb_local_latest.zip -d database; fi",
             "nohup java -Djava.library.path=./database/DynamoDBLocal_lib -jar ./database/DynamoDBLocal.jar -sharedDb &"
         ],
         "stop-db": [
