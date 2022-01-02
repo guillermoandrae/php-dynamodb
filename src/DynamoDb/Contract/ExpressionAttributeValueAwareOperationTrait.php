@@ -17,26 +17,26 @@ trait ExpressionAttributeValueAwareOperationTrait
     /**
      * @var string The name of the desired expression field.
      */
-    protected $expressionFieldName = 'FilterExpression';
+    protected string $expressionFieldName = 'FilterExpression';
 
     /**
      * @var string The expression.
      */
-    protected $expression = '';
+    protected string $expression = '';
 
     /**
      * @var array Values that can be substituted in an expression.
      */
-    protected $expressionAttributeValues = [];
+    protected array $expressionAttributeValues = [];
 
     /**
      * Registers the expression with this object.
      *
      * @param array $data The filter expression data.
-     * @return mixed This object.
+     * @return static This object.
      * @throws ErrorException Thrown when an invalid operator is provided.
      */
-    final public function setExpression(array $data)
+    final public function setExpression(array $data): static
     {
         $expressionArray = [];
         foreach ($data as $key => $options) {
@@ -82,9 +82,9 @@ trait ExpressionAttributeValueAwareOperationTrait
      *
      * @param string $key The attribute token.
      * @param mixed $value The attribute value.
-     * @return mixed This object.
+     * @return static This object.
      */
-    final public function addExpressionAttributeValue(string $key, $value)
+    final public function addExpressionAttributeValue(string $key, mixed $value): static
     {
         $this->expressionAttributeValues[sprintf(':%s', $key)] = $this->getMarshaler()->marshalValue($value);
         return $this;

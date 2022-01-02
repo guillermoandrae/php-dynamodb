@@ -12,20 +12,20 @@ trait LimitAwareOperationTrait
     /**
      * @var int The result offset.
      */
-    protected $offset = 0;
+    protected int $offset = 0;
 
     /**
      * @var int|null The result limit.
      */
-    protected $limit;
+    protected ?int $limit = 0;
 
     /**
      * Registers the result offset with this object.
      *
      * @param integer $offset The result offset.
-     * @return mixed An implementation of this trait.
+     * @return static An implementation of this trait.
      */
-    final public function setOffset(int $offset)
+    final public function setOffset(int $offset): static
     {
         $this->offset = $offset;
         return $this;
@@ -35,9 +35,9 @@ trait LimitAwareOperationTrait
      * Registers the result limit with this object.
      *
      * @param integer|null $limit The result limit.
-     * @return mixed An implementation of this trait.
+     * @return static An implementation of this trait.
      */
-    final public function setLimit(?int $limit)
+    final public function setLimit(?int $limit): static
     {
         $this->limit = $limit;
         return $this;

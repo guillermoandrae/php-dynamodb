@@ -20,12 +20,12 @@ final class OperationFactory
     /**
      * @var DynamoDbClient The DynamoDb client.
      */
-    private static $client;
+    private static DynamoDbClient $client;
 
     /**
      * @var Marshaler The Marshaler.
      */
-    private static $marshaler;
+    private static Marshaler $marshaler;
 
     /**
      * Creates and returns the desired request.

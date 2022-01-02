@@ -42,7 +42,7 @@ final class BatchGetItemOperation extends AbstractBatchItemOperation
         return $this;
     }
 
-    public function execute()
+    public function execute(): array
     {
         try {
             $items = [];

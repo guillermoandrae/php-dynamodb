@@ -23,7 +23,7 @@ class UpdateItemOperation extends AbstractItemOperation
     /**
      * @var string The name of the update expression field.
      */
-    protected $expressionFieldName = 'UpdateExpression';
+    protected string $expressionFieldName = 'UpdateExpression';
 
     /**
      * Registers the DynamoDb client, Marshaler, table name, and item data with this object.
@@ -37,10 +37,10 @@ class UpdateItemOperation extends AbstractItemOperation
      */
     public function __construct(
         DynamoDbClient $client,
-        Marshaler $marshaler,
-        string $tableName,
-        array $primaryKey,
-        array $updateData
+        Marshaler      $marshaler,
+        string         $tableName,
+        array          $primaryKey,
+        array          $updateData
     ) {
         parent::__construct($client, $marshaler, $tableName, $primaryKey);
         $updateDataArray = [];
@@ -56,7 +56,7 @@ class UpdateItemOperation extends AbstractItemOperation
         }
         $this->setExpression($updateDataArray);
     }
-    
+
     public function execute(): bool
     {
         try {

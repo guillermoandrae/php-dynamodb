@@ -25,22 +25,22 @@ abstract class AbstractSearchOperation extends AbstractOperation implements Sear
     /**
      * @var boolean Whether or not the read should be consistent.
      */
-    private $consistentRead = false;
+    protected bool $consistentRead = false;
 
     /**
      * @var string The name of a secondary index to request against.
      */
-    private $indexName = '';
+    protected string $indexName = '';
 
     /**
      * @var string The attributes to retrieve from the specified table or index.
      */
-    private $projectionExpression = '';
+    protected string $projectionExpression = '';
 
     /**
      * @var string The attributes to be returned in the result.
      */
-    private $select = '';
+    protected string $select = '';
 
     /**
      * Registers the DynamoDb client, Marshaler, and the table name with this object.

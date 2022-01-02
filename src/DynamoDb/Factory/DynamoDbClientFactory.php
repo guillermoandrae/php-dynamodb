@@ -14,7 +14,7 @@ final class DynamoDbClientFactory
     /**
      * @var array The default client options.
      */
-    private static $defaultOptions = [
+    private static array $defaultOptions = [
         'region' => 'us-west-2',
         'version' => 'latest',
         'endpoint' => 'http://localhost:8000',

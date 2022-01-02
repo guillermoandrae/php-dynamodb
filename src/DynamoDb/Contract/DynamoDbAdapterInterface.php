@@ -32,17 +32,17 @@ interface DynamoDbAdapterInterface
      * @throws Exception Thrown when an error occurs during deletion.
      * @see DeleteItemOperation
      */
-    public function deleteTable(string $tableName = ''): bool;
+    public function deleteTable(?string $tableName = ''): bool;
 
     /**
      * Returns information about a table.
      *
      * @param string|null $tableName OPTIONAL The name of the table to delete.
-     * @return array The table data.
+     * @return array|null The table data.
      * @throws Exception Thrown when an error occurs during the existence check.
      * @see DescribeTableOperation
      */
-    public function describeTable(string $tableName = ''): ?array;
+    public function describeTable(?string $tableName = ''): ?array;
 
     /**
      * Determines whether or not a table exists.
@@ -51,12 +51,12 @@ interface DynamoDbAdapterInterface
      * @return boolean Whether or not the table exists.
      * @see ListTablesOperation
      */
-    public function tableExists(string $tableName = ''): bool;
+    public function tableExists(?string $tableName = ''): bool;
 
     /**
      * Returns an array of the existing tables.
      *
-     * @return array An array of the existing tables.
+     * @return array|null An array of the existing tables.
      * @see ListTablesOperation
      */
     public function listTables(): ?array;

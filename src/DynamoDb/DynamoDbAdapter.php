@@ -10,6 +10,9 @@ use Guillermoandrae\DynamoDb\Contract\DynamoDbClientAwareTrait;
 use Guillermoandrae\DynamoDb\Factory\DynamoDbClientFactory;
 use Guillermoandrae\DynamoDb\Factory\MarshalerFactory;
 use Guillermoandrae\DynamoDb\Factory\OperationFactory;
+use Guillermoandrae\DynamoDb\Operation\QueryOperation;
+use Guillermoandrae\DynamoDb\Operation\ScanOperation;
+use MongoDB\Driver\Query;
 
 /**
  * The DynamoDB adapter.
@@ -23,7 +26,7 @@ final class DynamoDbAdapter implements DynamoDbAdapterInterface
     /**
      * @var string The table name.
      */
-    private $tableName;
+    private string $tableName;
 
     /**
      * DynamoDBAdapter constructor.
@@ -57,7 +60,7 @@ final class DynamoDbAdapter implements DynamoDbAdapterInterface
         return OperationFactory::factory('create-table', $tableName, $data)->execute();
     }
 
-    public function deleteTable(string $tableName = ''): bool
+    public function deleteTable(?string $tableName = ''): bool
     {
         if (empty($tableName)) {
             $tableName = $this->tableName;
@@ -65,7 +68,7 @@ final class DynamoDbAdapter implements DynamoDbAdapterInterface
         return OperationFactory::factory('delete-table', $tableName)->execute();
     }
 
-    public function describeTable(string $tableName = ''): ?array
+    public function describeTable(?string $tableName = ''): ?array
     {
         if (empty($tableName)) {
             $tableName = $this->tableName;
@@ -73,7 +76,7 @@ final class DynamoDbAdapter implements DynamoDbAdapterInterface
         return OperationFactory::factory('describe-table', $tableName)->execute();
     }
 
-    public function tableExists(string $tableName = ''): bool
+    public function tableExists(?string $tableName = ''): bool
     {
         if (empty($tableName)) {
             $tableName = $this->tableName;
@@ -101,18 +104,16 @@ final class DynamoDbAdapter implements DynamoDbAdapterInterface
 
     public function findWhere(array $conditions, int $offset = 0, ?int $limit = null): CollectionInterface
     {
-        return OperationFactory::factory('query', $this->tableName, $conditions)
-            ->setOffset($offset)
-            ->setLimit($limit)
-            ->execute();
+        /** @var QueryOperation $queryOperation */
+        $queryOperation = OperationFactory::factory('query', $this->tableName, $conditions);
+        return $queryOperation->setOffset($offset)->setLimit($limit)->execute();
     }
 
     public function findAll(int $offset = 0, ?int $limit = null, ?array $conditions = []): CollectionInterface
     {
-        return OperationFactory::factory('scan', $this->tableName, $conditions)
-            ->setOffset($offset)
-            ->setLimit($limit)
-            ->execute();
+        /** @var ScanOperation $scanOperation */
+        $scanOperation = OperationFactory::factory('scan', $this->tableName, $conditions);
+        return $scanOperation->setOffset($offset)->setLimit($limit)->execute();
     }
 
     public function find(array $primaryKey): array

@@ -25,12 +25,12 @@ final class QueryOperation extends AbstractSearchOperation
     /**
      * @var string The condition that specifies the key values for items to be retrieved.
      */
-    private $keyConditionExpression = '';
+    private string $keyConditionExpression = '';
 
     /**
      * @var boolean Whether or not to scan forward.
      */
-    private $scanIndexForward = false;
+    private bool $scanIndexForward = false;
 
     /**
      * QueryRequest constructor.
@@ -43,9 +43,9 @@ final class QueryOperation extends AbstractSearchOperation
      */
     public function __construct(
         DynamoDbClient $client,
-        Marshaler $marshaler,
-        string $tableName,
-        ?array $keyConditions = []
+        Marshaler      $marshaler,
+        string         $tableName,
+        ?array         $keyConditions = []
     ) {
         parent::__construct($client, $marshaler, $tableName);
         if (!empty($keyConditions)) {
@@ -71,7 +71,7 @@ final class QueryOperation extends AbstractSearchOperation
      * @return QueryOperation This object.
      * @throws ErrorException Thrown when an unsupported operator is requested.
      */
-    public function setPartitionKeyConditionExpression(string $keyName, $value): QueryOperation
+    public function setPartitionKeyConditionExpression(string $keyName, mixed $value): QueryOperation
     {
         $partitionKeyConditionExpression = $this->parseExpression(Operators::EQ, $keyName);
         $this->addExpressionAttributeValue($keyName, $value);
@@ -88,7 +88,7 @@ final class QueryOperation extends AbstractSearchOperation
      * @return QueryOperation This object.
      * @throws ErrorException Thrown when an unsupported operator is requested.
      */
-    public function setSortKeyConditionExpression(string $keyName, string $operator, $value): QueryOperation
+    public function setSortKeyConditionExpression(string $keyName, string $operator, mixed $value): QueryOperation
     {
         $sortKeyConditionExpression = $this->parseExpression($operator, $keyName);
         $this->addExpressionAttributeValue($keyName, $value);

@@ -3,6 +3,7 @@
 namespace GuillermoandraeTest\DynamoDb\Operation;
 
 use Guillermoandrae\DynamoDb\Constant\Operators;
+use Guillermoandrae\DynamoDb\Constant\ReturnConsumedCapacityOptions;
 use Guillermoandrae\DynamoDb\Constant\Select;
 use Guillermoandrae\DynamoDb\Factory\DynamoDbClientFactory;
 use Guillermoandrae\DynamoDb\Factory\MarshalerFactory;
@@ -129,7 +130,7 @@ final class QueryOperationTest extends TestCase
 
     public function testSetReturnConsumedCapacity()
     {
-        $expectedReturnConsumedCapacity = 50;
+        $expectedReturnConsumedCapacity = ReturnConsumedCapacityOptions::INDEXES;
         $this->operation->setReturnConsumedCapacity($expectedReturnConsumedCapacity);
         $this->assertEquals($expectedReturnConsumedCapacity, $this->operation->toArray()['ReturnConsumedCapacity']);
     }
@@ -141,7 +142,7 @@ final class QueryOperationTest extends TestCase
             'TableName' => 'test',
             'ScanIndexForward' => true,
             'ConsistentRead' => false,
-            'ReturnConsumedCapacity' => 'NONE'
+            'ReturnConsumedCapacity' => ReturnConsumedCapacityOptions::NONE
         ];
         $this->assertEquals($expectedQuery, $this->operation->toArray());
     }
@@ -204,6 +205,6 @@ final class QueryOperationTest extends TestCase
 
     protected function tearDown(): void
     {
-        $this->operation = null;
+        unset($this->operation);
     }
 }

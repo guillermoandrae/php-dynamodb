@@ -9,7 +9,7 @@ abstract class AbstractBatchItemOperation extends AbstractOperation implements B
      *
      * @var array
      */
-    protected $requestItems = [];
+    protected array $requestItems = [];
 
     use ReturnConsumedCapacityAwareOperationTrait {
         ReturnConsumedCapacityAwareOperationTrait::toArray as returnConsumedCapacityAwareOperationTraitToArray;

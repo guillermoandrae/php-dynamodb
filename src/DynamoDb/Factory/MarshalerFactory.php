@@ -16,7 +16,7 @@ final class MarshalerFactory
      *
      * @return Marshaler The marshaler.
      */
-    public static function factory()
+    public static function factory(): Marshaler
     {
         return new Marshaler();
     }

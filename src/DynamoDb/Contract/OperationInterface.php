@@ -16,5 +16,5 @@ interface OperationInterface extends ArrayableInterface
      *
      * @return mixed
      */
-    public function execute();
+    public function execute(): mixed;
 }

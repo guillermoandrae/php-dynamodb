@@ -15,12 +15,12 @@ trait DynamoDbClientAwareTrait
     /**
      * @var DynamoDbClient The DynamoDb client.
      */
-    protected $client;
+    protected DynamoDbClient $client;
 
     /**
      * @var Marshaler The Marshaler.
      */
-    protected $marshaler;
+    protected Marshaler $marshaler;
 
     /**
      * Returns the client.
@@ -35,10 +35,10 @@ trait DynamoDbClientAwareTrait
     /**
      * Registers the client.
      *
-     * @param mixed $client The client.
-     * @return mixed This object.
+     * @param DynamoDbClient $client The client.
+     * @return static This object.
      */
-    public function setClient(DynamoDbClient $client)
+    public function setClient(DynamoDbClient $client): static
     {
         $this->client = $client;
         return $this;
@@ -58,9 +58,9 @@ trait DynamoDbClientAwareTrait
      * Registers the Marshaler with this object.
      *
      * @param Marshaler $marshaler The Marshaler.
-     * @return mixed This object.
+     * @return static This object.
      */
-    public function setMarshaler(Marshaler $marshaler)
+    public function setMarshaler(Marshaler $marshaler): static
     {
         $this->marshaler = $marshaler;
         return $this;

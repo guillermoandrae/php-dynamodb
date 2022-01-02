@@ -23,7 +23,7 @@ abstract class AbstractItemOperation extends AbstractOperation implements ItemOp
     /**
      * @var array The primary key.
      */
-    protected $primaryKey;
+    protected array $primaryKey = [];
 
     /**
      * Registers the DynamoDb client, Marshaler, table name, and primary key with this object.

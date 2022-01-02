@@ -22,52 +22,52 @@ final class CreateTableOperation extends AbstractTableOperation
     /**
      * @var array Attributes describing the key schema.
      */
-    private $attributeDefinitions = [];
+    private array $attributeDefinitions = [];
 
     /**
      * @var string The billing mode.
      */
-    private $billingMode = BillingModes::PROVISIONED;
+    private string $billingMode = BillingModes::PROVISIONED;
 
     /**
      * @var array The global secondary indexes.
      */
-    private $globalSecondaryIndexes = [];
+    private array $globalSecondaryIndexes = [];
 
     /**
      * @var array The local secondary indexes.
      */
-    private $localSecondaryIndexes = [];
+    private array $localSecondaryIndexes = [];
 
     /**
      * @var array The primary key.
      */
-    private $keySchema = [];
+    private array $keySchema = [];
 
     /**
      * @var int The maximum number of strongly consistent reads consumed per second.
      */
-    private $readCapacityUnits = 5;
+    private int $readCapacityUnits = 5;
 
     /**
      * @var array The server-side encryption settings.
      */
-    private $sseSpecification = [];
+    private array $sseSpecification = [];
 
     /**
      * @var array The stream specification.
      */
-    private $streamSpecification = [];
+    private array $streamSpecification = [];
 
     /**
      * @var array The tags.
      */
-    private $tags = [];
+    private array $tags = [];
 
     /**
      * @var int The maximum number of writes consumed per second.
      */
-    private $writeCapacityUnits = 5;
+    private int $writeCapacityUnits = 5;
 
     /**
      * CreateTableRequest constructor.
@@ -178,7 +178,7 @@ final class CreateTableOperation extends AbstractTableOperation
      * @param string $billingMode The billing mode.
      * @return CreateTableOperation This object.
      */
-    public function setBillingMode(string $billingMode)
+    public function setBillingMode(string $billingMode): CreateTableOperation
     {
         $this->billingMode = $billingMode;
         return $this;
@@ -191,7 +191,7 @@ final class CreateTableOperation extends AbstractTableOperation
      * @param string|null $masterKeyId OPTIONAL The ID of the master key.
      * @return CreateTableOperation This object.
      */
-    public function setSSESpecification(bool $isEnabled, ?string $masterKeyId = '')
+    public function setSSESpecification(bool $isEnabled, ?string $masterKeyId = ''): CreateTableOperation
     {
         $sseSpecification = [];
         if ($isEnabled) {
@@ -210,17 +210,17 @@ final class CreateTableOperation extends AbstractTableOperation
     /**
      * Adds a global secondary index.
      *
-     * @see CreateTableOperation::addSecondaryIndex()
      * @param string $indexName The index name.
      * @param array $keySchema The key schema.
      * @param array $projection The projection.
      * @param array|null $provisionedThroughput OPTIONAL The provisioned throughput.
      * @return CreateTableOperation This object.
+     * @see CreateTableOperation::addSecondaryIndex()
      */
     public function addGlobalSecondaryIndex(
         string $indexName,
-        array $keySchema,
-        array $projection,
+        array  $keySchema,
+        array  $projection,
         ?array $provisionedThroughput = []
     ): CreateTableOperation {
         return $this->addSecondaryIndex('global', $indexName, $keySchema, $projection, $provisionedThroughput);
@@ -229,16 +229,16 @@ final class CreateTableOperation extends AbstractTableOperation
     /**
      * Adds a local secondary index.
      *
-     * @see CreateTableOperation::addSecondaryIndex()
      * @param string $indexName The index name.
      * @param array $keySchema The key schema.
      * @param array $projection The projection.
      * @return CreateTableOperation This object.
+     * @see CreateTableOperation::addSecondaryIndex()
      */
     public function addLocalSecondaryIndex(
         string $indexName,
-        array $keySchema,
-        array $projection
+        array  $keySchema,
+        array  $projection
     ): CreateTableOperation {
         return $this->addSecondaryIndex('local', $indexName, $keySchema, $projection);
     }
@@ -268,7 +268,7 @@ final class CreateTableOperation extends AbstractTableOperation
      * @param string $value The tag value.
      * @return CreateTableOperation This object.
      */
-    public function addTag(string $key, string $value)
+    public function addTag(string $key, string $value): CreateTableOperation
     {
         $this->tags[] = [
             'Key' => $key,
@@ -321,19 +321,19 @@ final class CreateTableOperation extends AbstractTableOperation
     /**
      * Adds a secondary index.
      *
-     * @see CreateTableOperation::addSecondaryIndex()
      * @param string $indexType The index type.
      * @param string $indexName The index name.
      * @param array $keySchema The key schema.
      * @param array $projection The projection.
      * @param array|null $provisionedThroughput OPTIONAL The provisioned throughput.
      * @return CreateTableOperation This object.
+     * @see CreateTableOperation::addSecondaryIndex()
      */
     private function addSecondaryIndex(
         string $indexType,
         string $indexName,
-        array $keySchema,
-        array $projection,
+        array  $keySchema,
+        array  $projection,
         ?array $provisionedThroughput = []
     ): CreateTableOperation {
         $index = [

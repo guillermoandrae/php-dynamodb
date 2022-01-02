@@ -27,9 +27,9 @@ final class BatchWriteItemOperation extends AbstractBatchItemOperation
      */
     public function __construct(
         DynamoDbClient $client,
-        Marshaler $marshaler,
-        array $deleteItems = [],
-        array $putItems = []
+        Marshaler      $marshaler,
+        array          $deleteItems = [],
+        array          $putItems = []
     ) {
         parent::__construct($client, $marshaler);
         if (!empty($deleteItems)) {
@@ -43,9 +43,9 @@ final class BatchWriteItemOperation extends AbstractBatchItemOperation
     /**
      * Registers the DeleteRequest options.
      *
-     * @see BatchWriteItemOperation::setWriteRequest()
      * @param array $deleteItems The table(s) and associated primary key attributes to use when deleting.
      * @return BatchWriteItemOperation
+     * @see BatchWriteItemOperation::setWriteRequest()
      */
     public function setDeleteRequest(array $deleteItems): BatchWriteItemOperation
     {
@@ -55,9 +55,9 @@ final class BatchWriteItemOperation extends AbstractBatchItemOperation
     /**
      * Registers the PutRequest options.
      *
-     * @see BatchWriteItemOperation::setWriteRequest()
      * @param array $putItems The table(s) and associated items to add.
      * @return BatchWriteItemOperation
+     * @see BatchWriteItemOperation::setWriteRequest()
      */
     public function setPutRequest(array $putItems): BatchWriteItemOperation
     {
@@ -90,7 +90,7 @@ final class BatchWriteItemOperation extends AbstractBatchItemOperation
         return $this;
     }
 
-    public function execute()
+    public function execute(): bool
     {
         try {
             $this->getClient()->batchWriteItem($this->toArray());

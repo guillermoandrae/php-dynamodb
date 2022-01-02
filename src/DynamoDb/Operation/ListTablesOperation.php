@@ -22,7 +22,7 @@ final class ListTablesOperation extends AbstractTableOperation
     /**
      * @var string The name of the last table in the current page of results.
      */
-    protected $lastEvaluatedTableName;
+    private string $lastEvaluatedTableName = '';
 
     /**
      * Registers the DynamoDb client and Marshaler with this object.

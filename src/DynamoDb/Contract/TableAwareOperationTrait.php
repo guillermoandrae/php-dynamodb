@@ -12,15 +12,15 @@ trait TableAwareOperationTrait
     /**
      * @var string The table name.
      */
-    protected $tableName;
+    protected string $tableName = '';
 
     /**
      * Registers the table name with this object.
      *
      * @param string $tableName The table name.
-     * @return mixed This object.
+     * @return static This object.
      */
-    final public function setTableName(string $tableName)
+    final public function setTableName(string $tableName): static
     {
         $this->tableName = $tableName;
         return $this;

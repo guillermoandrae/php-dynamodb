@@ -19,7 +19,7 @@ final class PutItemOperation extends AbstractItemOperation
     /**
      * @var array $itemData The item data.
      */
-    protected $itemData;
+    private array $itemData = [];
 
     /**
      * Registers the DynamoDb client, Marshaler, table name, and item data with this object.
