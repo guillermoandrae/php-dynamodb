@@ -7,7 +7,7 @@ This project provides a PHP library that can be used to interact with [Amazon Dy
 ## Installation
 The recommended way to install this library is through [Composer](https://getcomposer.org/):
 ```
-composer install guillermoandrae/php-dynamodb
+composer require guillermoandrae/php-dynamodb
 ```
 
 ## Getting Started
