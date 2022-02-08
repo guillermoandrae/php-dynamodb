@@ -49,16 +49,27 @@ final class QueryOperation extends AbstractSearchOperation
     ) {
         parent::__construct($client, $marshaler, $tableName);
         if (!empty($keyConditions)) {
-            $this->setPartitionKeyConditionExpression(
-                $keyConditions['partition']['name'],
-                $keyConditions['partition']['value']
-            );
-            if (isset($keyConditions['sort'])) {
-                $this->setSortKeyConditionExpression(
-                    $keyConditions['sort']['name'],
-                    $keyConditions['sort']['operator'],
-                    $keyConditions['sort']['value']
-                );
+            foreach ($keyConditions as $key => $condition) {
+                switch ($key) {
+                    case 'partition':
+                        $this->setPartitionKeyConditionExpression(
+                            $condition['name'],
+                            $condition['value']
+                        );
+                        break;
+                    case 'sort':
+                        $this->setSortKeyConditionExpression(
+                            $condition['name'],
+                            $condition['operator'],
+                            $condition['value']
+                        );
+                        break;
+                    default:
+                        $this->setExpression([
+                            $key => $condition,
+                        ]);
+                        break;
+                }
             }
         }
     }
